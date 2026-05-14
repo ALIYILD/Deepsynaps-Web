@@ -39,17 +39,19 @@ export function Footer() {
               </h4>
               <ul className="space-y-3">
                 {[
-                  { label: 'About', href: '/about' },
-                  { label: 'DeepSynaps OS', href: '/#os-preview' },
-                  { label: 'DeepSynaps Lab', href: '/#lab-preview' },
-                  { label: 'DeepSynaps Academy', href: '/academy' },
+                  { label: 'About', href: '/about', external: false },
+                  { label: 'DeepSynaps OS', href: '/#os-preview', external: false },
+                  { label: 'DeepSynaps Lab', href: 'https://deepsynapslab.com', external: true },
+                  { label: 'DeepSynaps Academy', href: 'https://deepsynapsacademy.com', external: true },
                 ].map((link) => (
                   <li key={link.label}>
                     <a
                       href={link.href}
+                      target={link.external ? '_blank' : undefined}
+                      rel={link.external ? 'noopener noreferrer' : undefined}
                       className="text-[13px] text-ds-text-secondary hover:text-ds-text transition-colors duration-200"
                     >
-                      {link.label}
+                      {link.label}{link.external ? ' ↗' : ''}
                     </a>
                   </li>
                 ))}

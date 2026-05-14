@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DeepSynaps Lab | Neuromorphic Photonic AI Chips — HAC v1 & HAC v2</title>
+  <meta name="description" content="DeepSynaps Lab builds neuromorphic AI chips inspired by neurons, microtubules, and biophotons. HAC v1 (photonic+electric hybrid, theoretical validation) and HAC v2 (fully photonic, feasibility phase)." />
+  <meta name="theme-color" content="#050A14" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="DeepSynaps Lab — Neuromorphic Photonic AI Chips" />
+  <meta property="og:description" content="Building HAC v1 and HAC v2 — neuromorphic AI chips inspired by microtubules and biophotons." />
+
+  <link rel="icon" type="image/png" href="/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #050A14;
+      --bg-alt: #070E1A;
+      --text: #E8EDF5;
+      --text-dim: #7A8BA8;
+      --amber: #D4943A;
+      --violet: #6B4EE6;
+      --cyan: #2E8FDB;
+      --photonic: #A586F4;
+      --divider: rgba(255,255,255,0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    ::selection { background: rgba(107,78,230,0.35); color: #fff; }
+    code, .mono { font-family: 'JetBrains Mono', monospace; }
+
+    /* Aurora - violet/cyan dominant for Lab */
+    .aurora {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+      background: radial-gradient(ellipse at top, #0a1530 0%, #050a14 55%, #020510 100%);
+    }
+    .aurora .blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.6; }
+    .aurora .b1 { top: -25%; left: -25%; width: 80vw; height: 80vw;
+      background: radial-gradient(circle, rgba(107,78,230,0.22) 0%, transparent 60%);
+      animation: drift 22s ease-in-out infinite; }
+    .aurora .b2 { top: 25%; right: -25%; width: 70vw; height: 70vw;
+      background: radial-gradient(circle, rgba(46,143,219,0.20) 0%, transparent 60%);
+      animation: drift 26s ease-in-out infinite reverse; }
+    .aurora .b3 { bottom: -25%; left: 25%; width: 65vw; height: 65vw;
+      background: radial-gradient(circle, rgba(165,134,244,0.18) 0%, transparent 60%);
+      animation: drift 18s ease-in-out infinite; }
+    .aurora .grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px);
+      background-size: 64px 64px;
+      opacity: 0.04;
+      -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+              mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+    }
+    .aurora .vignette {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, transparent 55%, rgba(2,5,16,0.6) 100%);
+    }
+    @keyframes drift {
+      0%, 100% { transform: translate(0,0) scale(1); }
+      50% { transform: translate(4%, -3%) scale(1.08); }
+    }
+
+    main { position: relative; z-index: 1; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    @media (min-width: 768px) { .container { padding: 0 40px; } }
+
+    /* Header */
+    header {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      background: rgba(5,10,20,0.7);
+      border-bottom: 1px solid var(--divider);
+      padding: 14px 0;
+    }
+    header .container { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text); }
+    .brand img { height: 32px; width: auto; filter: brightness(0) invert(1); }
+    .brand-tag {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px; font-weight: 500;
+      color: var(--text-dim);
+      border-left: 1px solid var(--divider);
+      padding-left: 12px;
+      letter-spacing: 0.02em;
+    }
+    nav { display: none; }
+    @media (min-width: 768px) { nav { display: flex; gap: 28px; align-items: center; } }
+    nav a {
+      color: var(--text-dim); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s;
+    }
+    nav a:hover { color: var(--text); }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 24px; border-radius: 10px;
+      font-size: 14px; font-weight: 600; text-decoration: none;
+      transition: all 0.25s; cursor: pointer; border: none; font-family: inherit;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #8E72F0 0%, #6B4EE6 50%, #5236CC 100%);
+      color: white;
+      box-shadow: 0 4px 18px rgba(107,78,230,0.4), inset 0 1px 0 rgba(255,255,255,0.25);
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 28px rgba(107,78,230,0.55); }
+    .btn-ghost {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--text);
+      backdrop-filter: blur(8px);
+    }
+    .btn-ghost:hover {
+      border-color: rgba(107,78,230,0.5);
+      background: rgba(107,78,230,0.08);
+      transform: translateY(-1px);
+    }
+
+    /* Section common */
+    section { padding: 80px 0; }
+    @media (min-width: 768px) { section { padding: 120px 0; } }
+    .section-label {
+      display: inline-block; font-size: 11px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.16em;
+      color: var(--photonic); margin-bottom: 18px;
+    }
+    h1, h2, h3 {
+      font-family: 'Space Grotesk', 'Inter', sans-serif;
+      font-weight: 600; letter-spacing: -0.02em; line-height: 1.06;
+      text-wrap: balance;
+    }
+    h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); }
+    h2 { font-size: clamp(2rem, 3.5vw, 2.75rem); }
+    h3 { font-size: 1.2rem; line-height: 1.3; }
+    p { color: var(--text-dim); }
+    .gradient-text {
+      background: linear-gradient(120deg, #A586F4 0%, #6B4EE6 35%, #2E8FDB 70%, #A586F4 100%);
+      -webkit-background-clip: text; background-clip: text;
+      color: transparent; -webkit-text-fill-color: transparent;
+      background-size: 200% 200%;
+      animation: shift 9s ease-in-out infinite;
+    }
+    @keyframes shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    /* Hero */
+    .hero { padding-top: 160px; text-align: center; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 14px; border-radius: 999px;
+      font-size: 11px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.14em;
+      color: var(--photonic);
+      background: rgba(107,78,230,0.10);
+      border: 1px solid rgba(107,78,230,0.25);
+      margin-bottom: 28px;
+    }
+    .hero-eyebrow .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--photonic); animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    .hero h1 { margin-bottom: 24px; }
+    .hero-sub {
+      font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+      max-width: 760px; margin: 0 auto 36px; line-height: 1.65;
+    }
+    .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+    .trust-strip {
+      margin-top: 56px;
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 10px 32px;
+      font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em;
+      color: rgba(122,139,168,0.65);
+    }
+    .trust-strip .sep { width: 4px; height: 4px; background: rgba(122,139,168,0.3); border-radius: 50%; }
+
+    /* Glass card */
+    .glass {
+      position: relative;
+      border-radius: 16px;
+      padding: 28px;
+      background: linear-gradient(135deg, rgba(20,30,55,0.55) 0%, rgba(10,20,40,0.45) 100%);
+      backdrop-filter: blur(22px);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 8px 32px rgba(0,0,0,0.25);
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    }
+    .glass:hover { transform: translateY(-3px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 18px 50px rgba(0,0,0,0.35); }
+    @media (min-width: 768px) { .glass { padding: 36px; } }
+
+    .icon-tile {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+      border: 1px solid;
+    }
+    .icon-tile svg { width: 22px; height: 22px; }
+    .icon-violet { background: rgba(107,78,230,0.10); border-color: rgba(107,78,230,0.25); color: var(--violet); }
+    .icon-cyan   { background: rgba(46,143,219,0.10); border-color: rgba(46,143,219,0.25); color: var(--cyan); }
+    .icon-amber  { background: rgba(212,148,58,0.10); border-color: rgba(212,148,58,0.25); color: var(--amber); }
+    .icon-photonic { background: rgba(165,134,244,0.12); border-color: rgba(165,134,244,0.28); color: var(--photonic); }
+
+    .section-head { text-align: center; margin-bottom: 56px; max-width: 760px; margin-left: auto; margin-right: auto; }
+    .section-head h2 { margin-bottom: 16px; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr; gap: 24px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr; gap: 20px; }
+    @media (min-width: 768px) {
+      .grid-2 { grid-template-columns: 1fr 1fr; }
+      .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .card-body { font-size: 14px; line-height: 1.7; }
+
+    /* HAC product cards */
+    .hac-card {
+      position: relative;
+      padding: 36px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(20,30,55,0.7) 0%, rgba(10,20,40,0.5) 100%);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+      overflow: hidden;
+    }
+    .hac-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(120deg, rgba(107,78,230,0.08) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .hac-card .hac-head {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 16px; margin-bottom: 24px; flex-wrap: wrap;
+    }
+    .hac-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--photonic);
+    }
+    .hac-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.65rem, 2.5vw, 2.1rem);
+      font-weight: 600; letter-spacing: -0.02em; line-height: 1.1;
+      color: var(--text);
+      margin-top: 4px;
+    }
+    .status-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 12px; border-radius: 999px;
+      font-size: 11px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.10em;
+      white-space: nowrap;
+    }
+    .status-pill .dot { width: 6px; height: 6px; border-radius: 50%; }
+    .status-theoretical { color: #FBA94A; background: rgba(212,148,58,0.10); border: 1px solid rgba(212,148,58,0.3); }
+    .status-theoretical .dot { background: #FBA94A; }
+    .status-feasibility { color: #2E8FDB; background: rgba(46,143,219,0.10); border: 1px solid rgba(46,143,219,0.3); }
+    .status-feasibility .dot { background: #2E8FDB; }
+
+    .hac-blurb {
+      font-size: 15px; line-height: 1.7;
+      color: var(--text-dim);
+      margin-bottom: 24px;
+    }
+    .hac-specs { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 24px; }
+    @media (min-width: 600px) { .hac-specs { grid-template-columns: 1fr 1fr; } }
+    .spec {
+      display: flex; gap: 12px;
+      padding: 12px 14px;
+      background: rgba(5,10,20,0.45);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 10px;
+    }
+    .spec-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em;
+      color: var(--text-dim);
+      min-width: 80px;
+      padding-top: 1px;
+    }
+    .spec-value { font-size: 13px; color: var(--text); line-height: 1.5; }
+
+    .hac-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag {
+      font-size: 11px; font-weight: 500;
+      padding: 5px 10px; border-radius: 6px;
+      background: rgba(107,78,230,0.08);
+      border: 1px solid rgba(107,78,230,0.2);
+      color: var(--photonic);
+    }
+    .tag.cyan { background: rgba(46,143,219,0.08); border-color: rgba(46,143,219,0.2); color: var(--cyan); }
+    .tag.amber { background: rgba(212,148,58,0.08); border-color: rgba(212,148,58,0.2); color: var(--amber); }
+
+    /* Inspiration / Penrose section */
+    .inspiration {
+      padding: 36px;
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at top left, rgba(165,134,244,0.10) 0%, transparent 50%),
+        linear-gradient(135deg, rgba(20,30,55,0.6) 0%, rgba(10,20,40,0.4) 100%);
+      border: 1px solid rgba(165,134,244,0.18);
+    }
+    .inspiration h3 { color: var(--text); margin-bottom: 12px; }
+    .inspiration .quote {
+      font-family: 'Space Grotesk', sans-serif;
+      font-style: italic;
+      font-size: 17px; line-height: 1.6;
+      color: var(--text);
+      border-left: 3px solid var(--photonic);
+      padding: 4px 0 4px 20px;
+      margin-top: 22px;
+      margin-bottom: 8px;
+    }
+    .attribution { font-size: 12px; color: var(--text-dim); letter-spacing: 0.04em; }
+
+    /* Footer */
+    footer {
+      position: relative; z-index: 2;
+      border-top: 1px solid var(--divider);
+      padding: 56px 0 32px;
+      background: linear-gradient(to bottom, transparent, rgba(2,5,16,0.6));
+    }
+    .footer-grid { display: grid; grid-template-columns: 1fr; gap: 32px; margin-bottom: 32px; }
+    @media (min-width: 768px) { .footer-grid { grid-template-columns: 2fr 1fr 1fr; } }
+    .footer-grid h4 {
+      font-size: 11px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--text-dim); margin-bottom: 16px;
+    }
+    .footer-grid a {
+      display: block; font-size: 13px; color: var(--text-dim);
+      text-decoration: none; margin-bottom: 10px; transition: color 0.2s;
+    }
+    .footer-grid a:hover { color: var(--text); }
+    .footer-grid p { font-size: 13px; line-height: 1.65; margin-bottom: 16px; }
+    .footer-bottom {
+      border-top: 1px solid var(--divider); padding-top: 24px;
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+      font-size: 12px; color: rgba(122,139,168,0.6);
+    }
+    .disclaimer {
+      padding: 16px 20px; border-radius: 8px;
+      background: rgba(107,78,230,0.06);
+      border: 1px solid rgba(107,78,230,0.18);
+      border-left: 3px solid rgba(107,78,230,0.35);
+      font-size: 13px; margin-bottom: 24px;
+    }
+
+    /* WhatsApp */
+    .wa-fab {
+      position: fixed; bottom: 24px; right: 24px; z-index: 80;
+      width: 60px; height: 60px; border-radius: 50%;
+      background: #25D366;
+      box-shadow: 0 8px 28px rgba(37,211,102,0.45);
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none; color: white; transition: transform 0.2s;
+    }
+    .wa-fab:hover { transform: scale(1.05); }
+    .wa-fab::before {
+      content: ''; position: absolute; inset: 0; border-radius: 50%;
+      background: #25D366; opacity: 0.6;
+      animation: ping 2s cubic-bezier(0,0,0.2,1) infinite;
+    }
+    @keyframes ping { 75%, 100% { transform: scale(1.5); opacity: 0; } }
+
+    /* Reveal */
+    [data-reveal] {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
+
+    @media (prefers-reduced-motion: reduce) {
+      [data-reveal] { opacity: 1 !important; transform: none !important; }
+      .aurora .blob { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="aurora" aria-hidden="true">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+  <div class="grid"></div>
+  <div class="vignette"></div>
+</div>
+
+<header>
+  <div class="container">
+    <a href="/" class="brand">
+      <img src="/logo.png" alt="DeepSynaps" />
+      <span class="brand-tag">Lab</span>
+    </a>
+    <nav>
+      <a href="#science">Science</a>
+      <a href="#chips">HAC chips</a>
+      <a href="#program">Program</a>
+      <a href="#collaborate">Collaborate</a>
+      <a href="https://deepsynaps.com" target="_blank" rel="noopener">DeepSynaps ↗</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div data-reveal>
+        <span class="hero-eyebrow">
+          <span class="dot"></span>
+          DeepSynaps Lab · Research Division
+        </span>
+        <h1>
+          Computing the brain<br />
+          <span class="gradient-text">with light, not silicon alone.</span>
+        </h1>
+        <p class="hero-sub">
+          We are building <strong style="color:var(--text);">Hybrid AI Chips (HAC)</strong> —
+          neuromorphic architectures inspired by how neurons, microtubules, and
+          biophotons appear to process information in the brain. Two
+          generations: <strong style="color:var(--text);">HAC v1</strong>
+          (photonic + electric hybrid) and <strong style="color:var(--text);">HAC v2</strong>
+          (fully photonic). Long horizon. Real science.
+        </p>
+        <div class="hero-cta">
+          <a href="#chips" class="btn btn-primary">
+            See the chips
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#collaborate" class="btn btn-ghost">Collaborate with us</a>
+        </div>
+        <div class="trust-strip">
+          <span>Research-stage</span>
+          <span class="sep"></span>
+          <span>Photonic computing</span>
+          <span class="sep"></span>
+          <span>Biophotons</span>
+          <span class="sep"></span>
+          <span>Microtubule-inspired</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCIENCE -->
+  <section id="science">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="section-label">The science we're building on</span>
+        <h2>Why microtubules. Why light.</h2>
+        <p>Three threads from physics and neuroscience that, taken together, suggest the brain may be doing computation we haven't yet captured in silicon.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="glass" data-reveal>
+          <div class="icon-tile icon-photonic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="2" x2="9" y2="4"/><line x1="15" y1="2" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="22"/><line x1="15" y1="20" x2="15" y2="22"/><line x1="20" y1="9" x2="22" y2="9"/><line x1="20" y1="15" x2="22" y2="15"/><line x1="2" y1="9" x2="4" y2="9"/><line x1="2" y1="15" x2="4" y2="15"/></svg>
+          </div>
+          <h3>Microtubules</h3>
+          <p class="card-body">
+            Cytoskeletal protein lattices inside every neuron. Penrose and
+            Hameroff propose them as the substrate where the brain's most
+            interesting computation — possibly including quantum coherence —
+            actually happens. We treat this hypothesis as architectural
+            inspiration, not settled physics.
+          </p>
+        </div>
+
+        <div class="glass" data-reveal>
+          <div class="icon-tile icon-cyan">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          </div>
+          <h3>Biophotons</h3>
+          <p class="card-body">
+            Ultraweak photon emissions from living tissue, including neural
+            tissue, are a documented biological phenomenon. Their functional
+            role is still debated — but the fact that the brain emits and may
+            channel light is, for an engineer, a strong hint about what
+            substrate to build on.
+          </p>
+        </div>
+
+        <div class="glass" data-reveal>
+          <div class="icon-tile icon-violet">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/></svg>
+          </div>
+          <h3>Room-temperature quantum</h3>
+          <p class="card-body">
+            Conventional quantum computing requires extreme cold. Penrose's
+            Orch-OR theory implies the brain achieves quantum-like behavior at
+            body temperature — through structural protection in microtubules.
+            If this can be replicated in a synthetic lattice, it changes what
+            "quantum compute" means.
+          </p>
+        </div>
+      </div>
+
+      <!-- Penrose inspiration block -->
+      <div style="margin-top: 56px;" data-reveal>
+        <div class="inspiration">
+          <span class="section-label" style="color:var(--photonic);margin-bottom:6px;">Intellectual lineage</span>
+          <h3>Inspired by Roger Penrose, Stuart Hameroff, and Orch-OR</h3>
+          <p class="card-body" style="margin-top: 10px;">
+            Sir Roger Penrose (Oxford) and Stuart Hameroff (Arizona) proposed
+            the <strong style="color:var(--text);">Orchestrated Objective Reduction</strong>
+            (Orch-OR) theory: that consciousness and high-level computation in
+            the brain arise from quantum processes occurring within neuronal
+            microtubules. The theory remains contested in mainstream physics —
+            but it offers, to us, the single most generative architectural
+            hypothesis for what a non-classical brain-inspired chip could look
+            like.
+          </p>
+          <div class="quote">
+            "Consciousness depends on noncomputable quantum processes occurring at the level of structures in the neuron — specifically microtubules."
+          </div>
+          <p class="attribution">— Roger Penrose & Stuart Hameroff, on Orch-OR (paraphrased)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HAC CHIPS -->
+  <section id="chips">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="section-label">The chips</span>
+        <h2>Hybrid AI Chips (HAC)</h2>
+        <p>Two generations, built deliberately in sequence. Each one a structural attempt to capture more of what neurons actually do.</p>
+      </div>
+
+      <div class="grid-2">
+
+        <!-- HAC v1 -->
+        <article class="hac-card" data-reveal>
+          <div class="hac-head">
+            <div>
+              <div class="hac-name">HAC v1</div>
+              <div class="hac-title">Photonic + electric, on one wafer</div>
+            </div>
+            <div class="status-pill status-theoretical">
+              <span class="dot"></span>
+              Theoretical validation
+            </div>
+          </div>
+
+          <p class="hac-blurb">
+            A hybrid neuromorphic chip combining photonic and electronic
+            elements on a single integrated wafer. Architecturally inspired
+            by neurons and the microtubule lattice — using light to carry
+            high-bandwidth state transitions and electronics for control,
+            memory, and interface.
+          </p>
+
+          <div class="hac-specs">
+            <div class="spec"><span class="spec-label">Substrate</span><span class="spec-value">Photonic + electric hybrid wafer</span></div>
+            <div class="spec"><span class="spec-label">Inspiration</span><span class="spec-value">Neuronal microtubule lattice</span></div>
+            <div class="spec"><span class="spec-label">Target</span><span class="spec-value">Room-temperature quantum-like behavior</span></div>
+            <div class="spec"><span class="spec-label">Stage</span><span class="spec-value">Theoretical validation (current)</span></div>
+          </div>
+
+          <div class="hac-tags">
+            <span class="tag">Neuromorphic</span>
+            <span class="tag">Photonic-electric</span>
+            <span class="tag">Microtubule-inspired</span>
+            <span class="tag amber">Room-temp quantum (target)</span>
+          </div>
+        </article>
+
+        <!-- HAC v2 -->
+        <article class="hac-card" data-reveal>
+          <div class="hac-head">
+            <div>
+              <div class="hac-name">HAC v2</div>
+              <div class="hac-title">Fully photonic AI chip</div>
+            </div>
+            <div class="status-pill status-feasibility">
+              <span class="dot"></span>
+              Feasibility phase
+            </div>
+          </div>
+
+          <p class="hac-blurb">
+            A second-generation chip that drops the electronic substrate
+            entirely — fully photonic, inspired by the way neural tissue
+            appears to emit and channel biophotons. The aim is a computing
+            substrate that operates the way the brain does: with light, in
+            warm matter, structured by microtubule-like lattices.
+          </p>
+
+          <div class="hac-specs">
+            <div class="spec"><span class="spec-label">Substrate</span><span class="spec-value">Fully photonic — light-based compute</span></div>
+            <div class="spec"><span class="spec-label">Inspiration</span><span class="spec-value">Biophotons + microtubule structure</span></div>
+            <div class="spec"><span class="spec-label">Goal</span><span class="spec-value">Brain-substrate-faithful neuromorphic chip</span></div>
+            <div class="spec"><span class="spec-label">Stage</span><span class="spec-value">Feasibility (current)</span></div>
+          </div>
+
+          <div class="hac-tags">
+            <span class="tag">Photonic</span>
+            <span class="tag cyan">Biophoton-inspired</span>
+            <span class="tag">Microtubule-inspired</span>
+            <span class="tag">Neuromorphic</span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAM / RESEARCH THEMES -->
+  <section id="program">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="section-label">Research program</span>
+        <h2>What the Lab works on</h2>
+        <p>Three concurrent research tracks that feed the HAC roadmap.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="glass" data-reveal>
+          <div class="icon-tile icon-violet">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2z"/></svg>
+          </div>
+          <h3>Neuroscience-faithful architectures</h3>
+          <p class="card-body">Reading current neuroscience, identifying mechanisms that classical compute fails to model, and translating them into chip-level primitives.</p>
+        </div>
+
+        <div class="glass" data-reveal>
+          <div class="icon-tile icon-photonic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>
+          </div>
+          <h3>Photonic & hybrid hardware</h3>
+          <p class="card-body">Theoretical and simulated design of photonic / electric-photonic wafers — waveguides, modulators, and the lattice geometries that approximate microtubule behavior.</p>
+        </div>
+
+        <div class="glass" data-reveal>
+          <div class="icon-tile icon-cyan">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <h3>Quantum-at-warm-matter</h3>
+          <p class="card-body">Exploring the conditions under which non-classical computation can survive at room temperature — drawing on Orch-OR, structural quantum protection, and adjacent quantum-biology literature.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COLLABORATE -->
+  <section id="collaborate">
+    <div class="container" style="max-width: 920px;">
+      <div class="glass" style="text-align: center; padding: 56px 32px;" data-reveal>
+        <div class="icon-tile icon-photonic" style="margin: 0 auto 20px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0-3-3.87"/></svg>
+        </div>
+        <h2 style="margin-bottom: 14px;">Researchers, physicists, photonics engineers — we want to talk</h2>
+        <p style="max-width: 560px; margin: 0 auto 28px;">
+          DeepSynaps Lab is a small, long-horizon research group. If you work
+          on neuromorphic hardware, photonic computing, quantum biology, or
+          adjacent territory — or you fund it — we'd like to hear from you.
+        </p>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;">
+          <a href="mailto:ali.yildirim@deepsynaps.com?subject=DeepSynaps%20Lab%20%E2%80%94%20collaboration" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Email the Lab
+          </a>
+          <a href="https://wa.me/447429910079?text=Hi%20Dr.%20Ali%20%E2%80%94%20I%27d%20like%20to%20talk%20about%20DeepSynaps%20Lab%20%2F%20HAC%20chips." class="btn btn-ghost" target="_blank" rel="noopener">
+            WhatsApp Dr. Ali
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="/" class="brand" style="margin-bottom: 12px; display:inline-flex;">
+          <img src="/logo.png" alt="DeepSynaps" style="height: 28px;" />
+          <span class="brand-tag">Lab</span>
+        </a>
+        <p>Building neuromorphic photonic AI chips inspired by neurons, microtubules, and biophotons.</p>
+        <p>Part of the DeepSynaps ecosystem · <a href="https://deepsynaps.com" target="_blank" rel="noopener" style="display:inline; color: var(--photonic);">deepsynaps.com ↗</a></p>
+      </div>
+      <div>
+        <h4>Lab</h4>
+        <a href="#science">Science</a>
+        <a href="#chips">HAC chips</a>
+        <a href="#program">Program</a>
+        <a href="#collaborate">Collaborate</a>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <a href="mailto:ali.yildirim@deepsynaps.com">ali.yildirim@deepsynaps.com</a>
+        <a href="https://wa.me/447429910079" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="https://deepsynapsacademy.com" target="_blank" rel="noopener">DeepSynaps Academy ↗</a>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      DeepSynaps Lab is an active research program. HAC v1 is currently in
+      theoretical validation; HAC v2 is in feasibility study. No commercial
+      product is yet available. References to Orch-OR, biophotons, and
+      microtubule quantum processing reflect the theoretical frameworks
+      that inspire our work — not established consensus in mainstream physics.
+    </div>
+
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> DeepSynaps. All rights reserved.</span>
+      <span>Long horizon. Real science.</span>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/447429910079?text=Hi%20Dr.%20Ali%20%E2%80%94%20I%27d%20like%20to%20talk%20about%20DeepSynaps%20Lab%20%2F%20HAC%20chips." class="wa-fab" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="position:relative;z-index:1;"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+</a>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
