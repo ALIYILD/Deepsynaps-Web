@@ -4,72 +4,176 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
+    --background: 216 50% 4%;
+    --foreground: 220 30% 94%;
+    --card: 216 50% 4%;
+    --card-foreground: 220 30% 94%;
+    --popover: 216 50% 4%;
+    --popover-foreground: 220 30% 94%;
+    --primary: 36 65% 53%;
+    --primary-foreground: 216 50% 4%;
+    --secondary: 253 75% 60%;
+    --secondary-foreground: 220 30% 94%;
+    --muted: 216 30% 12%;
+    --muted-foreground: 216 20% 56%;
+    --accent: 253 75% 60%;
+    --accent-foreground: 220 30% 94%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
+    --border: 0 0% 100% / 0.08;
+    --input: 0 0% 100% / 0.08;
+    --ring: 36 65% 53%;
     --radius: 0.625rem;
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
-  .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-ds-bg text-ds-text antialiased;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  * {
+    @apply border-ds-divider;
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
+@layer components {
+  .glass-card {
+    @apply rounded-2xl p-8 md:p-10;
+    background: rgba(10, 20, 40, 0.55);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
   }
-  body {
-    @apply bg-background text-foreground;
+
+  .glass-card:hover {
+    border-color: rgba(212, 148, 58, 0.25);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+  }
+
+  .glass-card-violet:hover {
+    border-color: rgba(107, 78, 230, 0.25);
+  }
+
+  .glass-card-cyan:hover {
+    border-color: rgba(46, 143, 219, 0.25);
+  }
+
+  .pillar-block {
+    @apply rounded-2xl p-8;
+    background: rgba(10, 20, 40, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: all 0.25s ease;
+  }
+
+  .pillar-block:hover {
+    border-color: rgba(212, 148, 58, 0.2);
+    background: rgba(15, 25, 50, 0.7);
+  }
+
+  .pillar-block:hover svg {
+    color: #D4943A;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-lg px-8 py-3.5 font-semibold text-sm;
+    background: linear-gradient(90deg, #D4943A 0%, #C47E2A 100%);
+    color: #050A14;
+    box-shadow: 0 4px 16px rgba(212, 148, 58, 0.3);
+    transition: all 0.2s ease;
+  }
+
+  .btn-primary:hover {
+    background: linear-gradient(90deg, #DAA04A 0%, #CE882A 100%);
+    box-shadow: 0 6px 24px rgba(212, 148, 58, 0.4);
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center rounded-lg px-8 py-3.5 font-semibold text-sm;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #E8EDF5;
+    transition: all 0.2s ease;
+  }
+
+  .btn-ghost:hover {
+    border-color: rgba(212, 148, 58, 0.5);
+    background: rgba(212, 148, 58, 0.08);
+  }
+
+  .section-label {
+    @apply text-xs font-medium uppercase tracking-[0.12em];
+    color: #D4943A;
+    margin-bottom: 16px;
+  }
+
+  .disclaimer-box {
+    @apply rounded-lg px-5 py-4;
+    background: rgba(212, 148, 58, 0.05);
+    border: 1px solid rgba(212, 148, 58, 0.15);
+    border-left: 3px solid rgba(212, 148, 58, 0.3);
+  }
+
+  .feature-item {
+    @apply flex items-center gap-3 rounded-xl px-5 py-4;
+    background: rgba(107, 78, 230, 0.05);
+    border: 1px solid rgba(107, 78, 230, 0.1);
+    transition: all 0.2s ease;
+  }
+
+  .feature-item:hover {
+    border-color: rgba(107, 78, 230, 0.25);
+    background: rgba(107, 78, 230, 0.08);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  .animate-on-scroll.is-visible {
+    animation: fade-up 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+
+  .animate-fade-in {
+    opacity: 0;
+  }
+
+  .animate-fade-in.is-visible {
+    animation: fade-in 0.8s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  .animate-scale-in.is-visible {
+    animation: scale-in 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-on-scroll,
+  .animate-fade-in,
+  .animate-scale-in {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
   }
 }
