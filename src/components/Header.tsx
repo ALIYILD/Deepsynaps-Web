@@ -1,46 +1,45 @@
 import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ArrowRight } from 'lucide-react';
+import { Link, useLocation } from 'react-router';
 import { useScrollPosition } from '@/hooks/useScrollPosition';
 
 const navLinks = [
-  { label: 'Ecosystem', href: '#ecosystem' },
-  { label: 'OS', href: '#os-preview' },
-  { label: 'Lab', href: '#lab-preview' },
-  { label: 'Academy', href: '#academy-preview' },
-  { label: 'Vision', href: '#vision' },
-  { label: 'Contact', href: '#footer' },
+  { label: 'About', href: '/about' },
+  { label: 'Services', href: '/#services' },
+  { label: 'Ecosystem', href: '/#ecosystem' },
+  { label: 'OS', href: '/#os-preview' },
+  { label: 'Academy', href: '/#academy-preview' },
 ];
 
 export function Header() {
   const scrollY = useScrollPosition();
+  const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const isScrolled = scrollY > 100;
+  const isScrolled = scrollY > 60 || location.pathname !== '/';
 
-  const handleLinkClick = () => {
-    setMobileOpen(false);
-  };
+  const handleLinkClick = () => setMobileOpen(false);
 
   return (
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? 'bg-[rgba(5,10,20,0.85)] backdrop-blur-[16px] border-b border-ds-divider py-4'
-            : 'bg-transparent py-6'
+            ? 'bg-[rgba(5,10,20,0.85)] backdrop-blur-[16px] border-b border-ds-divider py-3.5'
+            : 'bg-transparent py-5'
         }`}
       >
-        <div className="max-w-[1400px] mx-auto px-6 md:px-8 lg:px-12 flex items-center justify-between">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-8 lg:px-12 flex items-center justify-between gap-6">
           {/* Logo */}
-          <a href="#" className="flex-shrink-0">
+          <Link to="/" className="flex items-center gap-2.5 flex-shrink-0">
             <img
               src="/logo.png"
               alt="DeepSynaps"
               className="h-8 md:h-9 w-auto"
             />
-          </a>
+          </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-7 flex-1 justify-center">
             {navLinks.map((link) => (
               <a
                 key={link.label}
@@ -52,23 +51,29 @@ export function Header() {
             ))}
           </nav>
 
-          {/* Mobile Menu Toggle */}
-          <button
-            className="md:hidden w-11 h-11 flex items-center justify-center text-ds-text"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
-          >
-            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
+          {/* CTA + Mobile Toggle */}
+          <div className="flex items-center gap-3">
+            <Link
+              to="/consultations"
+              className="hidden md:inline-flex items-center gap-1.5 text-sm font-semibold text-ds-bg bg-ds-amber hover:bg-ds-amber/90 px-4 py-2.5 rounded-lg transition-all hover:shadow-[0_4px_18px_rgba(212,148,58,0.35)]"
+            >
+              Book consultation
+              <ArrowRight size={14} />
+            </Link>
+            <button
+              className="md:hidden w-11 h-11 flex items-center justify-center text-ds-text"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Toggle menu"
+            >
+              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
         </div>
       </header>
 
       {/* Mobile Menu Overlay */}
       {mobileOpen && (
-        <div
-          className="fixed inset-0 z-[60] bg-[rgba(5,10,20,0.97)] backdrop-blur-[20px] flex flex-col items-center justify-center animate-fade-in"
-          style={{ animation: 'fade-in 0.3s ease forwards' }}
-        >
+        <div className="fixed inset-0 z-[60] bg-[rgba(5,10,20,0.97)] backdrop-blur-[20px] flex flex-col items-center justify-center">
           <button
             className="absolute top-6 right-6 w-11 h-11 flex items-center justify-center text-ds-text"
             onClick={() => setMobileOpen(false)}
@@ -76,7 +81,7 @@ export function Header() {
           >
             <X size={24} />
           </button>
-          <nav className="flex flex-col items-center gap-8">
+          <nav className="flex flex-col items-center gap-6">
             {navLinks.map((link) => (
               <a
                 key={link.label}
@@ -87,6 +92,13 @@ export function Header() {
                 {link.label}
               </a>
             ))}
+            <Link
+              to="/consultations"
+              onClick={handleLinkClick}
+              className="btn-primary mt-4"
+            >
+              Book consultation
+            </Link>
           </nav>
         </div>
       )}

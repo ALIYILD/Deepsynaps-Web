@@ -1,38 +1,50 @@
+import { useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router';
 import { NeuralNetworkCanvas } from '@/components/NeuralNetworkCanvas';
+import { AuroraBackground } from '@/components/AuroraBackground';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { HeroSection } from '@/sections/HeroSection';
-import { MissionSection } from '@/sections/MissionSection';
-import { EcosystemSection } from '@/sections/EcosystemSection';
-import { StrategicPillarsSection } from '@/sections/StrategicPillarsSection';
-import { OSPreviewSection } from '@/sections/OSPreviewSection';
-import { LabPreviewSection } from '@/sections/LabPreviewSection';
-import { AcademyPreviewSection } from '@/sections/AcademyPreviewSection';
-import { VisionSection } from '@/sections/VisionSection';
+import { WhatsAppWidget } from '@/components/WhatsAppWidget';
+import Home from '@/pages/Home';
+import Consultations from '@/pages/Consultations';
+import About from '@/pages/About';
+
+function ScrollToTop() {
+  const { pathname, hash } = useLocation();
+  useEffect(() => {
+    if (hash) {
+      const id = hash.replace('#', '');
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+    }
+    window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
+  }, [pathname, hash]);
+  return null;
+}
 
 function App() {
   return (
-    <div className="min-h-screen bg-ds-bg">
-      {/* Neural Network Background - fixed behind everything */}
+    <div className="min-h-screen bg-ds-bg relative">
+      <AuroraBackground />
       <NeuralNetworkCanvas />
 
-      {/* Fixed Header */}
+      <ScrollToTop />
       <Header />
 
-      {/* Main Content */}
       <main className="relative z-[1]">
-        <HeroSection />
-        <MissionSection />
-        <EcosystemSection />
-        <StrategicPillarsSection />
-        <OSPreviewSection />
-        <LabPreviewSection />
-        <AcademyPreviewSection />
-        <VisionSection />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/consultations" element={<Consultations />} />
+          <Route path="*" element={<Home />} />
+        </Routes>
       </main>
 
-      {/* Footer */}
       <Footer />
+      <WhatsAppWidget />
     </div>
   );
 }

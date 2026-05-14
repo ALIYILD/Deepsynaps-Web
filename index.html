@@ -3,14 +3,49 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DeepSynaps | AI, Neuroscience & Brain-Inspired Intelligence</title>
-    <meta name="description" content="DeepSynaps is an interdisciplinary AI and neuroscience organization building clinical intelligence, brain-inspired computing, and human-centered neurotechnology." />
+    <title>DeepSynaps | Clinical AI, Neuromodulation & Brain-Inspired Intelligence</title>
+    <meta name="description" content="DeepSynaps partners with clinics and clinicians on AI protocol development, neuromodulation consultation, QEEG brain-map review, and clinical AI integration." />
+    <meta name="theme-color" content="#050A14" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="DeepSynaps | Clinical AI & Neuromodulation Consultations" />
+    <meta property="og:description" content="Custom AI protocols, neuromodulation consultations, and brain-map review for clinics and researchers." />
+    <meta property="og:image" content="/logo.png" />
+
+    <link rel="icon" type="image/png" href="/logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   </head>
   <body>
     <div id="root"></div>
+
+    <!-- Static form for Netlify Forms build-time detection.
+         The real form lives in src/pages/Consultations.tsx and submits via fetch. -->
+    <form name="consultations" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="text" name="organization" />
+      <select name="service">
+        <option value="ai-protocol"></option>
+        <option value="neuromodulation"></option>
+        <option value="qeeg-review"></option>
+        <option value="clinic-integration"></option>
+        <option value="research"></option>
+        <option value="other"></option>
+      </select>
+      <select name="timeline">
+        <option value="urgent"></option>
+        <option value="2-weeks"></option>
+        <option value="1-month"></option>
+        <option value="flexible"></option>
+      </select>
+      <textarea name="message"></textarea>
+      <input name="bot-field" />
+    </form>
+
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
