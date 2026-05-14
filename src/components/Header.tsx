@@ -6,9 +6,9 @@ import { useScrollPosition } from '@/hooks/useScrollPosition';
 const navLinks = [
   { label: 'About', href: '/about' },
   { label: 'Services', href: '/#services' },
+  { label: 'Academy', href: '/academy' },
   { label: 'Ecosystem', href: '/#ecosystem' },
   { label: 'OS', href: '/#os-preview' },
-  { label: 'Academy', href: '/#academy-preview' },
 ];
 
 export function Header() {

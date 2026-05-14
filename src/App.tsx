@@ -8,6 +8,7 @@ import { WhatsAppWidget } from '@/components/WhatsAppWidget';
 import Home from '@/pages/Home';
 import Consultations from '@/pages/Consultations';
 import About from '@/pages/About';
+import Academy from '@/pages/Academy';
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -38,6 +39,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/academy" element={<Academy />} />
           <Route path="/consultations" element={<Consultations />} />
           <Route path="*" element={<Home />} />
         </Routes>

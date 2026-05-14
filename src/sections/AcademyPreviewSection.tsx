@@ -5,7 +5,9 @@ import {
   Cpu,
   Award,
   Route,
+  ArrowRight,
 } from 'lucide-react';
+import { Link } from 'react-router';
 import { ScrollReveal, StaggerContainer } from '@/components/ScrollReveal';
 
 const courses = [
@@ -104,6 +106,15 @@ export function AcademyPreviewSection() {
             );
           })}
         </StaggerContainer>
+
+        <ScrollReveal>
+          <div className="mt-12 text-center">
+            <Link to="/academy" className="btn-primary">
+              Explore the Academy
+              <ArrowRight size={16} className="ml-2" />
+            </Link>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );

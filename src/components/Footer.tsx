@@ -42,7 +42,7 @@ export function Footer() {
                   { label: 'About', href: '/about' },
                   { label: 'DeepSynaps OS', href: '/#os-preview' },
                   { label: 'DeepSynaps Lab', href: '/#lab-preview' },
-                  { label: 'DeepSynaps Academy', href: '/#academy-preview' },
+                  { label: 'DeepSynaps Academy', href: '/academy' },
                 ].map((link) => (
                   <li key={link.label}>
                     <a
