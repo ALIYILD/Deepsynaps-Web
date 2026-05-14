@@ -1,6 +1,7 @@
 import { Link } from 'react-router';
 import { Mail, MessageCircle, MapPin } from 'lucide-react';
 import { ScrollReveal } from './ScrollReveal';
+import { Logo } from './Logo';
 import { CONTACT, isWhatsAppConfigured } from '@/config/contact';
 
 export function Footer() {
@@ -14,11 +15,9 @@ export function Footer() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
             {/* Brand */}
             <div className="lg:col-span-1">
-              <img
-                src="/logo.png"
-                alt="DeepSynaps"
-                className="h-8 w-auto mb-3"
-              />
+              <div className="mb-4">
+                <Logo size="md" />
+              </div>
               <p className="text-[13px] text-ds-text-secondary leading-relaxed mb-4">
                 Clinical AI, neuromodulation consultations, and brain-inspired
                 intelligence — for clinics and researchers.

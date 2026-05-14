@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import { Link, useLocation } from 'react-router';
 import { useScrollPosition } from '@/hooks/useScrollPosition';
+import { Logo } from '@/components/Logo';
 
 const navLinks = [
   { label: 'About', href: '/about' },
@@ -31,11 +32,7 @@ export function Header() {
         <div className="max-w-[1400px] mx-auto px-6 md:px-8 lg:px-12 flex items-center justify-between gap-6">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 flex-shrink-0">
-            <img
-              src="/logo.png"
-              alt="DeepSynaps"
-              className="h-8 md:h-9 w-auto"
-            />
+            <Logo />
           </Link>
 
           {/* Desktop Nav */}
