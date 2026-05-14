@@ -5,6 +5,14 @@
 [build.environment]
   NODE_VERSION = "20"
 
+# Force www -> apex (301 redirect)
+[[redirects]]
+  from = "https://www.deepsynaps.com/*"
+  to = "https://deepsynaps.com/:splat"
+  status = 301
+  force = true
+
+# SPA fallback — must come last
 [[redirects]]
   from = "/*"
   to = "/index.html"
