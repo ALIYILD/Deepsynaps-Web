@@ -1,0 +1,15 @@
+[build]
+  base = "academy-site"
+  publish = "."
+  command = "echo 'No build — static site'"
+
+# Disable framework auto-detection
+[build.environment]
+  NETLIFY_SKIP_FRAMEWORK_DETECTION = "true"
+
+# www -> apex 301
+[[redirects]]
+  from = "https://www.deepsynapsacademy.com/*"
+  to = "https://deepsynapsacademy.com/:splat"
+  status = 301
+  force = true
