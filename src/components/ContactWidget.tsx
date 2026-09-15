@@ -13,14 +13,22 @@
  * widget that only works with a mouse is a contact widget that excludes people.
  */
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { MessageCircle, X, Mail, Phone, MessagesSquare } from 'lucide-react';
-import { CONTACT } from '@/config/contact';
+import { MessageCircle, X, Mail, Phone, MessagesSquare, Linkedin } from 'lucide-react';
+import { CONTACT, isLinkedInConfigured } from '@/config/contact';
 import { ChatPanel } from './contact-widget/ChatPanel';
 import { LeadForm } from './contact-widget/LeadForm';
 import type { ChatTurn, LeadInterest, LeadSource } from './contact-widget/types';
 
 type Tab = 'chat' | 'whatsapp' | 'email';
 
+/**
+ * The labels stay one word each. "WhatsApp / Call" was measured against the
+ * real tab row: at a 400px viewport the panel is 368px, each of the three tabs
+ * gets 122.7px, and the longer label needs 122.6px once its icon, gap and
+ * padding are paid for. Fitting by a tenth of a pixel is not fitting — one
+ * font substitution or a larger default text size and it wraps — so the call
+ * lives inside the WhatsApp tab, where it has room to say the number in full.
+ */
 const TABS: ReadonlyArray<{ id: Tab; label: string; icon: typeof MessageCircle }> = [
   { id: 'chat', label: 'Chat', icon: MessagesSquare },
   { id: 'whatsapp', label: 'WhatsApp', icon: Phone },
@@ -214,6 +222,14 @@ export function ContactWidget() {
                 href={waLink}
                 cta="Open WhatsApp"
                 external
+                secondary={
+                  <a
+                    href={`tel:${CONTACT.phoneE164}`}
+                    className="inline-flex items-center gap-2 text-[12.5px] text-ds-amber underline underline-offset-2 hover:text-ds-amber/80 transition-colors"
+                  >
+                    <Phone size={13} /> Call {CONTACT.phoneDisplay}
+                  </a>
+                }
               />
             )}
 
@@ -223,6 +239,16 @@ export function ContactWidget() {
                 body={`Best for anything with detail. Writes to ${CONTACT.email} with a subject line already set. Please do not include patient identifiers.`}
                 href={mailLink}
                 cta={CONTACT.email}
+                secondary={isLinkedInConfigured() ? (
+                  <a
+                    href={CONTACT.linkedinUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-[12.5px] text-ds-amber underline underline-offset-2 hover:text-ds-amber/80 transition-colors"
+                  >
+                    <Linkedin size={13} /> LinkedIn
+                  </a>
+                ) : null}
               />
             )}
           </div>
@@ -248,9 +274,17 @@ export function ContactWidget() {
   );
 }
 
+/**
+ * `secondary` is the second-best route out of a tab — a phone call under the
+ * WhatsApp button, a profile link under the email one. It sits below the
+ * primary action rather than beside it so the recommended route stays obvious.
+ */
 function DirectTab({
-  title, body, href, cta, external = false,
-}: { title: string; body: string; href: string; cta: string; external?: boolean }) {
+  title, body, href, cta, external = false, secondary = null,
+}: {
+  title: string; body: string; href: string; cta: string;
+  external?: boolean; secondary?: React.ReactNode;
+}) {
   return (
     <div className="px-5 py-6 text-center">
       <p className="text-sm font-semibold text-ds-text mb-2">{title}</p>
@@ -262,6 +296,7 @@ function DirectTab({
       >
         {cta}
       </a>
+      {secondary && <div className="mt-4">{secondary}</div>}
     </div>
   );
 }

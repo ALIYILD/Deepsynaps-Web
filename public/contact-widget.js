@@ -14,7 +14,11 @@
  *
  *   <script defer src="https://deepsynaps.com/contact-widget.js"
  *           data-site="academy" data-whatsapp="447429910079"
+ *           data-phone="+447429910079" data-linkedin=""
  *           data-email="ali.yildirim@deepsynaps.com" data-prefill="Hi ..."></script>
+ *
+ * `data-linkedin` is optional and the LinkedIn link is rendered only when it
+ * holds a URL, so an unset profile shows nothing rather than a dead link.
  *
  * `data-endpoint` overrides the function URL, so a preview of one of these
  * pages can be pointed at a preview function rather than the live one.
@@ -47,9 +51,21 @@
    */
   var ENDPOINT = attr('data-endpoint', DEFAULT_ENDPOINT);
 
+  /**
+   * The call line. `data-phone` carries the dialable E.164 form; the pretty
+   * form is only known for the default number, so a page that supplies its own
+   * shows exactly what it supplied rather than a guessed grouping.
+   */
+  var DEFAULT_PHONE = '+447429910079';
+  var PHONE = attr('data-phone', DEFAULT_PHONE);
+
   var CFG = {
     site: SITE,
     whatsapp: attr('data-whatsapp', '447429910079'),
+    phone: PHONE,
+    phoneDisplay: PHONE === DEFAULT_PHONE ? '+44 7429 910079' : PHONE,
+    /** Empty by default: LinkedIn is shown only where a page supplies a URL. */
+    linkedin: attr('data-linkedin', ''),
     email: attr('data-email', 'ali.yildirim@deepsynaps.com'),
     prefill: attr('data-prefill', 'Hi Dr. Ali — I have a question about DeepSynaps.'),
     founder: 'Dr. Ali Yildirim'
@@ -177,6 +193,7 @@
     + '#I .cta{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:9px 16px;border:0;border-radius:8px;cursor:pointer;font:600 13px inherit;background:#D4943A;color:#050A14;text-decoration:none;word-break:break-all}#I .cta:disabled{opacity:.4;cursor:not-allowed}'
     + '#I .lnk{color:#D4943A;text-decoration:underline}#I .row{display:flex;align-items:center;gap:12px}'
     + '#I .dir{padding:24px 20px;text-align:center}#I .dir h3{margin:0 0 8px;font-size:14px;font-weight:600}#I .dir p{margin:0 0 24px;font-size:13px;line-height:1.6;color:#7A8BA8}'
+    + '#I .alt{display:inline-flex;align-items:center;gap:6px;margin-top:16px;font-size:12.5px}'
     + '#I .gst{background:transparent;border:0;cursor:pointer;color:#7A8BA8;font:400 12px inherit}#I .gst:hover{color:#E8EDF5}'
     + '#I .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}'
     + '@media (max-width:420px){#I{bottom:14px;right:14px;left:14px;align-items:stretch}#I .pnl{width:auto}#I .lch{align-self:flex-end}}'
@@ -190,7 +207,8 @@
     phone: '<svg ' + SVG + ' width="13" height="13"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.1 9.9a16 16 0 0 0 6 6l1.26-1.26a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>',
     mail: '<svg ' + SVG + ' width="13" height="13"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-10 5L2 7"/></svg>',
     user: '<svg ' + SVG + ' width="14" height="14"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
-    bubble: '<svg ' + SVG + ' width="13" height="13"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>'
+    bubble: '<svg ' + SVG + ' width="13" height="13"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>',
+    linkedin: '<svg ' + SVG + ' width="13" height="13"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-11h4v1.5A4 4 0 0 1 16 8z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>'
   };
 
   var TABS = [
@@ -199,16 +217,39 @@
     { id: 'email', label: 'Email', icon: ICON.mail }
   ];
 
+  /**
+   * `extra` is the second-best route out of a tab — a phone call under the
+   * WhatsApp button, a profile under the email one. It returns null when there
+   * is nothing to offer, which is how the LinkedIn slot stays invisible until a
+   * page supplies a URL.
+   */
   var DIRECT = {
     whatsapp: {
       title: 'Message us on WhatsApp', cta: 'Open WhatsApp', external: true,
       text: 'The quickest route for a short question. The message opens pre-written, and you can change it before you send.',
-      href: function () { return 'https://wa.me/' + CFG.whatsapp + '?text=' + encodeURIComponent(CFG.prefill); }
+      href: function () { return 'https://wa.me/' + CFG.whatsapp + '?text=' + encodeURIComponent(CFG.prefill); },
+      extra: function () {
+        var call = el('a', 'lnk alt');
+        call.href = 'tel:' + CFG.phone;
+        call.innerHTML = ICON.phone;
+        call.appendChild(el('span', null, 'Call ' + CFG.phoneDisplay));
+        return call;
+      }
     },
     email: {
       title: 'Email us', cta: CFG.email, external: false,
       text: 'Best for anything with detail. Please do not include patient identifiers.',
-      href: function () { return 'mailto:' + CFG.email + '?subject=' + encodeURIComponent('DeepSynaps enquiry'); }
+      href: function () { return 'mailto:' + CFG.email + '?subject=' + encodeURIComponent('DeepSynaps enquiry'); },
+      extra: function () {
+        if (CFG.linkedin.indexOf('https://') !== 0) return null;
+        var profile = el('a', 'lnk alt');
+        profile.href = CFG.linkedin;
+        profile.target = '_blank';
+        profile.rel = 'noopener noreferrer';
+        profile.innerHTML = ICON.linkedin;
+        profile.appendChild(el('span', null, 'LinkedIn'));
+        return profile;
+      }
     }
   };
 
@@ -531,12 +572,13 @@
   }
 
   /** A centred panel: a heading, a sentence, and one thing to press. */
-  function renderPlain(body, title, text, action) {
+  function renderPlain(body, title, text, action, extra) {
     body.textContent = '';
     var wrap = el('div', 'dir');
     wrap.appendChild(el('h3', null, title));
     wrap.appendChild(el('p', null, text));
     wrap.appendChild(action);
+    if (extra) wrap.appendChild(extra);
     body.appendChild(wrap);
   }
 
@@ -552,6 +594,6 @@
     var link = el('a', 'cta', spec.cta);
     link.href = spec.href();
     if (spec.external) { link.target = '_blank'; link.rel = 'noopener noreferrer'; }
-    renderPlain(body, spec.title, spec.text, link);
+    renderPlain(body, spec.title, spec.text, link, spec.extra && spec.extra());
   }
 }());

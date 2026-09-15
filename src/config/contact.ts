@@ -7,6 +7,12 @@ export const CONTACT = {
   whatsappPrefill:
     "Hi Dr. Ali — I'm interested in a DeepSynaps consultation / AI protocol service.",
   email: "ali.yildirim@deepsynaps.com",
+  // The same line in two forms: `phoneE164` is what `tel:` needs, `phoneDisplay`
+  // is the same number written the way a person reads it. Change both together.
+  phoneE164: "+447429910079",
+  phoneDisplay: "+44 7429 910079",
+  // set to the public profile URL to show LinkedIn everywhere
+  linkedinUrl: "",
   founder: "Dr. Ali Yildirim",
   org: "DeepSynaps",
   basedIn: "United Kingdom",
@@ -15,4 +21,9 @@ export const CONTACT = {
 export const isWhatsAppConfigured = () => {
   const n: string = CONTACT.whatsappNumber;
   return n !== "447000000000" && n.length > 6;
+};
+
+export const isLinkedInConfigured = () => {
+  const url: string = CONTACT.linkedinUrl;
+  return url.startsWith("https://");
 };
