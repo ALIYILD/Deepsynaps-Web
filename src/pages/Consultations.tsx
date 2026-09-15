@@ -9,8 +9,10 @@ import {
   Loader2,
   AlertCircle,
 } from 'lucide-react';
+import { Link } from 'react-router';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import { CONTACT } from '@/config/contact';
+import { ERROR_COPY, FALLBACK_ERROR, type LeadInterest } from '@/components/contact-widget/types';
 
 const services = [
   {
@@ -39,45 +41,92 @@ const services = [
   },
 ];
 
-const encode = (data: Record<string, string>) =>
-  Object.keys(data)
-    .map(
-      (key) =>
-        encodeURIComponent(key) + '=' + encodeURIComponent(data[key] ?? ''),
-    )
-    .join('&');
+/**
+ * The select on this page predates the lead schema and has its own values.
+ * Mapping them here rather than renaming the options keeps the visible copy
+ * ("Research / Lab Collaboration") intact while the server still gets a value
+ * from its published set.
+ */
+const SERVICE_TO_INTEREST: Record<string, LeadInterest> = {
+  'ai-protocol': 'ai-protocol',
+  neuromodulation: 'neuromodulation',
+  'qeeg-review': 'qeeg-review',
+  'clinic-integration': 'clinic-integration',
+  research: 'lab-collaboration',
+  other: 'other',
+};
+
+const TIMELINE_LABEL: Record<string, string> = {
+  urgent: 'Urgent (this week)',
+  '2-weeks': 'Within 2 weeks',
+  '1-month': 'Within 1 month',
+  flexible: 'Flexible',
+};
 
 type Status = 'idle' | 'submitting' | 'success' | 'error';
 
 export default function Consultations() {
   const [status, setStatus] = useState<Status>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+  const [consent, setConsent] = useState(false);
 
+  /**
+   * This form used to POST to `/` as a Netlify Form. Form detection is off on
+   * this site, so every submission returned 404 and every visitor saw an error.
+   * It now goes to the same function the contact widget uses, as a lead with
+   * `source: "consultations"` — which is a real delivery, and fails closed
+   * rather than silently.
+   */
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!consent) return;
     setStatus('submitting');
     setErrorMessage('');
 
     const form = e.currentTarget;
-    const formData = new FormData(form);
-    const data: Record<string, string> = { 'form-name': 'consultations' };
-    formData.forEach((value, key) => {
-      data[key] = typeof value === 'string' ? value : '';
-    });
+    const data = new FormData(form);
+    const text = (key: string) => String(data.get(key) ?? '').trim();
+
+    // The timeline is not a lead field on the server, so it travels inside the
+    // message rather than being dropped on the floor.
+    const timeline = TIMELINE_LABEL[text('timeline')] ?? text('timeline');
+    const message = timeline
+      ? `${text('message')}\n\nTimeline: ${timeline}`
+      : text('message');
 
     try {
-      const res = await fetch('/', {
+      const res = await fetch('/.netlify/functions/deepy', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: encode(data),
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          action: 'lead',
+          site: 'web',
+          page: '/consultations',
+          lead: {
+            fullName: text('name'),
+            email: text('email') || undefined,
+            phone: text('phone') || undefined,
+            organisation: text('organization') || undefined,
+            interest: SERVICE_TO_INTEREST[text('service')] ?? 'other',
+            source: 'consultations' as const,
+            message,
+            consent: true as const,
+          },
+        }),
       });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      if (!res.ok) {
+        // The function answers a refusal with a machine code. Turn it into a
+        // sentence here; the code itself tells the visitor nothing.
+        const body = (await res.json().catch(() => null)) as { error?: string } | null;
+        throw new Error(ERROR_COPY[body?.error ?? ''] ?? FALLBACK_ERROR);
+      }
       setStatus('success');
       form.reset();
+      setConsent(false);
     } catch (err) {
       setStatus('error');
       setErrorMessage(
-        err instanceof Error ? err.message : 'Submission failed — please try again.',
+        err instanceof Error ? err.message : FALLBACK_ERROR,
       );
     }
   };
@@ -168,19 +217,9 @@ export default function Consultations() {
             <ScrollReveal>
               <form
                 name="consultations"
-                method="POST"
-                data-netlify="true"
-                netlify-honeypot="bot-field"
                 onSubmit={handleSubmit}
                 className="glass-card space-y-6"
               >
-                {/* Netlify form attributes */}
-                <input type="hidden" name="form-name" value="consultations" />
-                <p className="hidden">
-                  <label>
-                    Don't fill this out: <input name="bot-field" />
-                  </label>
-                </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <Field label="Full name" name="name" required />
@@ -285,9 +324,25 @@ export default function Consultations() {
                   </div>
                 )}
 
+                <label className="flex items-start gap-3 text-[13px] text-ds-text-secondary leading-relaxed cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={consent}
+                    onChange={(e) => setConsent(e.target.checked)}
+                    className="mt-1 accent-[#D4943A] w-4 h-4 flex-shrink-0"
+                  />
+                  <span>
+                    I agree that {CONTACT.org} may store these details in order to
+                    reply to me.{' '}
+                    <Link to="/privacy" className="text-ds-amber hover:underline">
+                      Privacy notice
+                    </Link>
+                  </span>
+                </label>
+
                 <button
                   type="submit"
-                  disabled={status === 'submitting'}
+                  disabled={!consent || status === 'submitting'}
                   className="btn-primary w-full sm:w-auto disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   {status === 'submitting' ? (
