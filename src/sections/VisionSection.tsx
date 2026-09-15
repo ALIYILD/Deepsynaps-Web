@@ -1,4 +1,5 @@
 import { ScrollReveal } from '@/components/ScrollReveal';
+import { CONTACT } from '@/config/contact';
 
 export function VisionSection() {
   return (
@@ -26,7 +27,7 @@ export function VisionSection() {
         </ScrollReveal>
 
         <ScrollReveal delay={0.45}>
-          <a href="mailto:contact@deepsynaps.org" className="btn-primary mt-10 inline-flex">
+          <a href={`mailto:${CONTACT.email}`} className="btn-primary mt-10 inline-flex">
             Get in Touch
           </a>
         </ScrollReveal>

@@ -134,19 +134,12 @@ export function Footer() {
             reserved.
           </p>
           <div className="flex gap-4 text-xs text-ds-text-secondary/60">
-            <a
-              href="#"
+            <Link
+              to="/privacy"
               className="hover:text-ds-text-secondary transition-colors"
             >
-              Privacy Policy
-            </a>
-            <span>|</span>
-            <a
-              href="#"
-              className="hover:text-ds-text-secondary transition-colors"
-            >
-              Terms of Use
-            </a>
+              Privacy
+            </Link>
           </div>
         </div>
       </div>

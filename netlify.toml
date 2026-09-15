@@ -5,6 +5,13 @@
 [build.environment]
   NODE_VERSION = "20"
 
+# The Deepy assistant endpoint. `_deepy/` is skipped by Netlify's function
+# discovery (a leading underscore), so those modules are bundled into
+# deepy.mjs by esbuild rather than deployed as endpoints of their own.
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
 # Force www -> apex (301 redirect)
 [[redirects]]
   from = "https://www.deepsynaps.com/*"

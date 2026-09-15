@@ -4,11 +4,12 @@ import { NeuralNetworkCanvas } from '@/components/NeuralNetworkCanvas';
 import { AuroraBackground } from '@/components/AuroraBackground';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { WhatsAppWidget } from '@/components/WhatsAppWidget';
+import { ContactWidget } from '@/components/ContactWidget';
 import Home from '@/pages/Home';
 import Consultations from '@/pages/Consultations';
 import About from '@/pages/About';
 import Academy from '@/pages/Academy';
+import Privacy from '@/pages/Privacy';
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -41,12 +42,13 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/academy" element={<Academy />} />
           <Route path="/consultations" element={<Consultations />} />
+          <Route path="/privacy" element={<Privacy />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </main>
 
       <Footer />
-      <WhatsAppWidget />
+      <ContactWidget />
     </div>
   );
 }
