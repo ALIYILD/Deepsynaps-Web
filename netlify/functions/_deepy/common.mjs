@@ -28,12 +28,39 @@ export const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0
  * A same-origin request (no `Origin` header, e.g. curl or a server-side call)
  * is allowed and gets no CORS headers, because there is nothing to grant. A
  * request that names an origin gets a decision: allowed, or refused.
+ *
+ * SAME HOST IS ALWAYS ALLOWED, and the allow-list is for everyone else.
+ * Found on the deploy preview: the React widget calls its own relative
+ * `/.netlify/functions/deepy`, so the browser sends `Origin:
+ * https://deploy-preview-1--deepsynaps-web.netlify.app` — the page's own host,
+ * which is not and cannot be in a fixed allow-list, because every preview and
+ * every branch deploy invents a new hostname. Refusing that refused the site
+ * its own function. The list exists to name the OTHER three properties that
+ * legitimately call this cross-origin; a page calling back to the host it was
+ * served from needs no list.
+ *
+ * Hosts are compared, not full origins. A proxy or a local `netlify dev` can
+ * hand the function an `http://` request URL while the browser reports an
+ * `https://` origin for the same site, and treating that as foreign would
+ * reintroduce the same bug one layer down. The host still has to match exactly,
+ * so another *.netlify.app deployment is as foreign as any other domain.
  */
-export function corsDecision(origin) {
+export function corsDecision(origin, requestUrl) {
   if (origin === null || origin === undefined || origin === '') {
     return { allowed: true, origin: null };
   }
-  return { allowed: ALLOWED_ORIGINS.includes(origin), origin };
+  if (ALLOWED_ORIGINS.includes(origin)) return { allowed: true, origin };
+
+  if (requestUrl) {
+    try {
+      if (new URL(origin).host === new URL(requestUrl).host) {
+        return { allowed: true, origin };
+      }
+    } catch {
+      // A malformed Origin is not same-origin; fall through to the refusal.
+    }
+  }
+  return { allowed: false, origin };
 }
 
 /** `vary: origin` is not optional: the response differs per origin and a CDN must not mix them. */

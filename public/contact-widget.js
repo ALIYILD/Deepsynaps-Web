@@ -15,11 +15,14 @@
  *   <script defer src="https://deepsynaps.com/contact-widget.js"
  *           data-site="academy" data-whatsapp="447429910079"
  *           data-email="ali.yildirim@deepsynaps.com" data-prefill="Hi ..."></script>
+ *
+ * `data-endpoint` overrides the function URL, so a preview of one of these
+ * pages can be pointed at a preview function rather than the live one.
  */
 (function () {
   'use strict';
 
-  var ENDPOINT = 'https://deepsynaps.com/.netlify/functions/deepy';
+  var DEFAULT_ENDPOINT = 'https://deepsynaps.com/.netlify/functions/deepy';
   var SESSION_KEY = 'deepsynaps.contact.session';
   var MOUNT_ID = 'ds-contact-widget';
   if (document.getElementById(MOUNT_ID)) return;
@@ -34,6 +37,15 @@
 
   var SITE = attr('data-site', 'web');
   if (SITE !== 'web' && SITE !== 'academy' && SITE !== 'lab') SITE = 'web';
+
+  /**
+   * Where to send. Production is the function on deepsynaps.com, because these
+   * pages have none of their own. `data-endpoint` overrides it so a PREVIEW of
+   * the academy or lab page can be pointed at a preview function instead of
+   * quietly exercising the live one — which is the only way to test a change to
+   * both halves together before either is live.
+   */
+  var ENDPOINT = attr('data-endpoint', DEFAULT_ENDPOINT);
 
   var CFG = {
     site: SITE,

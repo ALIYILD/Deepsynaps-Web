@@ -212,7 +212,10 @@ async function handleQuestion(body, env, deps, cors) {
 
 export default async function handler(request, context, deps = defaultDeps) {
   const origin = request.headers?.get('origin') ?? null;
-  const decision = corsDecision(origin);
+  // The request URL is passed so a page can always call the function on the
+  // host it was served from — which is how preview and branch deploys work,
+  // since their hostnames cannot be known in advance.
+  const decision = corsDecision(origin, request.url);
   if (!decision.allowed) {
     // No CORS headers on a refusal: granting them would tell a disallowed
     // origin that it is talking to something willing to answer.
