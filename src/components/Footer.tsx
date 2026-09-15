@@ -1,7 +1,7 @@
 import { Link } from 'react-router';
-import { Mail, MessageCircle, MapPin } from 'lucide-react';
+import { Mail, MessageCircle, MapPin, Phone, Linkedin } from 'lucide-react';
 import { ScrollReveal } from './ScrollReveal';
-import { CONTACT, isWhatsAppConfigured } from '@/config/contact';
+import { CONTACT, isWhatsAppConfigured, isLinkedInConfigured } from '@/config/contact';
 
 export function Footer() {
   return (
@@ -40,6 +40,7 @@ export function Footer() {
               <ul className="space-y-3">
                 {[
                   { label: 'About', href: '/about', external: false },
+                  { label: 'Contact', href: '/consultations', external: false },
                   { label: 'DeepSynaps OS', href: '/#os-preview', external: false },
                   { label: 'DeepSynaps Lab', href: 'https://deepsynapslab.com', external: true },
                   { label: 'DeepSynaps Academy', href: 'https://deepsynapsacademy.com', external: true },
@@ -105,6 +106,27 @@ export function Footer() {
                       className="inline-flex items-center gap-2 text-[13px] text-ds-text-secondary hover:text-ds-text transition-colors duration-200"
                     >
                       <MessageCircle size={13} /> WhatsApp
+                    </a>
+                  </li>
+                )}
+                <li>
+                  <a
+                    href={`tel:${CONTACT.phoneE164}`}
+                    className="inline-flex items-center gap-2 text-[13px] text-ds-text-secondary hover:text-ds-text transition-colors duration-200"
+                  >
+                    <Phone size={13} /> {CONTACT.phoneDisplay}
+                  </a>
+                </li>
+                {/* Appears only once CONTACT.linkedinUrl is set to a real profile. */}
+                {isLinkedInConfigured() && (
+                  <li>
+                    <a
+                      href={CONTACT.linkedinUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-[13px] text-ds-text-secondary hover:text-ds-text transition-colors duration-200"
+                    >
+                      <Linkedin size={13} /> LinkedIn
                     </a>
                   </li>
                 )}

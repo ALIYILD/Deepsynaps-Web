@@ -19,6 +19,14 @@
   status = 301
   force = true
 
+# People type /contact. There is no such page — consultations is where the
+# booking and the contact details live — so send them there permanently rather
+# than letting the SPA fallback hand them a 404 shaped like a home page.
+[[redirects]]
+  from = "/contact"
+  to = "/consultations"
+  status = 301
+
 # SPA fallback — must come last
 [[redirects]]
   from = "/*"
