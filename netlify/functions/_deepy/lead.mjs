@@ -80,6 +80,12 @@ export function readLeadRequest(body, { requireMessage = false } = {}) {
     throw new Refused(422, 'invalid_lead');
   }
 
+  // CONSENT IS CHECKED FIRST, before any other field. If it is missing, nothing
+  // else about the request matters — and reporting "write a message" to someone
+  // whose real problem is an unticked box costs them a second round trip to
+  // find out the actual reason.
+  const consent = readConsent(supplied.consent);
+
   const fullName = optionalText(supplied.fullName, 'invalid_name', 120);
   if (!fullName || fullName.length < 2) throw new Refused(422, 'invalid_name');
 
@@ -111,7 +117,7 @@ export function readLeadRequest(body, { requireMessage = false } = {}) {
     interest,
     source,
     message,
-    consent: readConsent(supplied.consent),
+    consent,
   };
 }
 

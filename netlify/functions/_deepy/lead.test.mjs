@@ -126,3 +126,12 @@ test('summarise is capped so an oversized transcript cannot be sent onward whole
   const summary = summarise([{ role: 'user', content: 'x'.repeat(5000) }]);
   assert.ok(summary.length <= 1500, `summary was ${summary.length} characters`);
 });
+
+test('consent is reported before any other missing field', () => {
+  // Found by the offline smoke run: with both consent and the message missing,
+  // the visitor was told to write a message. Fixing that would not have let
+  // them through, so they would have had to submit twice to learn the real
+  // reason. Consent is the gate and is checked first.
+  const error = refusalOf({ lead: { ...valid, consent: undefined, message: undefined } }, { requireMessage: true });
+  assert.equal(error.code, 'consent_required');
+});
