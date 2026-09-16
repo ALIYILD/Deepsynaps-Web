@@ -23,9 +23,9 @@ const deps = {
 const ask = async (site, question, env = {}) => {
   resetRateLimits();
   const response = await handler(
-    new Request('https://deepsynaps.com/.netlify/functions/deepy', {
+    new Request('https://deepsynaps.ai/.netlify/functions/deepy', {
       method: 'POST',
-      headers: { origin: 'https://deepsynaps.com', 'content-type': 'application/json' },
+      headers: { origin: 'https://deepsynaps.ai', 'content-type': 'application/json' },
       body: JSON.stringify({ site, question }),
     }),
     { env },

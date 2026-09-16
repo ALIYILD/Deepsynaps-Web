@@ -101,7 +101,7 @@ export const entries = Object.freeze([
     keywords: ['contact', 'email', 'whatsapp', 'reach', 'talk', 'book', 'consultation', 'deepsynaps', 'website'],
     body:
       'You can email ali.yildirim@deepsynaps.com, message the team on WhatsApp from the button on the page, '
-      + 'or book a consultation at deepsynaps.com/consultations. The Academy is part of the DeepSynaps '
+      + 'or book a consultation at deepsynaps.ai/consultations. The Academy is part of the DeepSynaps '
       + 'ecosystem alongside DeepSynaps OS and DeepSynaps Lab, whose site is deepsynapslab.com.',
   },
   {

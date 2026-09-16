@@ -1,5 +1,5 @@
 /**
- * What deepsynaps.com actually says.
+ * What deepsynaps.ai actually says.
  *
  * Every line below is transcribed or condensed from the site's own source:
  * `src/sections/*.tsx` (home), `src/pages/About.tsx`, `src/pages/Academy.tsx`,
@@ -14,7 +14,7 @@
  * copy instead of apologising.
  */
 
-export const title = 'DeepSynaps — deepsynaps.com';
+export const title = 'DeepSynaps — deepsynaps.ai';
 
 export const summary =
   'DeepSynaps is an interdisciplinary AI and neuroscience organisation led by Dr. Ali Yildirim, '

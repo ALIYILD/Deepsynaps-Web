@@ -7,7 +7,7 @@
  * single network origin to declare.
  *
  * THREE SITES, ONE FUNCTION. This is deployed with the React site on
- * deepsynaps.com, and the academy and lab pages call it cross-origin from their
+ * deepsynaps.ai, and the academy and lab pages call it cross-origin from their
  * own domains. The `site` field of the request selects the knowledge module and
  * the persona; the `Origin` header decides whether the caller may call at all.
  * Those are separate questions and are answered separately.

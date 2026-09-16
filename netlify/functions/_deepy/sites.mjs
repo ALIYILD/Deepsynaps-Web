@@ -15,7 +15,7 @@ export const SITES = Object.freeze({
   web: Object.freeze({
     id: 'web',
     name: 'DeepSynaps',
-    origin: 'https://deepsynaps.com',
+    origin: 'https://deepsynaps.ai',
     chatSource: 'chat-web',
   }),
   academy: Object.freeze({

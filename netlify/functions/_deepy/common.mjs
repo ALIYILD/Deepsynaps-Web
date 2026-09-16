@@ -6,16 +6,27 @@
  * by esbuild and are never routed to as endpoints of their own.
  *
  * CORS MATTERS HERE in a way it does not on a single-origin site. One function,
- * deployed with the React site on deepsynaps.com, answers three properties:
+ * deployed with the React site on deepsynaps.ai, answers three properties:
  * the academy and lab sites are separate Netlify deployments on their own
  * domains and reach this endpoint cross-origin. So the allow-list is an
  * explicit, closed set rather than a reflected `Origin`, and an origin outside
  * it is refused with 403 before any body is read.
  */
 
-/** Exactly the origins that may call this function. Nothing is reflected. */
+/**
+ * Exactly the origins that may call this function. Nothing is reflected.
+ *
+ * deepsynaps.ai is the canonical marketing domain. The two .com origins stay on
+ * the list for the transition: the domain move is a redirect, and a redirect
+ * only helps a navigation — a page still open on the old domain, or a stale
+ * cached copy of one, would otherwise have its calls refused with 403 rather
+ * than moved. Drop them once the .com traffic has gone to zero.
+ */
 export const ALLOWED_ORIGINS = Object.freeze([
+  'https://deepsynaps.ai',
+  'https://www.deepsynaps.ai',
   'https://deepsynaps.com',
+  'https://www.deepsynaps.com',
   'https://deepsynapsacademy.com',
   'https://deepsynapslab.com',
   'http://localhost:5173',
