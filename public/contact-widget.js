@@ -8,11 +8,11 @@
  * is the same widget, same three tabs, same request contract — and it is the
  * contract, not the code, that must stay in step with `src/components/`.
  *
- * WHERE IT TALKS. Always the absolute endpoint on deepsynaps.com, because the
+ * WHERE IT TALKS. Always the absolute endpoint on deepsynaps.ai, because the
  * two static sites have no functions of their own. That is a cross-origin call,
  * which is exactly why the function carries a closed CORS allow-list.
  *
- *   <script defer src="https://deepsynaps.com/contact-widget.js"
+ *   <script defer src="https://deepsynaps.ai/contact-widget.js"
  *           data-site="academy" data-whatsapp="447429910079"
  *           data-phone="+447429910079" data-linkedin=""
  *           data-email="ali.yildirim@deepsynaps.com" data-prefill="Hi ..."></script>
@@ -26,7 +26,7 @@
 (function () {
   'use strict';
 
-  var DEFAULT_ENDPOINT = 'https://deepsynaps.com/.netlify/functions/deepy';
+  var DEFAULT_ENDPOINT = 'https://deepsynaps.ai/.netlify/functions/deepy';
   var SESSION_KEY = 'deepsynaps.contact.session';
   var MOUNT_ID = 'ds-contact-widget';
   if (document.getElementById(MOUNT_ID)) return;
@@ -43,7 +43,7 @@
   if (SITE !== 'web' && SITE !== 'academy' && SITE !== 'lab') SITE = 'web';
 
   /**
-   * Where to send. Production is the function on deepsynaps.com, because these
+   * Where to send. Production is the function on deepsynaps.ai, because these
    * pages have none of their own. `data-endpoint` overrides it so a PREVIEW of
    * the academy or lab page can be pointed at a preview function instead of
    * quietly exercising the live one — which is the only way to test a change to
@@ -512,7 +512,7 @@
     var consentText = el('span', null,
       'I agree that DeepSynaps may store these details in order to reply to me. ');
     var privacy = el('a', 'lnk', 'Privacy notice');
-    privacy.href = 'https://deepsynaps.com/privacy';
+    privacy.href = 'https://deepsynaps.ai/privacy';
     privacy.target = '_blank';
     privacy.rel = 'noopener noreferrer';
     consentText.appendChild(privacy);

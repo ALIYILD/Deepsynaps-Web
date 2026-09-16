@@ -106,7 +106,7 @@ export const entries = Object.freeze([
     title: 'The Lab within DeepSynaps',
     keywords: ['deepsynaps', 'ecosystem', 'academy', 'os', 'clinic', 'clinical', 'other'],
     body:
-      'DeepSynaps Lab is part of the DeepSynaps ecosystem; the main site is deepsynaps.com, which covers the '
+      'DeepSynaps Lab is part of the DeepSynaps ecosystem; the main site is deepsynaps.ai, which covers the '
       + 'clinical work and DeepSynaps OS, and DeepSynaps Academy at deepsynapsacademy.com covers training. '
       + 'The Lab page itself is about the research programme only.',
   },

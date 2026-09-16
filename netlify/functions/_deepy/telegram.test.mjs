@@ -116,7 +116,7 @@ test('a question ping names the source and state and flags a needed follow-up', 
 
 /* ------------------------------------------------- the fail-closed lead path */
 
-const leadRequest = (overrides = {}) => new Request('https://deepsynaps.com/.netlify/functions/deepy', {
+const leadRequest = (overrides = {}) => new Request('https://deepsynaps.ai/.netlify/functions/deepy', {
   method: 'POST',
   headers: { origin: 'https://deepsynapsacademy.com', 'content-type': 'application/json' },
   body: JSON.stringify({
