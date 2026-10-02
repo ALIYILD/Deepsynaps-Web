@@ -21,6 +21,10 @@
  * only helps a navigation — a page still open on the old domain, or a stale
  * cached copy of one, would otherwise have its calls refused with 403 rather
  * than moved. Drop them once the .com traffic has gone to zero.
+ *
+ * This is the PRODUCTION list and it holds no localhost or 127.0.0.1 origin
+ * (#4499). Local development origins live in `DEV_ORIGINS` below and are off
+ * unless the runtime explicitly says it is local development.
  */
 export const ALLOWED_ORIGINS = Object.freeze([
   'https://deepsynaps.ai',
@@ -29,9 +33,27 @@ export const ALLOWED_ORIGINS = Object.freeze([
   'https://www.deepsynaps.com',
   'https://deepsynapsacademy.com',
   'https://deepsynapslab.com',
+]);
+
+/**
+ * Local development only, NEVER on by default. Admitted only when the
+ * environment says, explicitly, that this is `netlify dev`: `NETLIFY_DEV` is
+ * the string `true`, or `CONTEXT` is `dev`. Unset, production, deploy-preview
+ * and branch-deploy all get the closed list above and nothing more.
+ *
+ * A page served by `netlify dev` itself does not need these: it calls back to
+ * its own host, which the same-host rule already allows. They exist for a page
+ * served from a different local port (Vite on 5173, or an academy/lab page with
+ * `data-endpoint` pointed at the local function on 8888).
+ */
+export const DEV_ORIGINS = Object.freeze([
   'http://localhost:5173',
   'http://localhost:8888',
 ]);
+
+/** True only for an explicit local-development runtime. Absent means production. */
+export const isLocalDev = (env) => Boolean(env)
+  && (env.NETLIFY_DEV === 'true' || env.CONTEXT === 'dev');
 
 export const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -55,12 +77,17 @@ export const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0
  * `https://` origin for the same site, and treating that as foreign would
  * reintroduce the same bug one layer down. The host still has to match exactly,
  * so another *.netlify.app deployment is as foreign as any other domain.
+ *
+ * `env` is the runtime environment and is optional. Without it, or with any
+ * value that is not an explicit local-development runtime, `DEV_ORIGINS` are
+ * refused like any other foreign origin.
  */
-export function corsDecision(origin, requestUrl) {
+export function corsDecision(origin, requestUrl, env = null) {
   if (origin === null || origin === undefined || origin === '') {
     return { allowed: true, origin: null };
   }
   if (ALLOWED_ORIGINS.includes(origin)) return { allowed: true, origin };
+  if (DEV_ORIGINS.includes(origin) && isLocalDev(env)) return { allowed: true, origin };
 
   if (requestUrl) {
     try {
