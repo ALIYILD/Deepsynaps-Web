@@ -6,7 +6,9 @@
  * shape and every field needed to pick up the phone. Both are built here so the
  * privacy rule is stated once: NO client IP and NO visitor hash travel to a
  * chat room. That identity is derived from the client address to cap abuse, not
- * to follow a person.
+ * to follow a person. And the question ping carries NO free text at all —
+ * neither what the visitor typed nor what the assistant answered — only
+ * metadata (see `notifyQuestion`).
  *
  * THE LEAD MESSAGE MUST BE ENOUGH TO REPLY TO THE PERSON, on its own, with no
  * other system open. That is a requirement rather than a courtesy: Telegram is
@@ -68,23 +70,48 @@ async function send(deps, { token, chatIds }, text, label) {
   return results.length > 0 && results.every(Boolean);
 }
 
-/** Tells the team a visitor asked something. Best-effort; never fails the answer. */
+/**
+ * The page as a bare path. The query string and the fragment are dropped:
+ * both can be shaped by the visitor, and the ping is metadata only.
+ */
+const pathOnly = (page) => {
+  const path = typeof page === 'string' ? page.split(/[?#]/, 1)[0] : '';
+  return path.startsWith('/') ? path : '/';
+};
+
+/**
+ * Tells the team a visitor asked something. Best-effort; never fails the answer.
+ *
+ * METADATA ONLY (refs ALIYILD/DeepSynaps-Clinical-Intelligence-OS#4499). The
+ * visitor's question and the assistant's answer are NOT forwarded. Nothing on
+ * the question path asks for, or records, consent to send what someone typed
+ * to a chat room, so no free text goes. The ping says THAT a conversation is
+ * happening, on which page, how far in, and whether a person is needed —
+ * nothing about WHAT was said. The fields read here are the whole contract:
+ * any `question`, `answer` or other text a caller passes is ignored.
+ *
+ * `needsHuman` is the existing escalation signal: the answer state
+ * `needs_human`, set by the model's own handoff token or by the no-answer
+ * fallback in `deepy.mjs`.
+ */
 export async function notifyQuestion(deps, env, payload) {
   const target = channel(env);
   if (!target) return false;
   const site = siteFor(payload.site);
+  const count = Number.isInteger(payload.visitorMessages) && payload.visitorMessages > 0
+    ? payload.visitorMessages
+    : 1;
+  const needsHuman = payload.needsHuman === true;
 
   const lines = [
     `\u{1F7E3} <b>${escapeHtml(site.name)} — visitor question</b>`,
-    `Page: ${escapeHtml(`${site.origin}${payload.page}`)}`,
+    `Page: ${escapeHtml(`${site.origin}${pathOnly(payload.page)}`)}`,
     `Session: ${escapeHtml(payload.sessionId ? payload.sessionId.slice(0, 8) : '—')}`,
+    `Visitor messages: ${count}`,
+    `Needs human: ${needsHuman ? 'yes' : 'no'}`,
     `Time: ${escapeHtml(stamp(payload.at))}`,
-    '',
-    `<b>Question:</b> ${escapeHtml(clip(payload.question, 800))}`,
-    '',
-    `<b>Answer (${escapeHtml(payload.source)}/${escapeHtml(payload.state)}):</b> ${escapeHtml(clip(payload.answer, 600))}`,
   ];
-  if (payload.state === 'needs_human') lines.push('', '⚠️ Needs a human follow-up');
+  if (needsHuman) lines.push('', '⚠️ Needs a human follow-up');
   return send(deps, target, lines.join('\n'), 'question');
 }
 
