@@ -49,3 +49,16 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+# Security headers (refs ALIYILD/DeepSynaps-Clinical-Intelligence-OS#4493).
+# Only headers that cannot break the site: the CSP is REPORT-ONLY until AppSec
+# has reviewed it and it has been measured on deepsynaps.ai. HSTS is already
+# sent by Netlify, so it is deliberately not repeated here.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=(), hid=(), bluetooth=(), midi=(), magnetometer=(), gyroscope=(), accelerometer=(), display-capture=(), browsing-topics=()"
+    Content-Security-Policy-Report-Only = "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-src 'none'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'"
