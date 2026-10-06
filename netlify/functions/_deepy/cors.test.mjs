@@ -3,14 +3,15 @@
  *
  * This is the one piece of the function that exists only because three
  * properties share one endpoint, so it is the piece with no precedent to
- * inherit and the piece most worth pinning. The rule under test: exactly seven
- * origins may call, an `Origin` outside that set gets 403 with no
- * `access-control-allow-origin` at all, and a preflight is answered.
+ * inherit and the piece most worth pinning. The rule under test: exactly six
+ * origins may call in production, an `Origin` outside that set gets 403 with no
+ * `access-control-allow-origin` at all, and a preflight is answered. Localhost
+ * is admitted only in an explicit local-development runtime (#4499).
  */
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import handler from '../deepy.mjs';
-import { ALLOWED_ORIGINS, corsDecision } from './common.mjs';
+import { ALLOWED_ORIGINS, DEV_ORIGINS, corsDecision, isLocalDev } from './common.mjs';
 import { resetRateLimits } from './visitor.mjs';
 
 const post = (origin, body = { question: 'hello' }) => new Request('https://deepsynaps.ai/.netlify/functions/deepy', {
@@ -37,9 +38,63 @@ test('every allowed origin is accepted and echoed back', () => {
     'https://www.deepsynaps.com',
     'https://deepsynapsacademy.com',
     'https://deepsynapslab.com',
-    'http://localhost:5173',
-    'http://localhost:8888',
   ]);
+});
+
+/* ------------------------------------------- localhost is not production */
+
+const LOCAL_ORIGINS = [
+  'http://localhost:5173',
+  'http://localhost:8888',
+  'http://localhost',
+  'http://127.0.0.1:5173',
+  'http://127.0.0.1:8888',
+  'http://127.0.0.1',
+];
+
+test('the production allow-list holds no localhost or 127.0.0.1 origin', () => {
+  for (const origin of ALLOWED_ORIGINS) {
+    const host = new URL(origin).hostname;
+    assert.ok(host !== 'localhost' && host !== '127.0.0.1', `${origin} must not be in the production list`);
+  }
+  for (const origin of DEV_ORIGINS) {
+    assert.ok(!ALLOWED_ORIGINS.includes(origin), `${origin} must only be a dev origin`);
+  }
+});
+
+test('localhost is refused in the production context', () => {
+  const self = 'https://deepsynaps.ai/.netlify/functions/deepy';
+  for (const env of [undefined, null, {}, { CONTEXT: 'production' }, { CONTEXT: 'deploy-preview' },
+    { CONTEXT: 'branch-deploy' }, { NETLIFY_DEV: 'false' }, { NETLIFY_DEV: true }, { NETLIFY_DEV: '1' }]) {
+    assert.equal(isLocalDev(env), false, `${JSON.stringify(env)} is not local development`);
+    for (const origin of LOCAL_ORIGINS) {
+      assert.equal(corsDecision(origin, self, env).allowed, false, `${origin} must be refused with ${JSON.stringify(env)}`);
+    }
+  }
+});
+
+test('the handler refuses a localhost origin in production with 403 and no grant', async () => {
+  for (const env of [{}, { CONTEXT: 'production' }]) {
+    resetRateLimits();
+    const response = await handler(post('http://localhost:5173'), { env }, deps);
+    assert.equal(response.status, 403);
+    assert.deepEqual(await response.json(), { error: 'origin_not_allowed' });
+    assert.equal(response.headers.get('access-control-allow-origin'), null);
+  }
+});
+
+test('localhost is admitted only when the runtime explicitly says it is local development', () => {
+  // A different local port from the function's own, so it is the dev list —
+  // not the same-host rule — that is being exercised.
+  const self = 'http://localhost:9999/.netlify/functions/deepy';
+  for (const env of [{ NETLIFY_DEV: 'true' }, { CONTEXT: 'dev' }]) {
+    assert.equal(isLocalDev(env), true);
+    for (const origin of DEV_ORIGINS) {
+      assert.equal(corsDecision(origin, self, env).allowed, true, `${origin} should be allowed in dev`);
+    }
+    // 127.0.0.1 is on no list at all, dev included.
+    assert.equal(corsDecision('http://127.0.0.1:5173', self, env).allowed, false);
+  }
 });
 
 test('a request with no Origin is same-origin and carries no CORS grant', () => {

@@ -199,8 +199,15 @@ async function handleQuestion(body, env, deps, cors) {
     }
   }
 
+  // Metadata only (#4499): the question and the answer never leave this
+  // process for Telegram, so they are not even handed to the notifier.
   await notifyQuestion(deps, env, {
-    site, page, question, answer, state, source, sessionId, at: deps.now(),
+    site,
+    page,
+    visitorMessages: history.filter((turn) => turn.role === 'user').length + 1,
+    needsHuman: state === 'needs_human',
+    sessionId,
+    at: deps.now(),
   });
 
   return json(200, {
@@ -215,7 +222,9 @@ export default async function handler(request, context, deps = defaultDeps) {
   // The request URL is passed so a page can always call the function on the
   // host it was served from — which is how preview and branch deploys work,
   // since their hostnames cannot be known in advance.
-  const decision = corsDecision(origin, request.url);
+  // The environment is passed so local-development origins can be admitted
+  // only when the runtime explicitly says it is `netlify dev` (#4499).
+  const decision = corsDecision(origin, request.url, (context && context.env) || process.env);
   if (!decision.allowed) {
     // No CORS headers on a refusal: granting them would tell a disallowed
     // origin that it is talking to something willing to answer.

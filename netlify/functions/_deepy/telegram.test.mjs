@@ -6,6 +6,8 @@
  * so no configuration is a 503 and a refused send is a 502 — never a 200 with
  * a receipt. The second thing tested is the shape of the message itself: it
  * has to be enough to phone the person back with no other system open.
+ * The third is what the QUESTION ping must never carry: free text. Neither the
+ * visitor's question nor the assistant's answer reaches Telegram (#4499).
  */
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -87,31 +89,96 @@ test('no Telegram configuration means no send and an honest false', async () => 
   const { calls, fetchStub } = recorder();
   assert.equal(await notifyLead({ fetch: fetchStub }, {}, leadPayload), false);
   assert.equal(await notifyQuestion({ fetch: fetchStub }, {}, {
-    site: 'web', page: '/', question: 'hi', answer: 'hello', state: 'answered', source: 'kb', sessionId: null, at,
+    site: 'web', page: '/', visitorMessages: 1, needsHuman: false, sessionId: null, at,
   }), false);
   assert.equal(calls.length, 0);
 });
 
-test('a question ping names the source and state and flags a needed follow-up', async () => {
+test('a question ping carries metadata only and flags a needed follow-up', async () => {
   const { calls, fetchStub } = recorder();
   await notifyQuestion({ fetch: fetchStub }, TELEGRAM_ENV, {
     site: 'lab',
     page: '/#chips',
-    question: 'Can I buy a HAC v1?',
-    answer: 'No commercial product is yet available.',
-    state: 'needs_human',
-    source: 'kb',
+    visitorMessages: 3,
+    needsHuman: true,
     sessionId: '3f2504e0-4f89-11d3-9a0c-0305e82c3301',
     at,
+    // A caller that still hands over text must not get it forwarded.
+    question: 'Can I buy a HAC v1?',
+    answer: 'No commercial product is yet available.',
   });
+  assert.equal(calls.length, 1);
   const text = calls[0].body.text;
   assert.match(text, /DeepSynaps Lab — visitor question/);
-  assert.match(text, /Answer \(kb\/needs_human\)/);
+  // The metadata fields, all present.
+  assert.match(text, /Page: https:\/\/deepsynapslab\.com\/$/m);
+  assert.match(text, /Visitor messages: 3/);
+  assert.match(text, /Needs human: yes/);
   assert.match(text, /Needs a human follow-up/);
+  assert.match(text, /Time: /);
   // Only the first eight characters of the session id: enough to find the
   // conversation, not enough to be an identity.
   assert.match(text, /Session: 3f2504e0/);
   assert.ok(!text.includes('3f2504e0-4f89'), 'the full session id must not travel');
+  // And no free text of any kind.
+  assert.ok(!text.includes('HAC v1'), 'the question must not travel');
+  assert.ok(!text.includes('commercial product'), 'the answer must not travel');
+  assert.ok(!/Question:|Answer/.test(text), 'no question or answer field at all');
+  // The fragment is visitor-shapeable, so only the bare path is sent.
+  assert.ok(!text.includes('#chips'), 'the page fragment must not travel');
+});
+
+test('a question ping with no escalation says so and adds no follow-up line', async () => {
+  const { calls, fetchStub } = recorder();
+  await notifyQuestion({ fetch: fetchStub }, TELEGRAM_ENV, {
+    site: 'web', page: '/consultations?q=my+private+words', visitorMessages: 1, needsHuman: false, sessionId: null, at,
+  });
+  const text = calls[0].body.text;
+  assert.match(text, /Needs human: no/);
+  assert.match(text, /Visitor messages: 1/);
+  assert.match(text, /Session: —/);
+  assert.match(text, /Page: https:\/\/deepsynaps\.ai\/consultations$/m);
+  assert.ok(!text.includes('private'), 'the query string must not travel');
+  assert.ok(!text.includes('Needs a human follow-up'));
+});
+
+test('end to end, the handler sends Telegram no question, answer or history text', async () => {
+  resetRateLimits();
+  const { calls, fetchStub } = recorder();
+  const question = 'ZEBRA-QUESTION-7781 what services do you offer for my patient Mrs Smith?';
+  const request = new Request('https://deepsynaps.ai/.netlify/functions/deepy', {
+    method: 'POST',
+    headers: { origin: 'https://deepsynaps.ai', 'content-type': 'application/json' },
+    body: JSON.stringify({
+      site: 'web',
+      page: '/consultations#ZEBRA-FRAGMENT',
+      question,
+      session_id: '3f2504e0-4f89-11d3-9a0c-0305e82c3301',
+      history: [
+        { role: 'user', content: 'ZEBRA-HISTORY-USER earlier message' },
+        { role: 'assistant', content: 'ZEBRA-HISTORY-ASSISTANT earlier reply' },
+      ],
+    }),
+  });
+  // No model key, so the answer comes from the knowledge base or the reviewed
+  // fallback; either way it is real text that must stay out of the ping.
+  const response = await handler(request, { env: TELEGRAM_ENV }, {
+    fetch: fetchStub, createModelClient: () => { throw new Error('no model in tests'); }, now: () => at,
+  });
+  assert.equal(response.status, 200);
+  const { answer, state } = await response.json();
+  assert.ok(typeof answer === 'string' && answer.length > 0);
+
+  assert.equal(calls.length, 1, 'exactly one Telegram call, the question ping');
+  const text = calls[0].body.text;
+  assert.ok(!text.includes('ZEBRA'), 'no question, history or fragment text may travel');
+  assert.ok(!text.includes('Mrs Smith'), 'the question must not travel');
+  assert.ok(!text.includes(answer.slice(0, 40)), 'the answer must not travel');
+  assert.match(text, /Page: https:\/\/deepsynaps\.ai\/consultations$/m);
+  // One earlier visitor turn in the history, plus this question.
+  assert.match(text, /Visitor messages: 2/);
+  assert.match(text, new RegExp(`Needs human: ${state === 'needs_human' ? 'yes' : 'no'}`));
+  assert.match(text, /Session: 3f2504e0/);
 });
 
 /* ------------------------------------------------- the fail-closed lead path */
