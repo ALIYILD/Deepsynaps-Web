@@ -1,0 +1,1775 @@
+@font-face {
+  font-family: "DM Sans";
+  src: url("/fonts/DMSans-400.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 400;
+}
+@font-face {
+  font-family: "DM Sans";
+  src: url("/fonts/DMSans-700.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 700;
+}
+@font-face {
+  font-family: Outfit;
+  src: url("/fonts/Outfit-600.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 600;
+}
+@font-face {
+  font-family: Outfit;
+  src: url("/fonts/Outfit-700.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 700;
+}
+:root {
+  --lab-ink: #080f20;
+  --lab-body: #617084;
+  --lab-blue: #3568c6;
+  --lab-navy: #050b18;
+}
+body {
+  font-family: "DM Sans", sans-serif;
+}
+html {
+  scroll-padding-top: 96px;
+}
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid #6a91fa;
+  outline-offset: 5px;
+}
+.ai-lab {
+  color: var(--lab-ink);
+  font-family: "DM Sans", sans-serif;
+}
+.ai-lab h1,
+.ai-lab h2,
+.ai-lab h3,
+.ai-lab h4,
+.lab-header,
+.lab-footer h3,
+.nerve-explorer h2,
+.nerve-explorer h3 {
+  font-family: Outfit, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+.lab-container {
+  width: min(1380px, calc(100% - 96px));
+  margin: auto;
+}
+.lab-section {
+  padding: 104px 0;
+}
+.lab-white {
+  background: #fff;
+}
+.lab-soft {
+  background: #f9fbff;
+}
+.lab-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  color: #436da9;
+  line-height: 1.6;
+  margin-bottom: 22px;
+}
+.lab-caption {
+  font-size: 11px;
+  line-height: 1.7;
+  color: #68778a;
+  margin: 30px 0 0;
+}
+.lab-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  min-height: 47px;
+  padding: 13px 19px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #2563eb, #5445de);
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: #fff;
+  white-space: nowrap;
+  transition:
+    box-shadow 0.2s,
+    transform 0.2s;
+}
+.lab-button:hover {
+  box-shadow: 0 6px 25px #355de530;
+  transform: translateY(-2px);
+}
+.lab-button.secondary {
+  background: #142137;
+  border-color: #33425a;
+}
+.lab-button.light-secondary {
+  color: #263d66;
+  background: #f0f4fc;
+  border-color: #d7e0ed;
+}
+.status-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #87dbed;
+  box-shadow: 0 0 12px #80dcea;
+}
+.lab-section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 65px;
+  margin-bottom: 48px;
+}
+.lab-section-heading h1,
+.lab-section-heading h2,
+.lab-collaborate h2 {
+  font-size: clamp(32px, 3.4vw, 48px);
+  line-height: 1.1;
+  margin: 0;
+}
+.lab-section-heading > p {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--lab-body);
+  max-width: 415px;
+  margin: 0 0 3px;
+}
+.lab-section-heading .lab-eyebrow {
+  margin-bottom: 20px;
+}
+.lab-page-start {
+  padding-top: 148px;
+}
+.page-intro {
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--lab-body);
+  margin: 20px 0 35px;
+}
+/* Site navigation */
+.lab-header {
+  height: 86px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: #040914f5;
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid #ffffff0d;
+  color: #dce5f5;
+}
+.lab-nav-inner {
+  width: min(1380px, calc(100% - 96px));
+  height: 100%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+}
+.lab-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 175px;
+}
+.lab-brand img {
+  width: 42px;
+  height: 42px;
+}
+.lab-brand strong {
+  font-size: 21px;
+  letter-spacing: -0.04em;
+  color: #fff;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.lab-brand small {
+  display: block;
+  color: #8ce4e5;
+  letter-spacing: 0.14em;
+  font:
+    700 9px "DM Sans",
+    sans-serif;
+  margin-top: 4px;
+}
+.desktop-nav {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  font:
+    400 13px "DM Sans",
+    sans-serif;
+}
+.desktop-nav a {
+  color: #bac6d8;
+  transition: color 0.2s;
+}
+.desktop-nav a:hover,
+.desktop-nav a[aria-current="page"] {
+  color: #fff;
+}
+.header-cta {
+  min-height: 42px;
+  padding: 10px 17px;
+  font-size: 12px;
+}
+.mobile-toggle {
+  display: none;
+  background: none;
+  border: 1px solid #ffffff21;
+  border-radius: 8px;
+  width: 43px;
+  height: 43px;
+  align-items: center;
+  justify-content: center;
+}
+.skip-link {
+  position: fixed;
+  left: 20px;
+  top: -100px;
+  z-index: 110;
+  background: #fff;
+  color: #111;
+  padding: 12px 20px;
+  border-radius: 8px;
+}
+.skip-link:focus {
+  top: 12px;
+}
+.mobile-nav {
+  display: none;
+}
+/* Hero */
+.lab-hero {
+  background:
+    radial-gradient(ellipse at 90% 100%, #0c2940, transparent 65%), #050b18;
+  color: #f6f8ff;
+  padding: 152px 0 24px;
+  min-height: 820px;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.8fr);
+  gap: 50px;
+  align-items: center;
+}
+.hero-copy > .lab-eyebrow {
+  color: #a5bedf;
+  margin-bottom: 28px;
+}
+.hero-copy h1 {
+  font-size: clamp(48px, 4.9vw, 72px);
+  line-height: 1.045;
+  letter-spacing: -0.04em;
+  margin: 0 0 30px;
+  font-weight: 600;
+}
+.hero-copy > p {
+  font-size: 18px;
+  line-height: 1.65;
+  color: #b3bfd1;
+  max-width: 385px;
+  margin-bottom: 30px;
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.hero-actions .lab-button {
+  font-size: 12px;
+  gap: 23px;
+}
+.hero-mantra {
+  font-size: 13px;
+  line-height: 1.65;
+  color: #96a9c3;
+  margin-top: 29px;
+}
+.hero-scroll {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #9cb0cb;
+  font-size: 11px;
+  margin: 45px auto 0;
+  width: fit-content;
+}
+/* Interactive neural model */
+.nerve-explorer {
+  background: linear-gradient(125deg, #0b1425, #0b172c);
+  border: 1px solid #26364b;
+  border-radius: 22px;
+  color: #e6eefb;
+  overflow: hidden;
+  box-shadow: 0 24px 80px #00000013;
+  font-family: "DM Sans", sans-serif;
+  min-width: 0;
+}
+.nerve-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-bottom: 1px solid #27354b;
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #a0b6d3;
+}
+.nerve-topbar > span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.quiet-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 1px solid #35445b;
+  background: #112037;
+  border-radius: 7px;
+  padding: 8px 10px;
+  color: #c7d7ed;
+  font-size: 10px;
+  font-family: "DM Sans", sans-serif;
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: nowrap;
+  min-height: 32px;
+}
+.quiet-button:hover {
+  background: #243859;
+}
+.quiet-button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.nerve-heading {
+  padding: 23px 26px 0;
+}
+.nerve-heading h2 {
+  font-size: clamp(23px, 2.25vw, 33px);
+  line-height: 1.15;
+  color: #fff;
+  margin: 0 0 10px;
+}
+.nerve-heading p {
+  font-size: 12px;
+  color: #a2b3cd;
+  line-height: 1.6;
+  margin: 0;
+}
+.nerve-body {
+  min-width: 0;
+}
+.nerve-map-wrap {
+  overflow: hidden;
+  min-width: 0;
+}
+.nerve-map {
+  width: 100%;
+  height: auto;
+  display: block;
+  max-height: 440px;
+}
+.nerve-cluster {
+  cursor: pointer;
+  outline: none;
+}
+.cluster-target {
+  fill: transparent;
+}
+.cluster-ring {
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.nerve-cluster:hover .cluster-ring,
+.nerve-cluster:focus .cluster-ring {
+  opacity: 0.8;
+  stroke-width: 2;
+}
+.nerve-cluster.is-selected .cluster-ring {
+  opacity: 0.3;
+}
+.nerve-cluster:focus .cluster-label text {
+  fill: #fff;
+  font-weight: 700;
+}
+.nerve-cluster:hover .neuron-glow {
+  opacity: 0.3;
+}
+.nerve-signal {
+  stroke-dasharray: 2 98;
+  animation: signal-flow 9s linear infinite;
+  opacity: 0.7;
+}
+.is-paused .nerve-signal {
+  animation-play-state: paused;
+}
+.nerve-preview-bottom {
+  padding: 0 25px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+.nerve-preview-bottom p {
+  font-size: 11px;
+  color: #9fb2d0;
+  line-height: 1.7;
+  max-width: 230px;
+}
+.nerve-preview-bottom strong {
+  color: #cbd9ee;
+  font-weight: 400;
+}
+.nerve-preview-bottom .lab-button {
+  font-size: 11px;
+  min-height: 40px;
+  padding: 11px 14px;
+  gap: 18px;
+}
+.nerve-note {
+  padding: 0 25px 17px;
+  font-size: 9px;
+  color: #90a4c0;
+  line-height: 1.6;
+  margin: 0;
+}
+.nerve-overlay {
+  position: fixed;
+  inset: 0;
+  background: #020711d9;
+  backdrop-filter: blur(10px);
+  z-index: 80;
+}
+.nerve-modal {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(1220px, calc(100% - 40px));
+  max-height: 92dvh;
+  overflow: auto;
+  z-index: 90;
+  border-radius: 22px;
+  outline: none;
+}
+.nerve-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  z-index: 2;
+  border: 1px solid #34445b;
+  background: #142139;
+  padding: 6px;
+  border-radius: 7px;
+  color: #fff;
+}
+.nerve-modal .nerve-topbar {
+  padding-right: 61px;
+}
+.expanded .nerve-heading {
+  padding: 26px 27px 0;
+}
+.expanded .nerve-heading h2 {
+  font-size: 32px;
+}
+.expanded .nerve-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(250px, 1fr);
+  padding: 12px 26px 24px;
+  align-items: center;
+  gap: 20px;
+}
+.expanded .nerve-map {
+  max-height: 480px;
+}
+.nerve-detail {
+  background: #102038;
+  border: 1px solid #263751;
+  border-radius: 16px;
+  padding: 24px;
+}
+.nerve-detail .lab-eyebrow {
+  color: #9cbceb;
+  font-size: 9px;
+  margin-bottom: 16px;
+}
+.nerve-detail h3 {
+  font-size: 25px;
+  line-height: 1.15;
+  margin-bottom: 17px;
+  color: #fff;
+}
+.nerve-detail p {
+  font-size: 13px;
+  line-height: 1.75;
+  color: #aec0db;
+}
+.nerve-detail-rule {
+  border-top: 1px solid #2d3c54;
+  margin: 22px 0;
+}
+.nerve-detail h4 {
+  color: #c0b8f5;
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+.nerve-detail ul {
+  padding-left: 16px;
+  list-style: disc;
+  color: #adbfda;
+  font-size: 12px;
+  line-height: 1.9;
+}
+.nerve-controls {
+  padding: 16px 26px;
+  border-top: 1px solid #27354b;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+.nerve-controls-group {
+  display: flex;
+  gap: 7px;
+}
+.nerve-controls .lab-button {
+  min-height: 40px;
+  font-size: 12px;
+}
+.nerve-intro {
+  background: radial-gradient(ellipse at right, #152b4e, #080f20);
+  color: #fff;
+  padding: 68px 0;
+}
+.nerve-intro-inner {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+.nerve-intro-inner > div {
+  flex: 1;
+}
+.nerve-intro-icon {
+  width: 92px;
+  height: 92px;
+  border: 1px solid #425675;
+  border-radius: 24px;
+  background: #142238;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9ab5fa;
+  flex-shrink: 0;
+}
+.nerve-intro .lab-eyebrow {
+  color: #96b5ed;
+  margin-bottom: 12px;
+}
+.nerve-intro h2 {
+  font-size: 32px;
+  line-height: 1.15;
+  margin: 0 0 13px;
+}
+.nerve-intro p {
+  max-width: 590px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #b1bfd4;
+}
+.lab-nerve-page {
+  background: radial-gradient(ellipse at right, #102940, #050b18);
+  padding-bottom: 70px;
+  color: #fff;
+}
+.lab-nerve-page h1 {
+  font-size: clamp(36px, 4vw, 54px);
+  line-height: 1.1;
+}
+.lab-nerve-page .lab-eyebrow {
+  color: #91b6f3;
+}
+.lab-nerve-page > .lab-container > .page-intro {
+  color: #b2c1d7;
+}
+.lab-nerve-page .nerve-explorer {
+  margin-top: 35px;
+}
+/* Learning tabs */
+.learning-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+.learning-tabs button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-width: 145px;
+  padding: 12px 17px;
+  border: 1px solid #e0e5ed;
+  background: #f5f7fa;
+  color: #536174;
+  border-radius: 8px;
+  font-size: 13px;
+}
+.learning-tabs button[aria-selected="true"] {
+  background: #eaf0ff;
+  border-color: #bed0f0;
+  color: #2e59a7;
+}
+.learning-panel {
+  background: #f5f8fe;
+  border: 1px solid #e0e8f3;
+  border-radius: 22px;
+  padding: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 60px;
+  align-items: center;
+  min-height: 282px;
+}
+.learning-panel .lab-eyebrow {
+  font-size: 9px;
+  margin-bottom: 17px;
+}
+.learning-panel h3 {
+  font-size: 29px;
+  line-height: 1.15;
+  margin-bottom: 18px;
+}
+.learning-panel > div > p {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--lab-body);
+  max-width: 440px;
+}
+.learning-flow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 26px;
+}
+.learning-node {
+  position: relative;
+  background: #fff;
+  border: 1px solid #e4eaf3;
+  border-radius: 14px;
+  min-height: 143px;
+  padding: 21px 16px;
+}
+.flow-dot {
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  margin-bottom: 22px;
+  background: #3979cd;
+}
+.dot-1 {
+  background: #1d97b1;
+}
+.dot-2 {
+  background: #996cc4;
+}
+.learning-node h4 {
+  font-size: 21px;
+  margin-bottom: 8px;
+}
+.learning-node p {
+  font-size: 10px;
+  color: #727e8e;
+  line-height: 1.5;
+}
+.flow-arrow {
+  position: absolute;
+  right: -24px;
+  top: 65px;
+  color: #5680be;
+}
+.learning-principles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 35px;
+  margin-top: 38px;
+}
+.learning-principles > div {
+  display: flex;
+  gap: 15px;
+}
+.learning-principles > div > span {
+  font-size: 10px;
+  color: #6084b9;
+  padding-top: 4px;
+}
+.learning-principles h3 {
+  font-size: 20px;
+  margin-bottom: 9px;
+}
+.learning-principles p {
+  font-size: 12px;
+  line-height: 1.6;
+  color: #6b7788;
+}
+/* Research and portfolio */
+.ecosystem-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 18px;
+}
+.tint-violet {
+  --tint: #f0f0ff;
+  --accent: #6852b9;
+}
+.tint-blue {
+  --tint: #edf5ff;
+  --accent: #3976c6;
+}
+.tint-cyan {
+  --tint: #ecfafd;
+  --accent: #1188a4;
+}
+.tint-purple {
+  --tint: #f7eefe;
+  --accent: #8851b4;
+}
+.tint-green {
+  --tint: #ebfaf4;
+  --accent: #168567;
+}
+.product-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--tint);
+  border: 1px solid #d8e2ee;
+  border-radius: 22px;
+  padding: 25px 21px;
+  min-height: 363px;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+  overflow: hidden;
+}
+.product-card:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 17px;
+  right: 17px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+}
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px #1834540d;
+}
+.product-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--accent);
+  font-size: 12px;
+  margin-bottom: 24px;
+}
+.product-icon {
+  height: 46px;
+  width: 46px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e1e7ef;
+  background: #ffffffd9;
+}
+.product-category {
+  display: block;
+  background: #ffffffdc;
+  padding: 7px 8px;
+  border-radius: 5px;
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 22px;
+}
+.product-card h3 {
+  font-size: 25px;
+  line-height: 1.15;
+  min-height: 59px;
+  margin-bottom: 20px;
+}
+.product-card p {
+  font-size: 13px;
+  line-height: 1.75;
+  color: #637085;
+  margin: 0 0 23px;
+}
+.card-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  color: var(--accent, #3f6fae);
+  font-weight: 700;
+  font-size: 11px;
+  margin-top: auto;
+  line-height: 1.6;
+}
+.initiative-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  margin-top: 28px;
+}
+.initiative-grid > a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px;
+  border: 1px solid #e0e6ef;
+  border-radius: 13px;
+  background: #f7f9fc;
+  color: #64748b;
+  transition: border-color 0.2s;
+}
+.initiative-grid > a:hover {
+  border-color: #91aee0;
+}
+.initiative-grid h3 {
+  font-size: 20px;
+  color: var(--lab-ink);
+  margin-bottom: 8px;
+}
+.initiative-grid p {
+  font-size: 11px;
+}
+.research-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 22px;
+}
+.research-card {
+  background: var(--tint);
+  border: 1px solid #dce4ef;
+  border-radius: 20px;
+  padding: 27px;
+  display: flex;
+  flex-direction: column;
+}
+.research-card > .lab-eyebrow {
+  color: var(--accent);
+  font-size: 8px;
+  margin-bottom: 22px;
+}
+.research-card > svg {
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+.research-card h3 {
+  font-size: 26px;
+  line-height: 1.2;
+  min-height: 63px;
+  margin-bottom: 18px;
+}
+.research-card p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: #647186;
+}
+.research-card .research-description {
+  font-size: 13px;
+  margin-top: 17px;
+}
+.research-card .card-link {
+  margin-top: 22px;
+}
+.research-banner {
+  display: flex;
+  gap: 35px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 35px 30px;
+  background: linear-gradient(120deg, #0a1830, #122d57);
+  color: #fff;
+  border-radius: 20px;
+  margin-top: 36px;
+}
+.research-banner .lab-eyebrow {
+  color: #94b8f4;
+  font-size: 8px;
+  margin-bottom: 16px;
+}
+.research-banner h3 {
+  font-size: 32px;
+  margin-bottom: 13px;
+}
+.research-banner p {
+  font-size: 13px;
+  color: #b7c6df;
+  line-height: 1.6;
+}
+.lab-collaborate {
+  background: #080f20;
+  color: #fff;
+}
+.collaborate-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+}
+.lab-collaborate .lab-eyebrow {
+  color: #93b8f6;
+}
+.lab-collaborate p {
+  max-width: 580px;
+  font-size: 15px;
+  line-height: 1.75;
+  color: #a8bad3;
+  margin-top: 24px;
+}
+.collaborate-links {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 23px;
+}
+.collaborate-links > a:not(.lab-button) {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #bed0ee;
+}
+.collaborate-links .lab-button {
+  min-width: 245px;
+}
+.lab-footer {
+  position: relative;
+  background: #040914;
+  color: #a1b2cc;
+  border-top: 1px solid #ffffff12;
+  padding: 55px 0 22px;
+  font-family: "DM Sans", sans-serif;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 55px;
+}
+.footer-grid .lab-brand {
+  margin-bottom: 20px;
+}
+.footer-grid p {
+  font-size: 12px;
+  line-height: 1.8;
+  max-width: 300px;
+}
+.footer-grid h3 {
+  color: #e0e8f6;
+  font-size: 15px;
+  margin-bottom: 18px;
+}
+.footer-grid ul {
+  list-style: none;
+  display: grid;
+  gap: 11px;
+  font-size: 12px;
+}
+.footer-grid a:hover {
+  color: #fff;
+}
+.footer-legal {
+  margin-top: 35px;
+  border-top: 1px solid #ffffff13;
+  padding-top: 23px;
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+  font-size: 10px;
+  line-height: 1.8;
+  color: #7e93af;
+}
+.footer-legal > p {
+  max-width: 720px;
+}
+.about-headline {
+  font-size: clamp(44px, 5vw, 70px);
+  line-height: 1.05;
+  margin-bottom: 50px;
+}
+.about-headline span {
+  color: #3d68bd;
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 85px;
+  color: #65748a;
+  line-height: 1.8;
+  font-size: 16px;
+}
+.about-lead {
+  font-size: 25px;
+  line-height: 1.6;
+  color: #283e5d;
+}
+.about-grid p + p {
+  margin-top: 18px;
+}
+.about-location {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 25px;
+  font-size: 13px;
+}
+.about-principles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 35px;
+  margin-top: 60px;
+  padding-top: 45px;
+  border-top: 1px solid #dfe6f0;
+}
+.about-principles svg {
+  color: #5479c6;
+  margin-bottom: 20px;
+}
+.about-principles h3 {
+  font-size: 23px;
+  margin-bottom: 14px;
+}
+.about-principles p {
+  font-size: 14px;
+  line-height: 1.75;
+  color: #62728a;
+}
+.product-detail-page {
+  max-width: 1050px;
+}
+.back-link {
+  display: block;
+  font-size: 13px;
+  color: #496da9;
+  margin-bottom: 40px;
+}
+.product-detail-page h1 {
+  font-size: clamp(40px, 5vw, 67px);
+  line-height: 1.08;
+  max-width: 800px;
+}
+.product-detail-intro {
+  font-size: 19px;
+  line-height: 1.85;
+  color: #64748b;
+  max-width: 810px;
+  margin: 30px 0;
+}
+.product-focus {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  padding: 35px;
+  border-radius: 20px;
+  background: var(--tint);
+  color: var(--accent);
+  margin: 35px 0;
+}
+.product-focus h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: var(--lab-ink);
+}
+.product-focus ul {
+  display: grid;
+  gap: 10px;
+  font-size: 14px;
+  list-style: none;
+}
+.product-focus li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.chip-caption {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+}
+@keyframes signal-flow {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+@media (min-width: 1700px) {
+  .lab-hero {
+    padding-top: 175px;
+    min-height: 880px;
+  }
+  .hero-grid {
+    gap: 70px;
+  }
+  .nerve-map {
+    max-height: 480px;
+  }
+}
+@media (max-width: 1150px) {
+  .lab-container,
+  .lab-nav-inner {
+    width: calc(100% - 64px);
+  }
+  .hero-grid {
+    gap: 28px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+  }
+  .hero-copy h1 {
+    font-size: 55px;
+  }
+  .hero-copy > p {
+    font-size: 16px;
+  }
+  .lab-hero {
+    min-height: 760px;
+  }
+  .hero-actions .lab-button {
+    padding: 11px 13px;
+    gap: 15px;
+  }
+  .desktop-nav {
+    gap: 20px;
+  }
+  .nerve-preview-bottom {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .nerve-heading {
+    padding: 20px 20px 0;
+  }
+  .learning-panel {
+    gap: 30px;
+    padding: 30px;
+  }
+  .learning-flow {
+    gap: 18px;
+  }
+  .learning-node {
+    padding: 18px 11px;
+  }
+  .flow-arrow {
+    right: -18px;
+    width: 16px;
+  }
+  .learning-node h4 {
+    font-size: 18px;
+  }
+  .ecosystem-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .product-card {
+    min-height: 340px;
+  }
+  .research-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .research-card h3 {
+    min-height: auto;
+  }
+  .lab-section-heading {
+    gap: 35px;
+  }
+  .lab-section-heading > p {
+    max-width: 330px;
+  }
+  .footer-grid {
+    gap: 30px;
+  }
+  .nerve-intro-inner {
+    gap: 25px;
+  }
+  .nerve-intro-icon {
+    display: none;
+  }
+}
+@media (max-width: 800px) {
+  .lab-header {
+    height: 76px;
+  }
+  .lab-container,
+  .lab-nav-inner {
+    width: calc(100% - 40px);
+  }
+  .desktop-nav,
+  .header-cta {
+    display: none;
+  }
+  .mobile-toggle {
+    display: flex;
+  }
+  .mobile-nav {
+    position: absolute;
+    top: 75px;
+    left: 0;
+    right: 0;
+    display: grid;
+    gap: 0;
+    background: #080f20;
+    padding: 15px 20px 25px;
+    border-bottom: 1px solid #30415d;
+    box-shadow: 0 20px 35px #0005;
+  }
+  .mobile-nav > a {
+    padding: 15px;
+    color: #d9e4f7;
+    font:
+      16px "DM Sans",
+      sans-serif;
+    border-bottom: 1px solid #ffffff0a;
+  }
+  .mobile-nav > .lab-button {
+    margin-top: 15px;
+  }
+  .lab-brand img {
+    width: 36px;
+    height: 36px;
+  }
+  .lab-brand strong {
+    font-size: 20px;
+  }
+  .lab-hero {
+    padding-top: 125px;
+    min-height: 0;
+  }
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 38px;
+  }
+  .hero-copy h1 {
+    font-size: clamp(52px, 10vw, 75px);
+    line-height: 1.04;
+  }
+  .hero-copy > p {
+    max-width: 510px;
+    font-size: 17px;
+  }
+  .hero-copy h1 {
+    max-width: 600px;
+  }
+  .hero-copy h1 span {
+    display: inline-block;
+  }
+  .hero-actions .lab-button {
+    font-size: 13px;
+    min-height: 46px;
+    padding: 13px 18px;
+    gap: 24px;
+  }
+  .hero-mantra {
+    margin-top: 23px;
+  }
+  .nerve-preview-bottom {
+    flex-direction: row;
+    align-items: center;
+  }
+  .nerve-map {
+    max-height: 440px;
+  }
+  .nerve-heading h2 {
+    font-size: 27px;
+  }
+  .lab-section {
+    padding: 70px 0;
+  }
+  .lab-section-heading {
+    display: block;
+    margin-bottom: 34px;
+  }
+  .lab-section-heading > p {
+    max-width: 530px;
+    margin-top: 23px;
+    font-size: 15px;
+  }
+  .lab-section-heading h1,
+  .lab-section-heading h2 {
+    font-size: 36px;
+  }
+  .learning-tabs {
+    gap: 7px;
+  }
+  .learning-tabs button {
+    min-width: 0;
+    flex: 1;
+    font-size: 12px;
+    padding: 11px 8px;
+    gap: 6px;
+  }
+  .learning-tabs button svg {
+    width: 14px;
+  }
+  .learning-panel {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 28px;
+  }
+  .learning-panel > div > p {
+    max-width: none;
+    font-size: 15px;
+  }
+  .learning-flow {
+    gap: 23px;
+  }
+  .flow-arrow {
+    right: -21px;
+  }
+  .learning-node {
+    padding: 20px;
+    min-height: 130px;
+  }
+  .learning-node h4 {
+    font-size: 22px;
+  }
+  .learning-principles {
+    gap: 22px;
+  }
+  .learning-principles h3 {
+    font-size: 18px;
+  }
+  .learning-principles > div {
+    gap: 8px;
+  }
+  .nerve-intro-inner {
+    flex-wrap: wrap;
+  }
+  .nerve-intro-inner > div {
+    flex-basis: 100%;
+  }
+  .nerve-intro h2 {
+    font-size: 31px;
+  }
+  .ecosystem-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+  }
+  .product-card {
+    min-height: 345px;
+    padding: 22px;
+  }
+  .product-card h3 {
+    font-size: 25px;
+    min-height: 58px;
+  }
+  .initiative-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .initiative-grid > a {
+    padding: 20px;
+  }
+  .research-grid {
+    gap: 16px;
+  }
+  .research-card {
+    padding: 23px;
+  }
+  .research-card h3 {
+    font-size: 25px;
+  }
+  .research-banner {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 25px;
+    padding: 30px;
+  }
+  .research-banner h3 {
+    font-size: 29px;
+  }
+  .collaborate-inner {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 32px;
+  }
+  .lab-collaborate h2 {
+    font-size: 37px;
+  }
+  .collaborate-links {
+    gap: 20px;
+  }
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 35px;
+  }
+  .footer-legal {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .lab-page-start {
+    padding-top: 125px;
+  }
+  .expanded .nerve-body {
+    grid-template-columns: 1fr;
+    padding: 10px 20px 20px;
+    gap: 10px;
+  }
+  .expanded .nerve-map {
+    max-height: 330px;
+  }
+  .expanded .nerve-heading h2 {
+    font-size: 26px;
+  }
+  .nerve-detail {
+    padding: 20px;
+  }
+  .nerve-detail h3 {
+    font-size: 24px;
+  }
+  .nerve-detail-rule {
+    margin: 15px 0;
+  }
+  .nerve-controls {
+    flex-wrap: wrap;
+    padding: 16px 20px;
+  }
+  .nerve-modal {
+    width: calc(100% - 24px);
+  }
+  .nerve-modal .nerve-topbar > span {
+    font-size: 7px;
+    max-width: 150px;
+  }
+  .nerve-modal .nerve-topbar {
+    padding-right: 55px;
+  }
+  .nerve-modal .quiet-button {
+    font-size: 9px;
+  }
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .about-lead {
+    font-size: 23px;
+  }
+  .about-principles {
+    gap: 25px;
+  }
+  .about-principles h3 {
+    font-size: 22px;
+  }
+  .about-headline {
+    font-size: 48px;
+  }
+  .product-detail-intro {
+    font-size: 17px;
+  }
+  .product-focus {
+    padding: 26px;
+    gap: 26px;
+  }
+  .product-detail-page h1 {
+    font-size: 47px;
+  }
+}
+@media (max-width: 480px) {
+  .lab-container,
+  .lab-nav-inner {
+    width: calc(100% - 36px);
+  }
+  .lab-hero {
+    padding-top: 114px;
+  }
+  .hero-copy h1 {
+    font-size: 56px;
+  }
+  .hero-copy h1 br:nth-of-type(2) {
+    display: initial;
+  }
+  .hero-copy > .lab-eyebrow {
+    font-size: 9px;
+    margin-bottom: 23px;
+  }
+  .hero-copy > p {
+    font-size: 16px;
+    margin-top: 26px;
+  }
+  .hero-copy h1 {
+    margin-bottom: 25px;
+  }
+  .hero-mantra {
+    font-size: 12px;
+  }
+  .hero-actions {
+    gap: 9px;
+  }
+  .hero-actions .lab-button {
+    padding: 12px 14px;
+    gap: 15px;
+    font-size: 12px;
+  }
+  .nerve-explorer {
+    border-radius: 17px;
+  }
+  .nerve-topbar {
+    padding: 13px 14px;
+    gap: 7px;
+  }
+  .nerve-topbar > span {
+    font-size: 7px;
+    letter-spacing: 0.06em;
+  }
+  .nerve-topbar .quiet-button {
+    font-size: 8px;
+    padding: 7px;
+  }
+  .nerve-topbar .quiet-button svg {
+    width: 11px;
+  }
+  .nerve-heading {
+    padding: 20px 18px 0;
+  }
+  .nerve-heading h2 {
+    font-size: 24px;
+  }
+  .nerve-heading p {
+    font-size: 11px;
+  }
+  .nerve-map {
+    min-height: 270px;
+  }
+  .nerve-preview-bottom {
+    padding: 0 17px 14px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+  .nerve-preview-bottom p {
+    max-width: none;
+    font-size: 11px;
+  }
+  .nerve-preview-bottom .lab-button {
+    justify-content: space-between;
+  }
+  .nerve-note {
+    padding: 0 17px 17px;
+    font-size: 8px;
+  }
+  .learning-tabs button {
+    font-size: 11px;
+    gap: 0;
+  }
+  .learning-tabs button svg {
+    display: none;
+  }
+  .lab-section-heading h1,
+  .lab-section-heading h2 {
+    font-size: 33px;
+  }
+  .learning-panel {
+    padding: 23px 18px;
+    gap: 26px;
+    min-height: 0;
+  }
+  .learning-panel h3 {
+    font-size: 27px;
+  }
+  .learning-panel > div > p {
+    font-size: 14px;
+  }
+  .learning-flow {
+    gap: 13px;
+  }
+  .learning-node {
+    padding: 14px 9px;
+    min-height: 125px;
+  }
+  .learning-node h4 {
+    font-size: 16px;
+    letter-spacing: -0.04em;
+  }
+  .learning-node p {
+    font-size: 9px;
+  }
+  .flow-dot {
+    margin-bottom: 18px;
+  }
+  .flow-arrow {
+    width: 11px;
+    right: -13px;
+    top: 59px;
+  }
+  .learning-principles {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .learning-principles > div {
+    gap: 15px;
+  }
+  .learning-principles h3 {
+    font-size: 21px;
+  }
+  .learning-principles p {
+    font-size: 13px;
+  }
+  .lab-caption {
+    font-size: 10px;
+  }
+  .ecosystem-grid {
+    grid-template-columns: 1fr;
+  }
+  .product-card {
+    min-height: 0;
+    padding: 26px;
+  }
+  .product-card h3 {
+    min-height: 0;
+    max-width: 270px;
+    font-size: 28px;
+  }
+  .product-card p {
+    font-size: 14px;
+    margin-bottom: 25px;
+  }
+  .product-category {
+    font-size: 10px;
+    width: fit-content;
+    min-width: 170px;
+  }
+  .product-card-top {
+    margin-bottom: 22px;
+  }
+  .card-link {
+    font-size: 12px;
+  }
+  .research-grid {
+    grid-template-columns: 1fr;
+  }
+  .research-card {
+    padding: 27px;
+  }
+  .research-card h3 {
+    font-size: 28px;
+  }
+  .research-card p {
+    font-size: 15px;
+  }
+  .research-card > .lab-eyebrow {
+    font-size: 9px;
+  }
+  .lab-section {
+    padding: 62px 0;
+  }
+  .lab-page-start {
+    padding-top: 122px;
+  }
+  .about-headline {
+    font-size: 39px;
+    line-height: 1.1;
+  }
+  .about-principles {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .product-focus {
+    align-items: flex-start;
+    gap: 18px;
+    flex-direction: column;
+  }
+  .product-detail-page h1 {
+    font-size: 39px;
+  }
+  .product-focus li {
+    align-items: flex-start;
+  }
+  .product-focus li svg {
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+  .footer-grid {
+    gap: 32px 18px;
+  }
+  .footer-grid > div:first-child {
+    grid-column: 1/-1;
+  }
+  .footer-grid p {
+    max-width: 300px;
+  }
+  .lab-footer {
+    padding-bottom: 100px;
+  }
+  .footer-legal {
+    font-size: 10px;
+  }
+  .lab-nerve-page {
+    padding-top: 125px;
+  }
+  .expanded .nerve-heading {
+    padding: 22px 18px 0;
+  }
+  .expanded .nerve-body {
+    padding: 10px 14px 16px;
+  }
+  .expanded .nerve-heading h2 {
+    font-size: 25px;
+  }
+  .nerve-controls .lab-button {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .nerve-modal .nerve-topbar > span {
+    max-width: 110px;
+  }
+  .nerve-modal .nerve-topbar .status-dot {
+    display: none;
+  }
+  .nerve-detail h3 {
+    font-size: 23px;
+  }
+  .nerve-detail p {
+    font-size: 12px;
+  }
+  .nerve-controls-group {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+  .nerve-signal {
+    animation: none !important;
+  }
+  .lab-button,
+  .product-card {
+    transition: none;
+  }
+  .lab-button:hover,
+  .product-card:hover {
+    transform: none;
+  }
+}

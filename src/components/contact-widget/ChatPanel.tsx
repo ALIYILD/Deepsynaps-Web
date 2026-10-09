@@ -25,7 +25,7 @@ interface ChatPanelProps {
 }
 
 const GREETING: Record<SiteId, string> = {
-  web: `Hello — I am the DeepSynaps website assistant. Ask me about the services, the OS, the Lab or the Academy, and I can pass a message to ${CONTACT.founder} whenever you want a person.`,
+  web: `Hello — I am the DeepSynaps website assistant. Ask me about NERVE, adaptive intelligence, the ecosystem or clinical services, and I can pass a message to ${CONTACT.founder} whenever you want a person.`,
   academy: `Hello — I am the DeepSynaps Academy assistant. Ask me about formats, tracks or who the teaching is for, and I can put you on the notify list or pass a message to ${CONTACT.founder}.`,
   lab: `Hello — I am the DeepSynaps Lab assistant. Ask me about the HAC chips, the science behind them or the research programme, and I can pass a message to ${CONTACT.founder}.`,
 };
