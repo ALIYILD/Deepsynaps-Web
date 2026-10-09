@@ -44,13 +44,16 @@ function RouteEffects() {
         services: "collaborate",
       };
       const id = hash.slice(1);
-      document
-        .getElementById(oldAnchors[id] || id)
-        ?.scrollIntoView({
+      const target = document.getElementById(oldAnchors[id] || id);
+      if (target) {
+        target.scrollIntoView({
           behavior: reducedMotion ? "instant" : "smooth",
           block: "start",
         });
-    } else window.scrollTo({ top: 0, behavior: "instant" });
+        return;
+      }
+    }
+    window.scrollTo({ top: 0, behavior: "instant" });
   }, [pathname, hash]);
   return null;
 }

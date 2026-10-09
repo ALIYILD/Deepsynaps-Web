@@ -9,9 +9,14 @@ const links = [
   { label: "Ecosystem", href: "/#ecosystem" },
   { label: "The Lab", href: "/about" },
 ];
-export function Brand() {
+export function Brand({ onNavigate }: { onNavigate?: () => void }) {
   return (
-    <Link to="/" className="lab-brand" aria-label="DeepSynaps AI Lab home">
+    <Link
+      to="/"
+      onClick={onNavigate}
+      className="lab-brand"
+      aria-label="DeepSynaps AI Lab home"
+    >
       <img src="/deepsynaps-symbol.svg" width="42" height="42" alt="" />
       <span>
         <strong>DeepSynaps</strong>
@@ -29,7 +34,7 @@ export function Header() {
       </a>
       <header className="lab-header">
         <div className="lab-nav-inner">
-          <Brand />
+          <Brand onNavigate={() => setOpen(false)} />
           <nav className="desktop-nav" aria-label="Main navigation">
             {links.map((link) => (
               <NavLink key={link.label} to={link.href}>

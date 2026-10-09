@@ -55,17 +55,10 @@ function pageContext(pathname: string): { interest: LeadInterest; subject: strin
       prefill: CONTACT.whatsappPrefill,
     };
   }
-  if (pathname.startsWith('/about')) {
-    return {
-      interest: 'consultation',
-      subject: 'DeepSynaps enquiry',
-      prefill: `Hi ${CONTACT.founder} — I read about DeepSynaps and have a question.`,
-    };
-  }
   return {
-    interest: 'consultation',
-    subject: 'DeepSynaps enquiry',
-    prefill: CONTACT.whatsappPrefill,
+    interest: 'lab-collaboration',
+    subject: 'DeepSynaps AI Lab enquiry',
+    prefill: `Hi ${CONTACT.founder} — I'd like to discuss DeepSynaps AI Lab, NERVE or a research collaboration.`,
   };
 }
 
