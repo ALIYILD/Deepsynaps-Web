@@ -14,7 +14,12 @@ import { NerveExplorer, NerveModal } from "@/components/lab/NerveExplorer";
 import { CONTACT } from "@/config/contact";
 import { products, researchTopics, stages } from "@/data/lab";
 
-export function AdaptiveLearning() {
+export function AdaptiveLearning({
+  standalone = false,
+}: {
+  standalone?: boolean;
+}) {
+  const Heading = standalone ? "h1" : "h2";
   const [active, setActive] = useState(0);
   const stage = stages[active];
   return (
@@ -23,11 +28,11 @@ export function AdaptiveLearning() {
         <div className="lab-section-heading">
           <div>
             <span className="lab-eyebrow">The adaptive learning loop</span>
-            <h2>
+            <Heading>
               From sensory signals
               <br />
               to evaluated learning.
-            </h2>
+            </Heading>
           </div>
           <p>
             Follow a signal through analysis, prediction, agent collaboration
@@ -235,7 +240,7 @@ export function ResearchSection({
           {researchTopics.map((topic) => (
             <article
               className={`research-card tint-${topic.color}`}
-              id={topic.id}
+              id={`research-${topic.id}`}
               key={topic.id}
             >
               <span className="lab-eyebrow">Research direction</span>
@@ -399,7 +404,7 @@ export function ResearchPage() {
 export function LearningPage() {
   return (
     <div className="ai-lab lab-page-start">
-      <AdaptiveLearning />
+      <AdaptiveLearning standalone />
       <CollaborationSection />
     </div>
   );
