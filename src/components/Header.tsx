@@ -1,108 +1,88 @@
-import { useState } from 'react';
-import { Menu, X, ArrowRight } from 'lucide-react';
-import { Link, useLocation } from 'react-router';
-import { useScrollPosition } from '@/hooks/useScrollPosition';
+import { useState } from "react";
+import { Menu, X, ArrowRight } from "lucide-react";
+import { Link, NavLink } from "react-router";
 
-const navLinks = [
-  { label: 'About', href: '/about' },
-  { label: 'Services', href: '/#services' },
-  { label: 'Academy', href: '/academy' },
-  { label: 'Ecosystem', href: '/#ecosystem' },
-  { label: 'OS', href: '/#os-preview' },
+const links = [
+  { label: "Research", href: "/research" },
+  { label: "NERVE", href: "/nerve" },
+  { label: "Products", href: "/ecosystem" },
+  { label: "Ecosystem", href: "/#ecosystem" },
+  { label: "The Lab", href: "/about" },
 ];
-
+export function Brand() {
+  return (
+    <Link to="/" className="lab-brand" aria-label="DeepSynaps AI Lab home">
+      <img src="/deepsynaps-symbol.svg" width="42" height="42" alt="" />
+      <span>
+        <strong>DeepSynaps</strong>
+        <small>AI LAB</small>
+      </span>
+    </Link>
+  );
+}
 export function Header() {
-  const scrollY = useScrollPosition();
-  const location = useLocation();
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const isScrolled = scrollY > 60 || location.pathname !== '/';
-
-  const handleLinkClick = () => setMobileOpen(false);
-
+  const [open, setOpen] = useState(false);
   return (
     <>
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? 'bg-[rgba(5,10,20,0.85)] backdrop-blur-[16px] border-b border-ds-divider py-3.5'
-            : 'bg-transparent py-5'
-        }`}
-      >
-        <div className="max-w-[1400px] mx-auto px-6 md:px-8 lg:px-12 flex items-center justify-between gap-6">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2.5 flex-shrink-0">
-            <img
-              src="/logo.png"
-              alt="DeepSynaps"
-              className="h-8 md:h-9 w-auto"
-              style={{ filter: 'brightness(0) invert(1)' }}
-            />
+      <a className="skip-link" href="#main-content">
+        Skip to content
+      </a>
+      <header className="lab-header">
+        <div className="lab-nav-inner">
+          <Brand />
+          <nav className="desktop-nav" aria-label="Main navigation">
+            {links.map((link) => (
+              <NavLink key={link.label} to={link.href}>
+                {link.label}
+              </NavLink>
+            ))}
+          </nav>
+          <Link to="/#collaborate" className="lab-button header-cta">
+            Work with us <ArrowRight size={15} />
           </Link>
-
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-7 flex-1 justify-center">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-sm font-medium text-ds-text-secondary hover:text-ds-text transition-colors duration-200"
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
-
-          {/* CTA + Mobile Toggle */}
-          <div className="flex items-center gap-3">
-            <Link
-              to="/consultations"
-              className="hidden md:inline-flex items-center gap-1.5 text-sm font-semibold text-ds-bg bg-ds-amber hover:bg-ds-amber/90 px-4 py-2.5 rounded-lg transition-all hover:shadow-[0_4px_18px_rgba(212,148,58,0.35)]"
-            >
-              Book consultation
-              <ArrowRight size={14} />
-            </Link>
-            <button
-              className="md:hidden w-11 h-11 flex items-center justify-center text-ds-text"
-              onClick={() => setMobileOpen(!mobileOpen)}
-              aria-label="Toggle menu"
-            >
-              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-            </button>
-          </div>
-        </div>
-      </header>
-
-      {/* Mobile Menu Overlay */}
-      {mobileOpen && (
-        <div className="fixed inset-0 z-[60] bg-[rgba(5,10,20,0.97)] backdrop-blur-[20px] flex flex-col items-center justify-center">
           <button
-            className="absolute top-6 right-6 w-11 h-11 flex items-center justify-center text-ds-text"
-            onClick={() => setMobileOpen(false)}
-            aria-label="Close menu"
+            className="mobile-toggle"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            aria-controls="mobile-navigation"
+            onClick={() => setOpen(!open)}
           >
-            <X size={24} />
+            {open ? <X size={20} /> : <Menu size={20} />}
           </button>
-          <nav className="flex flex-col items-center gap-6">
-            {navLinks.map((link) => (
-              <a
+        </div>
+        {open && (
+          <nav
+            id="mobile-navigation"
+            className="mobile-nav"
+            aria-label="Mobile navigation"
+            onKeyDown={(e) => {
+              if (e.key === "Escape") {
+                setOpen(false);
+                document
+                  .querySelector<HTMLButtonElement>(".mobile-toggle")
+                  ?.focus();
+              }
+            }}
+          >
+            {links.map((link) => (
+              <Link
                 key={link.label}
-                href={link.href}
-                onClick={handleLinkClick}
-                className="text-2xl font-semibold text-ds-text hover:text-ds-amber transition-colors duration-200"
+                to={link.href}
+                onClick={() => setOpen(false)}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
             <Link
-              to="/consultations"
-              onClick={handleLinkClick}
-              className="btn-primary mt-4"
+              className="lab-button"
+              to="/#collaborate"
+              onClick={() => setOpen(false)}
             >
-              Book consultation
+              Work with us <ArrowRight size={16} />
             </Link>
           </nav>
-        </div>
-      )}
+        )}
+      </header>
     </>
   );
 }

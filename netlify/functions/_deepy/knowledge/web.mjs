@@ -2,7 +2,7 @@
  * What deepsynaps.ai actually says.
  *
  * Every line below is transcribed or condensed from the site's own source:
- * `src/sections/*.tsx` (home), `src/pages/About.tsx`, `src/pages/Academy.tsx`,
+ * `src/pages/AILab.tsx`, `src/data/lab.ts`, `src/pages/Academy.tsx`,
  * `src/pages/Consultations.tsx` and `src/components/Footer.tsx`. Nothing is
  * added. There are no prices, no dates, no credentials and no clinical claims
  * here because there are none on those pages, and the assistant may only say
@@ -16,21 +16,51 @@
 
 export const title = 'DeepSynaps — deepsynaps.ai';
 
-export const summary =
-  'DeepSynaps is an interdisciplinary AI and neuroscience organisation led by Dr. Ali Yildirim, '
-  + 'based in the United Kingdom. It partners with clinics and researchers on AI protocol development, '
-  + 'neuromodulation consultation, QEEG brain-map review and clinic integration, and it runs three '
-  + 'divisions: DeepSynaps OS (the clinical platform), DeepSynaps Lab (research) and DeepSynaps Academy (training).';
+export const summary = "DeepSynaps AI Lab is based in the United Kingdom and develops adaptive intelligence through sensory understanding, specialist agents and shared learning. Its proposed architecture connects sensory inputs, analyzers, digital twins and NERVE. Clinical Intelligence OS is its first application; the ecosystem also includes chip design, Perfflux, Peak Performance and Academy.";
 
 export const pages = Object.freeze([
   { path: '/', label: 'Home' },
-  { path: '/about', label: 'About' },
+  { path: '/about', label: 'The Lab' },
+  { path: '/research', label: 'Research' },
+  { path: '/nerve', label: 'NERVE' },
+  { path: '/ecosystem', label: 'Ecosystem' },
   { path: '/academy', label: 'Academy' },
   { path: '/consultations', label: 'Consultations and services' },
   { path: '/privacy', label: 'Privacy notice' },
 ]);
 
 export const entries = Object.freeze([
+{
+  "id": "nerve",
+  "title": "NERVE and adaptive learning",
+  "keywords": [
+    "nerve",
+    "adaptive",
+    "agent",
+    "agents",
+    "memory",
+    "memories",
+    "self learn",
+    "self improve",
+    "world model",
+    "physical ai",
+    "sensory"
+  ],
+  "body": "NERVE is the proposed coordination layer for specialist agents, tools, memories and actions. Sensory inputs feed analyzers and digital twins; agents reason with that context, coordinate permitted actions and evaluate feedback. Useful experience can be retained as memories and skills and shared selectively. The network explorer on /nerve is illustrative, not a live intelligence system. Adaptive learning and physical AI are research directions; memory updates do not by themselves establish model-weight learning or validated autonomous improvement."
+},
+{
+  "id": "perfflux",
+  "title": "Perfflux",
+  "keywords": [
+    "perfflux",
+    "infrastructure",
+    "telemetry",
+    "efficiency",
+    "optimisation",
+    "optimization"
+  ],
+  "body": "Perfflux focuses on AI infrastructure performance, telemetry and efficiency. Its areas of focus are infrastructure telemetry, performance and efficiency evaluation, and agent-assisted optimisation research. See /ecosystem/perfflux or email ali.yildirim@deepsynaps.com to discuss the current work."
+},
   {
     id: 'services',
     title: 'Services you can book',
@@ -57,37 +87,24 @@ export const entries = Object.freeze([
   },
   {
     id: 'about',
-    title: 'About DeepSynaps and Dr. Ali Yildirim',
+    title: "About DeepSynaps AI Lab",
     keywords: ['about', 'who', 'founder', 'ali', 'yildirim', 'team', 'company', 'organisation', 'organization', 'where', 'based', 'uk'],
     body:
-      'DeepSynaps is an interdisciplinary AI and neuroscience organisation led by Dr. Ali Yildirim, Founder '
-      + 'and Clinical Director, based in the United Kingdom. It partners with clinics and researchers to '
-      + 'develop AI protocols, design neuromodulation interventions and review brain-map data. The site '
-      + 'describes the starting observation as a tooling problem rather than a knowledge problem: the gap '
-      + 'between what neuroscience knows and what an average clinic can deliver. Full detail is on /about.',
+      "DeepSynaps AI Lab brings together research in adaptive intelligence, collaborative agents and brain-inspired computing. Based in the United Kingdom, its goal is to connect evaluated experience with action. Clinical Intelligence OS is the first application. See /about and /research, or contact Dr. Ali Yildirim at ali.yildirim@deepsynaps.com.",
   },
   {
     id: 'principles',
-    title: 'How DeepSynaps works',
+    title: "How DeepSynaps works",
     keywords: ['principle', 'principles', 'values', 'how you work', 'evidence', 'transparent', 'safety', 'governance'],
     body:
-      'Four stated principles. Patient-first: every protocol and feature is judged against whether it helps '
-      + 'the patient. Evidence-graded: recommendations are anchored in published evidence and explicitly '
-      + 'graded, never inflated. Clinician-led: AI tools support clinicians and do not diagnose, prescribe or '
-      + 'replace clinical judgment. Transparent: when the system is uncertain it says so, when data is '
-      + 'degraded it shows it, and demo features are labelled.',
+      "The lab describes three principles: keep sources visible, evaluate improvement, and keep people in control. Signals, interpretations and predictions remain distinct. Outcomes should be evaluated before experience becomes reusable learning. Meaningful actions need defined permissions and review points. See /about.",
   },
   {
     id: 'ecosystem',
-    title: 'The three divisions',
+    title: "The DeepSynaps ecosystem",
     keywords: ['ecosystem', 'division', 'divisions', 'pillar', 'pillars', 'os', 'lab', 'academy', 'structure'],
     body:
-      'DeepSynaps operates through three integrated divisions. DeepSynaps OS is clinical intelligence '
-      + 'infrastructure for neurotechnology clinics: evidence-aware workflows, protocol support, digital '
-      + 'brain systems and clinical decision support. DeepSynaps Lab is research and innovation in '
-      + 'computational neuroscience, neuromorphic computing, qEEG, digital twins and brain-inspired '
-      + 'architectures, with its own site at deepsynapslab.com. DeepSynaps Academy is education, training and '
-      + 'professional learning, with its own site at deepsynapsacademy.com.',
+      "The ecosystem includes DeepSynaps Chip Design Lab, Clinical Intelligence OS, Perfflux for AI infrastructure performance and telemetry, Peak Performance, and Academy. Regional operations include DeepSynaps T\u00fcrkiye. Niraxx and SyncWell are presented as neurotechnology and biometric platform initiatives. See /ecosystem for each area.",
   },
   {
     id: 'os',
@@ -102,13 +119,10 @@ export const entries = Object.freeze([
   },
   {
     id: 'lab',
-    title: 'DeepSynaps Lab research themes',
+    title: "Chip Design Lab",
     keywords: ['lab', 'research', 'neuromorphic', 'chip', 'chips', 'hac', 'photonic', 'computational neuroscience', 'collaborate'],
     body:
-      'DeepSynaps Lab is the research arm. Its themes are neuromorphic computing, brain-inspired AI, '
-      + 'computational neuroscience, digital brain systems, human-AI interfaces and neurotechnology '
-      + 'innovation. The Lab has its own site at deepsynapslab.com covering the Hybrid AI Chip (HAC) '
-      + 'programme in detail.',
+      "DeepSynaps Chip Design Lab explores brain-inspired chip architectures, sensory processing, efficient compute, and hardware and software co-design. This is a research programme, not an announcement of fabricated or commercially available chips. See /ecosystem/chip-design and the existing chip lab website at deepsynapslab.com.",
   },
   {
     id: 'academy',
@@ -124,24 +138,17 @@ export const entries = Object.freeze([
   },
   {
     id: 'audience',
-    title: 'Who DeepSynaps works with',
+    title: "Who DeepSynaps works with",
     keywords: ['who is it for', 'clinic', 'clinics', 'hospital', 'researcher', 'clinician', 'doctor', 'engineer', 'suitable'],
     body:
-      'The site describes the work as being for neuromodulation practices, research labs and digital-health '
-      + 'teams, and the Academy as being for clinicians, clinics and hospitals, researchers, and engineers '
-      + 'and builders. A single clinician, a small clinic or a large institution are all named as intended '
-      + 'users of the stack.',
+      "DeepSynaps AI Lab welcomes researchers, AI developers, hardware teams and partners working on intelligent systems. Clinical Intelligence OS supports clinicians, patients and developers. The Academy offers professional learning across AI, neuroscience and neurotechnology. For collaboration, email ali.yildirim@deepsynaps.com.",
   },
   {
     id: 'mission',
-    title: 'Mission and vision',
+    title: "Mission and vision",
     keywords: ['mission', 'vision', 'why', 'purpose', 'believe', 'goal'],
     body:
-      'The stated mission is to connect artificial intelligence, neuroscience, clinical systems, '
-      + 'neurotechnology and cognitive computing into a unified framework for advancing human understanding '
-      + 'and clinical capability. The strategic focus covers six domains: clinical intelligence, neuroscience '
-      + 'infrastructure, brain-inspired computing, human-centered neurotechnology, AI research, and education '
-      + 'and training.',
+      "DeepSynaps AI Lab is developing adaptive intelligence through sensory understanding, specialist agents and shared learning. The proposed loop connects signals, analyzers, twins, NERVE, action and evaluated feedback. Research directions include adaptive learning, collaborative agents, world models and physical AI, and chip design. Research directions are not claims of validated autonomous learning or deployed robotic capability.",
   },
   {
     id: 'limits',
