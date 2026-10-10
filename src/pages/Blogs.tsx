@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router";
-import { ArrowLeft, ArrowRight, BrainCircuit, Workflow, Layers3, Globe2, BookOpen, Clock3 } from "lucide-react";
+import { ArrowLeft, ArrowRight, BrainCircuit, Workflow, Layers3, Globe2, Network, BookOpen, Clock3 } from "lucide-react";
 
 type Section = { heading: string; paragraphs: string[] };
 type Article = { slug: string; title: string; subtitle: string; category: string; read: string; summary: string; sections: Section[] };
@@ -119,9 +119,47 @@ const articles: Article[] = [
       ]}
     ]
   }
+  {
+    slug: "inter-agency-collaborative-working",
+    title: "What Is Inter-Agency Collaborative Working?",
+    subtitle: "How different professionals, organisations and intelligent agents can work together around shared goals.",
+    category: "COLLABORATION", read: "8 min read",
+    summary: "A practical guide to coordinated working across healthcare, education, social care and the DeepSynaps NERVE architecture.",
+    sections: [
+      { heading: "What does inter-agency collaborative working mean?", paragraphs: [
+        "Inter-agency collaborative working is when different organisations, services or professional teams coordinate their expertise to achieve an outcome that none could deliver as effectively alone. It is especially important when a person's needs cross institutional boundaries: for example, a child may need input from a teacher, speech and language therapist, paediatrician and social worker.",
+        "Good collaboration is more than sharing a report. It requires shared goals, agreed responsibilities, respectful communication, suitable information-sharing arrangements and a way to check whether the joint plan is working."
+      ]},
+      { heading: "A real-world example: supporting a child", paragraphs: [
+        "Imagine a pupil experiencing difficulties with communication, learning and emotional regulation. A school may notice the classroom pattern; a speech and language therapist can assess communication; a clinician can consider health factors; and the family can explain what happens at home.",
+        "Each party sees only part of the picture. Together, with appropriate consent and lawful information-sharing, they can develop a coordinated support plan, identify who is responsible for each action and review progress against meaningful outcomes. The family's preferences should shape the plan rather than being treated as an afterthought."
+      ]},
+      { heading: "The principles that make collaboration work", paragraphs: [
+        "First, establish a shared purpose and put the person receiving support at the centre. Second, clarify roles and decision-making authority: contribution is shared, but professional accountability does not disappear. Third, use a common vocabulary and structured handovers so important findings are not lost between teams.",
+        "Fourth, share only necessary information under appropriate permissions and applicable privacy law. Fifth, agree escalation procedures for uncertainty, disagreement and safeguarding concerns. Finally, use regular reviews and outcome measures so the collaboration can be improved, not merely documented."
+      ]},
+      { heading: "How does this relate to multi-agent AI?", paragraphs: [
+        "DeepSynaps AI Lab draws a useful design analogy between inter-agency practice and multi-agent computing. Just as professional services have different areas of expertise, NERVE is being designed to coordinate specialist software agents. An analyser agent may assess a signal; an evidence agent may locate supporting research; an outcome agent may track change; and a coordinating agent may assemble results for review.",
+        "These software agents are not the same as independent human agencies. They do not have professional licences, moral responsibility or the authority to make clinical decisions. The analogy is about specialisation, communication, accountability boundaries and shared objectives — not about replacing clinical or safeguarding teams."
+      ]},
+      { heading: "An illustrative NERVE collaboration loop", paragraphs: [
+        "A potential workflow begins with an authorised request and quality-checked data. NERVE identifies the relevant tasks, sends them to specialist agents and receives structured findings with source references and confidence or uncertainty signals.",
+        "A verification stage compares claims against evidence, checks for contradictions and flags information gaps. The system then presents a coherent summary or proposed next steps to an authorised human professional. Feedback on the eventual outcome can inform audited improvements to the workflow.",
+        "For instance, an EEG analysis agent and a cognitive assessment agent may offer complementary observations, while a literature agent retrieves studies relevant to a clinician's question. Their combined output can support review, but it cannot by itself establish a diagnosis or treatment plan."
+      ]},
+      { heading: "The challenges: disagreement, privacy and fragmented systems", paragraphs: [
+        "Real collaboration can fail when professionals use incompatible records, responsibilities are unclear, teams have different priorities or information is outdated. AI systems face similar technical problems: conflicting outputs, inconsistent data formats, unreliable tool results and hidden assumptions.",
+        "Good orchestration should preserve provenance, restrict access, make disagreements visible and provide escalation to people who can resolve them. In sensitive domains, autonomous action should be limited by policy, consent and human authorisation."
+      ]},
+      { heading: "Where could this approach help?", paragraphs: [
+        "Possible applications include integrated health and social care, multidisciplinary rehabilitation, special educational needs support, mental health services, research collaborations and complex operational decision support. The common opportunity is to connect fragmented information without erasing the expertise of each participant.",
+        "DeepSynaps' long-term research direction is to bring these collaborative principles into an adaptive intelligence architecture: specialised components working toward shared objectives, with transparent evidence, clear boundaries and continuous evaluation. That is a design ambition, and individual technical or clinical capabilities must be validated before real-world use."
+      ]}
+    ]
+  },
 ];
 
-const icons = [BrainCircuit, Workflow, Layers3, Globe2];
+const icons = [BrainCircuit, Workflow, Layers3, Globe2, Network];
 function BlogCard({ article, index }: { article: Article; index: number }) {
   const Icon = icons[index];
   return <Link to={`/blogs/${article.slug}`} className="glass-card group block h-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-400" style={{textDecoration:"none"}}>
@@ -133,7 +171,7 @@ function BlogCard({ article, index }: { article: Article; index: number }) {
 }
 export function BlogsPage() {
   return <section className="lab-container py-20 md:py-28 min-h-[70vh]" aria-labelledby="blog-heading">
-    <div className="max-w-3xl mb-12 md:mb-16"><div className="section-label flex items-center gap-2"><BookOpen size={16}/> IDEAS & INSIGHTS</div><h1 id="blog-heading" className="text-4xl sm:text-5xl md:text-6xl font-semibold text-white tracking-tight mb-6">Explore the <span className="gradient-text">AI Lab Blogs</span></h1><p className="text-lg text-slate-300 leading-relaxed">Four guides to our adaptive intelligence research: what it is, how the loop works, the AI models behind it, and where it could be applied.</p></div>
+    <div className="max-w-3xl mb-12 md:mb-16"><div className="section-label flex items-center gap-2"><BookOpen size={16}/> IDEAS & INSIGHTS</div><h1 id="blog-heading" className="text-4xl sm:text-5xl md:text-6xl font-semibold text-white tracking-tight mb-6">Explore the <span className="gradient-text">AI Lab Blogs</span></h1><p className="text-lg text-slate-300 leading-relaxed">Five guides to our adaptive intelligence research: the vision, learning loop, underlying models, applications, and inter-agency collaboration.</p></div>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">{articles.map((a,i)=><BlogCard key={a.slug} article={a} index={i}/>)}</div>
     <p className="text-sm text-slate-400 mt-12">Research explainers. Architecture descriptions include work in development and should not be interpreted as independently validated clinical claims.</p>
   </section>;
