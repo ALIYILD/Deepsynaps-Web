@@ -18,6 +18,7 @@ import {
 } from "@/pages/AILab";
 import { BlogsPage, BlogArticlePage } from "@/pages/Blogs";
 import AwimPage from "@/pages/Awim";
+import AwimSimulator from "@/pages/AwimSimulator";
 import "./lab.css";
 
 function RouteEffects() {
@@ -29,6 +30,7 @@ function RouteEffects() {
       "/blogs": "Blogs",
       "/nerve": "NERVE",
       "/awim": "NERVE-AWIM World Intelligence Model",
+      "/awim/simulator": "Adaptive Learning Simulator",
       "/ecosystem": "Ecosystem",
       "/about": "The Lab",
       "/consultations": "Clinical Consultations",
@@ -76,6 +78,7 @@ function App() {
           />
           <Route path="/nerve" element={<NervePage />} />
           <Route path="/awim" element={<AwimPage />} />
+          <Route path="/awim/simulator" element={<AwimSimulator />} />
           <Route path="/blogs" element={<BlogsPage />} />
           <Route path="/blogs/:slug" element={<BlogArticlePage />} />
           <Route path="/ecosystem" element={<EcosystemPage />} />
