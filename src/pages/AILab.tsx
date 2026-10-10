@@ -377,7 +377,7 @@ export function AILabHome() {
               Connected intelligence.
             </h2>
             <p>
-              Explore agent collaboration inside NERVE-AWIM, including Hermes specialists, evaluated memory, WorldCore predictions and supervised action.
+              Explore agent collaboration inside NERVE-AWIM, including specialist agents, adaptive memory, WorldCore predictions and supervised action.
             </p>
           </div>
           <NerveModal />
