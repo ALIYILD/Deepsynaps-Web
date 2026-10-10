@@ -341,15 +341,14 @@ export function AILabHome() {
               <span>real world.</span>
             </h1>
             <p>
-              We are developing adaptive AI through sensory understanding,
-              specialist agents and shared learning.
+              NERVE-AWIM is our proposed Adaptive World Intelligence Model: sensory perception, predictive WorldCore, specialist agents and evaluated learning.
             </p>
             <div className="hero-actions">
-              <Link className="lab-button" to="/about">
-                Explore the lab <ArrowRight size={17} />
+              <Link className="lab-button" to="/awim">
+                Explore NERVE-AWIM <ArrowRight size={17} />
               </Link>
-              <Link className="lab-button secondary" to="/research">
-                Our research <ArrowRight size={17} />
+              <Link className="lab-button secondary" to="/blogs/nerve-awim-adaptive-world-intelligence-research">
+                Read the research <ArrowRight size={17} />
               </Link>
             </div>
             <div className="hero-mantra">
@@ -371,15 +370,14 @@ export function AILabHome() {
             <Network size={35} strokeWidth={1.3} />
           </span>
           <div>
-            <span className="lab-eyebrow">Meet NERVE</span>
+            <span className="lab-eyebrow">NERVE — The coordination layer of AWIM</span>
             <h2>
               Specialist agents.
               <br />
               Connected intelligence.
             </h2>
             <p>
-              A proposed coordination layer for reasoning, memory and action.
-              Explore how each part contributes to the learning loop.
+              Explore agent collaboration inside NERVE-AWIM, including Hermes specialists, evaluated memory, WorldCore predictions and supervised action.
             </p>
           </div>
           <NerveModal />
@@ -425,10 +423,10 @@ export function NervePage() {
           <span className="lab-eyebrow">NERVE / the coordination layer</span>
           <h1>Explore connected intelligence.</h1>
           <p className="page-intro">
-            From sensory signals to shared memories. Step inside the proposed
-            architecture.
+            Explore how NERVE coordinates specialist agent networks in the proposed NERVE-AWIM world intelligence architecture.
           </p>
           <NerveExplorer expanded />
+          <div className="mt-8"><Link className="lab-button" to="/awim">Explore the full NERVE-AWIM model <ArrowRight size={17}/></Link></div>
         </div>
       </section>
       <AdaptiveLearning />
