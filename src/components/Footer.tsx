@@ -23,6 +23,9 @@ export function Footer() {
                 <Link to="/nerve">NERVE</Link>
               </li>
               <li>
+                <Link to="/blogs">Blogs</Link>
+              </li>
+              <li>
                 <Link to="/ecosystem">Ecosystem</Link>
               </li>
               <li>
