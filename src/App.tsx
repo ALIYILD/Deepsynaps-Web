@@ -17,6 +17,7 @@ import {
   NotFound,
 } from "@/pages/AILab";
 import { BlogsPage, BlogArticlePage } from "@/pages/Blogs";
+import AwimPage from "@/pages/Awim";
 import "./lab.css";
 
 function RouteEffects() {
@@ -27,6 +28,7 @@ function RouteEffects() {
       "/research": "Research",
       "/blogs": "Blogs",
       "/nerve": "NERVE",
+      "/awim": "NERVE-AWIM World Intelligence Model",
       "/ecosystem": "Ecosystem",
       "/about": "The Lab",
       "/consultations": "Clinical Consultations",
@@ -73,6 +75,7 @@ function App() {
             element={<LearningPage />}
           />
           <Route path="/nerve" element={<NervePage />} />
+          <Route path="/awim" element={<AwimPage />} />
           <Route path="/blogs" element={<BlogsPage />} />
           <Route path="/blogs/:slug" element={<BlogArticlePage />} />
           <Route path="/ecosystem" element={<EcosystemPage />} />
