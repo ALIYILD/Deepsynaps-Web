@@ -16,6 +16,7 @@ import {
   ProductPage,
   NotFound,
 } from "@/pages/AILab";
+import { BlogsPage, BlogArticlePage } from "@/pages/Blogs";
 import "./lab.css";
 
 function RouteEffects() {
@@ -24,6 +25,7 @@ function RouteEffects() {
     const labels: Record<string, string> = {
       "/": "Adaptive Intelligence",
       "/research": "Research",
+      "/blogs": "Blogs",
       "/nerve": "NERVE",
       "/ecosystem": "Ecosystem",
       "/about": "The Lab",
@@ -32,7 +34,7 @@ function RouteEffects() {
       "/privacy": "Privacy",
       "/research/adaptive-learning": "Adaptive Learning",
     };
-    document.title = `${labels[pathname] || "Our Ecosystem"} | DeepSynaps AI Lab`;
+    document.title = `${pathname.startsWith("/blogs/") ? "AI Lab Research Article" : labels[pathname] || "Our Ecosystem"} | DeepSynaps AI Lab`;
     const reducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
@@ -71,6 +73,8 @@ function App() {
             element={<LearningPage />}
           />
           <Route path="/nerve" element={<NervePage />} />
+          <Route path="/blogs" element={<BlogsPage />} />
+          <Route path="/blogs/:slug" element={<BlogArticlePage />} />
           <Route path="/ecosystem" element={<EcosystemPage />} />
           <Route path="/ecosystem/:slug" element={<ProductPage />} />
           <Route
