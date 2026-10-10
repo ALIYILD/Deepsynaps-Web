@@ -157,9 +157,73 @@ const articles: Article[] = [
       ]}
     ]
   },
-];
+  {
+    slug: "nerve-awim-adaptive-world-intelligence-research",
+    title: "NERVE-AWIM: A Bio-Inspired Adaptive World Intelligence Architecture",
+    subtitle: "An academic research proposal for multimodal world modelling, agent collaboration and controlled self-adaptation.",
+    category: "RESEARCH PAPER", read: "15 min read",
+    summary: "A formal architecture and research agenda for Hermes agents, persistent memory, typed decisions, predictive world models and optional hybrid quantum computation.",
+    sections: [
+      { heading: "Abstract", paragraphs: [
+        "We introduce NERVE-AWIM (Adaptive World Intelligence Model), a proposed modular architecture coupling multimodal sensory encoders, action-conditioned world dynamics, specialist software agents, persistent memory and verifiable decision policies. NERVE orchestrates heterogeneous reasoning and perception modules; WorldCore estimates future environmental states; a memory system supports episodic and procedural adaptation; and optional quantum services are investigated for bounded optimisation tasks. We distinguish short-timescale context adaptation from validated model-weight updates and define falsifiable hypotheses concerning predictive performance, agent coordination, decision latency, reliability and computational cost. This document describes a research programme, not an empirically validated new foundation model or a deployed medical device."
+      ]},
+      { heading: "1. Motivation and related work", paragraphs: [
+        "Transformers have become a foundation for language and multimodal sequence modelling [1]. Model-based reinforcement learning demonstrates how learned world dynamics can support planning: Ha and Schmidhuber's World Models [2] and DreamerV3 [3] are important reference points. NERVE-AWIM does not claim to invent learned world models, multi-agent systems or persistent memory; its research hypothesis concerns the coordination of those components under explicit safety, provenance and performance constraints.",
+        "The central distinction is between numerical neurons inside learned networks and independently executing software agents. Hermes-based agents may invoke CNNs, Transformers and other models, but the agent network itself is not mathematically equivalent to a CNN or biological neural circuit. The novelty of a combined system must be tested against strong monolithic and modular baselines."
+      ]},
+      { heading: "2. Architecture and information flow", paragraphs: [
+        "At time t, sensory observations o_t are validated, time-aligned and embedded by modality-specific encoders. A fusion and state-estimation module constructs a latent state z_t. WorldCore models p_theta(z_(t+1) | z_t, a_t, c_t), where a_t is an action and c_t is authorised context. Agent networks retrieve evidence, reason about candidate actions, invoke simulators and submit structured recommendations to a decision gate.",
+        "NERVE contains a typed message bus, event-driven agent activation, capability and permission registers, deadline-aware scheduling, evaluators and audit records. Candidate agents run on Hermes-style runtime profiles with restricted tools. A deterministic policy layer remains authoritative for disallowed actions, emergency stops and clinical escalation; neither a language model nor a judge score can override hard restrictions."
+      ]},
+      { heading: "3. Multimodal sensing and perception", paragraphs: [
+        "Inputs can include EEG and other neural recordings, physiological sensors, images, audio, movement, environmental measurements and robotics telemetry, subject to explicit authorisation and purpose limitations. Preprocessing includes calibration checks, missingness detection, clock synchronisation, artefact rejection and provenance capture. CNNs, Transformers, recurrent/state-space networks and graph models are alternative components to benchmark rather than compulsory ingredients.",
+        "Dynamic activation aims to avoid sending every event to every agent. High-rate control and reflex tasks remain on deterministic or small local models. Deliberative Hermes agents operate asynchronously so cloud inference delays do not compromise real-time robotics safety."
+      ]},
+      { heading: "4. WorldCore: predictive dynamics and uncertainty", paragraphs: [
+        "A world model needs more than a descriptive digital twin: it must estimate action-conditioned transitions, predict future observations and quantify uncertainty. WorldCore includes a state encoder, stochastic transition model, observation decoder and optional reward/objective estimator. Multi-step rollouts support model-predictive planning with explicit horizon, cost and safety constraints.",
+        "Digital twins such as Brain, Bio, Mind and Body views can supply domain-specific state representations; their predictions must be calibrated against held-out longitudinal observations. Where causal identification is not established, simulated scenarios must not be represented as causal treatment effects."
+      ]},
+      { heading: "5. Hermes agent networks and inter-agent collaboration", paragraphs: [
+        "Agent roles include sensory validation, perception, evidence retrieval, prediction, simulation, memory, planning, inhibition, verification and authorised execution. Each agent has an input/output schema, tool capabilities, time budget, identity, owner, access scope and evaluation policy. Task-specific subgraphs can be assembled according to relevance and computational cost. Parallelism is possible where dependencies allow, but multi-agent overhead must be measured.",
+        "Inter-agency working in healthcare and education provides a useful organisational analogy: specialists combine partial perspectives without relinquishing accountability. Human agencies and AI software agents are not equivalent; licensed professionals retain responsibility for real clinical decisions."
+      ]},
+      { heading: "6. Memory and controlled adaptation", paragraphs: [
+        "The architecture separates working memory, episodic event history, semantic knowledge, procedural skills and world-state history. Obsidian-compatible Markdown vaults provide inspectable research and skill documentation, while secure data stores handle access-controlled events, clinical records and embeddings. Personal clinical data should not be written into shared Markdown vaults. Hermes runtime memory is a separate operational facility.",
+        "Four timescales are proposed: A, reflexive selection of prevalidated responses; B, retrieval- and memory-based adaptation; C, evaluated changes in routing and agent collaboration; and D, offline or otherwise controlled retraining and deployment of model parameters. Learning updates should be versioned, tested for regression and reversible. Continuous adaptation is not a licence for uncontrolled self-modification."
+      ]},
+      { heading: "7. Typed decision evaluation and safety", paragraphs: [
+        "A fast structured classifier or judge such as Jev may route events by relevance, uncertainty and required escalation. Its speed and calibration must be measured relative to deterministic rules, smaller learned classifiers and other models. Agreement among agents is not proof of correctness, particularly when they share training data or retrieved sources.",
+        "Safety controls include deterministic permission checks, least-privilege tool access, protected execution boundaries, timeouts, human review, uncertainty thresholds, audit logs, fail-safe states and healthcare-specific clinical governance. The architecture is initially intended for simulation and research workflows."
+      ]},
+      { heading: "8. NERVE-Q: experimental quantum acceleration", paragraphs: [
+        "Quantum processing is an optional remote accelerator, not a substitute for low-latency edge control or general-purpose language-model inference. Candidate experiments include bounded combinatorial agent scheduling and resource allocation. Each formulation must be measured against strong classical solvers for objective quality, wall-clock time, queue time, energy where measurable and total cost.",
+        "Amazon Braket supports managed simulators, QPUs and Hybrid Jobs [5]. Azure Quantum provides access to quantum workflows and resource-estimation capabilities [6]. Variational quantum algorithms have significant noise, trainability and scaling limitations [4]. No general quantum speedup for NERVE agent reasoning, instant learning or neuron-speed decisions is claimed."
+      ]},
+      { heading: "9. Research hypotheses and benchmarks", paragraphs: [
+        "H1: Dynamic agent collaboration improves task quality versus single-agent and fixed-graph baselines. H2: Episodic and procedural memory reduces adaptation samples without increasing hallucination or privacy failures. H3: Typed routing improves decision-quality-adjusted latency versus alternative routers. H4: Action-conditioned WorldCore planning improves cumulative reward and predictive calibration versus reactive policies. H5: Adaptive agent topology improves compute efficiency. H6: On selected optimisation instances, quantum methods can be benchmarked fairly against competitive classical solvers.",
+        "Pre-register evaluation tasks and ablations. Report task accuracy, held-out transition error, calibration, success rate, failure rate, p50/p95/p99 response latency, cost per completed task, energy where instrumented, memory contamination, unsafe-action incidence and robustness to missing sensors. Reproduce experiments over multiple random seeds and disclose all hardware, model versions and dataset constraints."
+      ]},
+      { heading: "10. Implementation and reproducibility", paragraphs: [
+        "A phased reference implementation should begin with synthetic sensor streams, typed agent interfaces, deterministic routing, memory retrieval and a small learned state-transition model. Next, add Hermes runtime adapters, independent evaluations and world-model baselines. The quantum adapter should start with simulators and publicly reproducible scheduling instances before any cloud QPU experiments.",
+        "Public releases should include architecture decisions, citations, experiment configuration, unit tests, simulated datasets, benchmark scripts and a clear research-only licence and safety notice. Research involving real patient data requires lawful governance, privacy protections, approvals and separate secure infrastructure."
+      ]},
+      { heading: "11. Limitations and conclusion", paragraphs: [
+        "The architecture has not yet demonstrated faster-than-baseline learning, general-purpose world understanding, biological-neuron-equivalent latency, quantum advantage or autonomous clinical efficacy. Potential failure modes include correlated agent mistakes, unpredictable latency, memory poisoning, model drift and misleading simulation outputs.",
+        "NERVE-AWIM is presented as a falsifiable systems hypothesis: an orchestrated, multimodal, memory-augmented world model may improve adaptability and robustness when its components are selected carefully, externally evaluated and constrained by appropriate governance. Its status as a distinct scientific contribution depends on experimental evidence rather than naming."
+      ]},
+      { heading: "References", paragraphs: [
+        "[1] Vaswani, A. et al. (2017). Attention Is All You Need. Advances in Neural Information Processing Systems. https://arxiv.org/abs/1706.03762",
+        "[2] Ha, D. and Schmidhuber, J. (2018). World Models. https://arxiv.org/abs/1803.10122",
+        "[3] Hafner, D., Pasukonis, J., Ba, J. and Lillicrap, T. (2023). Mastering Diverse Domains through World Models. https://arxiv.org/abs/2301.04104",
+        "[4] Cerezo, M. et al. (2021). Variational Quantum Algorithms. Nature Reviews Physics 3, 625–644. https://doi.org/10.1038/s42254-021-00348-9",
+        "[5] Amazon Web Services. Amazon Braket Developer Guide, Hybrid Jobs. https://docs.aws.amazon.com/braket/latest/developerguide/braket-jobs.html",
+        "[6] Microsoft. Azure Quantum documentation. https://learn.microsoft.com/azure/quantum/"
+      ]}
+    ]
+  },
+]; 
 
-const icons = [BrainCircuit, Workflow, Layers3, Globe2, Network];
+const icons = [BrainCircuit, Workflow, Layers3, Globe2, Network, Layers3];
 function BlogCard({ article, index }: { article: Article; index: number }) {
   const Icon = icons[index];
   return <Link to={`/blogs/${article.slug}`} className="glass-card group block h-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-400" style={{textDecoration:"none"}}>
@@ -171,7 +235,7 @@ function BlogCard({ article, index }: { article: Article; index: number }) {
 }
 export function BlogsPage() {
   return <section className="lab-container py-20 md:py-28 min-h-[70vh]" aria-labelledby="blog-heading">
-    <div className="max-w-3xl mb-12 md:mb-16"><div className="section-label flex items-center gap-2"><BookOpen size={16}/> IDEAS & INSIGHTS</div><h1 id="blog-heading" className="text-4xl sm:text-5xl md:text-6xl font-semibold text-white tracking-tight mb-6">Explore the <span className="gradient-text">AI Lab Blogs</span></h1><p className="text-lg text-slate-300 leading-relaxed">Five guides to our adaptive intelligence research: the vision, learning loop, underlying models, applications, and inter-agency collaboration.</p></div>
+    <div className="max-w-3xl mb-12 md:mb-16"><div className="section-label flex items-center gap-2"><BookOpen size={16}/> IDEAS & INSIGHTS</div><h1 id="blog-heading" className="text-4xl sm:text-5xl md:text-6xl font-semibold text-white tracking-tight mb-6">Explore the <span className="gradient-text">AI Lab Blogs</span></h1><p className="text-lg text-slate-300 leading-relaxed">Six guides to adaptive intelligence: the vision, learning loop, models, applications, inter-agency collaboration and the NERVE-AWIM research proposal.</p></div>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">{articles.map((a,i)=><BlogCard key={a.slug} article={a} index={i}/>)}</div>
     <p className="text-sm text-slate-400 mt-12">Research explainers. Architecture descriptions include work in development and should not be interpreted as independently validated clinical claims.</p>
   </section>;
