@@ -13,7 +13,7 @@ const articles: Article[] = [
     sections: [
       { heading: "NERVE-AWIM research model", paragraphs: [
         "DeepSynaps AI Lab calls this proposed architecture NERVE-AWIM (Adaptive World Intelligence Model). NERVE is the agent coordination layer, while WorldCore is the proposed action-conditioned predictive engine. Brain, Bio, Mind and Body Twins supply specialised representations that can inform the broader DeepTwin.",
-        "The technical design proposes Hermes-based specialist agents, Obsidian-compatible knowledge memory, Jev as a candidate structured decision evaluator and NERVE-Q as an optional quantum experimentation gateway. These are architectural choices to implement and benchmark, not proof of production integration or exceptional speed."
+        "The technical design proposes specialist agents in the NERVE Agent Network, Adaptive Memory System, a structured decision evaluation engine and Quantum Research Layer as an optional quantum experimentation gateway. These are architectural choices to implement and benchmark, not proof of production integration or exceptional speed."
       ]},
       { heading: "Beyond a conventional AI chatbot", paragraphs: [
         "Most AI products begin with a prompt: someone asks a question and a model generates an answer. DeepSynaps AI Lab is exploring a more continuous model of intelligence. Its starting point is real-world information — from sensors, clinical measurements, user interactions and connected systems — that can change over time.",
@@ -40,9 +40,9 @@ const articles: Article[] = [
     category: "ARCHITECTURE", read: "8 min read",
     summary: "Follow the sensing, analyser, twin, agent, simulation and feedback pipeline.",
     sections: [
-      { heading: "Where WorldCore and NERVE-Q enter the loop", paragraphs: [
+      { heading: "Where WorldCore and Quantum Research Layer enter the loop", paragraphs: [
         "In NERVE-AWIM, WorldCore must learn an action-conditioned state-transition model: given current state, possible action and context, it estimates what may happen next and communicates uncertainty. This predictive step separates a genuine world-model research programme from a simple workflow orchestrator.",
-        "Lightweight local pathways should handle time-critical sensor and safety events; Hermes agents coordinate more complex reasoning. Jev may assist typed routing, with hard permission checks enforced separately. Memory updates in Obsidian-compatible vaults and secure event stores are reviewed, while model-weight changes undergo evaluation and controlled release. NERVE-Q can benchmark selected optimisation tasks through classical simulators and cloud quantum providers, not real-time control."
+        "Lightweight local pathways should handle time-critical sensor and safety events; NERVE specialist agents coordinate more complex reasoning. typed decision intelligence may assist routing, with hard permission checks enforced separately. Memory updates in controlled knowledge stores and secure event stores are reviewed, while model-weight changes undergo evaluation and controlled release. Quantum Research Layer can benchmark selected optimisation tasks through classical simulators and cloud quantum providers, not real-time control."
       ]},
       { heading: "1. Sense and ingest", paragraphs: [
         "The loop begins with inputs such as EEG, imaging, blood biomarkers, cognitive assessments, speech, text, wearables and other appropriately authorised sources. Each source arrives with metadata describing when, where and how it was collected.",
@@ -68,14 +68,14 @@ const articles: Article[] = [
   },
   {
     slug: "which-ai-models-power-nerve",
-    title: "What AI Model Are We Using?",
+    title: "Which AI Models Power NERVE-AWIM?",
     subtitle: "Why DeepSynaps is designed as a model-agnostic network of specialist agents.",
     category: "AI MODELS", read: "7 min read",
     summary: "Explore agent-based orchestration, language models, signal processing, digital twins and evaluators.",
     sections: [
       { heading: "NERVE-AWIM: runtime, models and evaluation are different layers", paragraphs: [
-        "NERVE-AWIM is not a single new Transformer, CNN or foundation model. CNNs, Transformers, temporal/state-space models, GNNs and spiking networks are candidate numerical models inside sensory analysers or WorldCore. The proposed Hermes-based agents coordinate tasks, tools and evidence; they are neuron-inspired software units, not literal neurons or learned CNN weights.",
-        "The system design includes per-agent Hermes execution profiles, inspectable Obsidian-compatible knowledge, a secure event and retrieval store, Jev as a candidate fast structured scorer and deterministic safety gates. WorldCore learns predictive dynamics; NERVE-Q experimentally benchmarks specialised quantum optimisation against strong classical alternatives. Model choice, speed and accuracy remain empirical questions."
+        "NERVE-AWIM is not a single new Transformer, CNN or foundation model. CNNs, Transformers, temporal/state-space models, GNNs and spiking networks are candidate numerical models inside sensory analysers or WorldCore. The proposed NERVE specialist agents coordinate tasks, tools and evidence; they are neuron-inspired software units, not literal neurons or learned CNN weights.",
+        "The system design includes per-agent specialist agent runtime profiles, inspectable adaptive knowledge, a secure event and retrieval store, a candidate fast decision evaluator and deterministic safety gates. WorldCore learns predictive dynamics; Quantum Research Layer experimentally benchmarks specialised quantum optimisation against strong classical alternatives. Model choice, speed and accuracy remain empirical questions."
       ]},
       { heading: "Not one model, but an architecture", paragraphs: [
         "The central design principle is model orchestration. NERVE is intended to connect language and reasoning models, conventional machine-learning systems, domain-specific analysers, simulation tools, retrieval systems and human reviewers.",
@@ -107,8 +107,8 @@ const articles: Article[] = [
     summary: "Understand the proposed applications across DeepSynaps products and research programmes.",
     sections: [
       { heading: "Applications through NERVE-AWIM", paragraphs: [
-        "NERVE-AWIM provides a common research architecture across applications: authorised sensors feed specialised analysers, digital-twin representations, predictive WorldCore dynamics and NERVE's Hermes agent collaboration. Memory and evidence help agents respond in context, while Jev and independent safeguards support routing and verification.",
-        "Clinical Intelligence OS is a current DeepSynaps application context, but a validated autonomous AWIM-based clinical decision system has not been demonstrated. Wellness and robotics are potential expansion domains. NERVE-Q may be investigated for scheduling and research optimisation on AWS Braket or Azure Quantum, without promising general quantum acceleration or neuron-speed autonomous learning."
+        "NERVE-AWIM provides a common research architecture across applications: authorised sensors feed specialised analysers, digital-twin representations, predictive WorldCore dynamics and NERVE's Specialist Agent Network. Memory and evidence help agents respond in context, while decision intelligence and independent safeguards support routing and verification.",
+        "Clinical Intelligence OS is a current DeepSynaps application context, but a validated autonomous AWIM-based clinical decision system has not been demonstrated. Wellness and robotics are potential expansion domains. Quantum Research Layer may be investigated for scheduling and research optimisation on cloud quantum research platforms, without promising general quantum acceleration or neuron-speed autonomous learning."
       ]},
       { heading: "Clinical intelligence", paragraphs: [
         "Clinical Intelligence OS aims to bring diverse clinical information into one evidence-linked workspace. EEG, biomarkers, assessments, medical documents and other inputs can support longitudinal interpretation and clearer communication between clinicians and patients.",
@@ -143,8 +143,8 @@ const articles: Article[] = [
     summary: "A practical guide to coordinated working across healthcare, education, social care and the DeepSynaps NERVE architecture.",
     sections: [
       { heading: "Inter-agency principles inside NERVE-AWIM", paragraphs: [
-        "The proposed NERVE-AWIM architecture applies the collaboration analogy through specialist Hermes agents with explicit responsibilities, typed messages, evidence provenance and limited tool permissions. Obsidian-compatible knowledge repositories make approved lessons inspectable; WorldCore predicts hypothetical transitions; Jev may rank routing options. These computational agents do not have professional duties or authority equivalent to clinicians, teachers or social workers.",
-        "Collaboration quality should be measured against single-agent and fixed-routing baselines. NERVE-Q quantum experiments are an optional compute service and do not remove the need for privacy, safeguarding, multidisciplinary review or robust classical systems."
+        "The proposed NERVE-AWIM architecture applies the collaboration analogy through specialist NERVE specialist agents with explicit responsibilities, typed messages, evidence provenance and limited tool permissions. adaptive knowledge repositories make approved lessons inspectable; WorldCore predicts hypothetical transitions; typed decision evaluation may rank routing options. These computational agents do not have professional duties or authority equivalent to clinicians, teachers or social workers.",
+        "Collaboration quality should be measured against single-agent and fixed-routing baselines. Quantum Research Layer quantum experiments are an optional compute service and do not remove the need for privacy, safeguarding, multidisciplinary review or robust classical systems."
       ]},
       { heading: "What does inter-agency collaborative working mean?", paragraphs: [
         "Inter-agency collaborative working is when different organisations, services or professional teams coordinate their expertise to achieve an outcome that none could deliver as effectively alone. It is especially important when a person's needs cross institutional boundaries: for example, a child may need input from a teacher, speech and language therapist, paediatrician and social worker.",
