@@ -20,6 +20,9 @@ export function Footer() {
                 <Link to="/research">Research</Link>
               </li>
               <li>
+                <Link to="/awim">NERVE-AWIM model</Link>
+              </li>
+              <li>
                 <Link to="/nerve">NERVE</Link>
               </li>
               <li>
