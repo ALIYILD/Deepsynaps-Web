@@ -17,6 +17,7 @@ return <div className="ai-lab">
 <div className="flex flex-wrap gap-3 mt-8">
 <Link className="lab-button" to="/blogs/nerve-awim-adaptive-world-intelligence-research">Read the academic proposal <ArrowRight size={16}/></Link>
 <Link className="lab-button secondary" to="/nerve">Explore NERVE <ArrowRight size={16}/></Link>
+<Link className="lab-button secondary" to="/awim/simulator">Try adaptive learning demo <ArrowRight size={16}/></Link>
 </div></div></section>
 <section className="lab-section lab-white"><div className="lab-container"><div className="lab-section-heading"><div><span className="lab-eyebrow">How the proposed model works</span><h2>Sense. Predict. Collaborate. Adapt.</h2></div><p>Distinct computing systems work across different timescales; high-rate safety control is not delegated to a slow language-model agent.</p></div>
 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">{layers.map(x=><article key={x.title} className="border border-slate-200 rounded-xl p-6 bg-white"><x.icon size={28} strokeWidth={1.7} className="text-indigo-700 mb-4" aria-hidden="true"/><h3 className="text-xl font-semibold mb-3 text-slate-950">{x.title}</h3><p className="text-slate-700 leading-relaxed">{x.desc}</p></article>)}</div>
