@@ -4,6 +4,7 @@ import { Link, NavLink } from "react-router";
 
 const links = [
   { label: "Research", href: "/research" },
+  { label: "NERVE-AWIM", href: "/awim" },
   { label: "NERVE", href: "/nerve" },
   { label: "Blogs", href: "/blogs" },
   { label: "Products", href: "/ecosystem" },
