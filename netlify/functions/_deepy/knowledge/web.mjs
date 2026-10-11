@@ -14,14 +14,17 @@
  * copy instead of apologising.
  */
 
-export const title = 'DeepSynaps — deepsynaps.ai';
+export const title = 'DeepSynaps AI Lab — deepsynaps.ai';
 
-export const summary = "DeepSynaps AI Lab is based in the United Kingdom and develops adaptive intelligence through sensory understanding, specialist agents and shared learning. Its proposed architecture connects sensory inputs, analyzers, digital twins and NERVE. Clinical Intelligence OS is its first application; the ecosystem also includes chip design, Perfflux, Peak Performance and Academy.";
+export const summary = "DeepSynaps AI Lab is based in the United Kingdom and develops adaptive intelligence through sensory understanding, specialist agents and shared learning. Its core research is AWIM, the Adaptive World Intelligence Model, connecting sensory inputs, analyzers, digital twins, WorldCore, NERVE and evaluated feedback. Clinical Intelligence OS is its first application; the ecosystem also includes chip design, Perfflux, Peak Performance and Academy.";
 
 export const pages = Object.freeze([
   { path: '/', label: 'Home' },
   { path: '/about', label: 'The Lab' },
   { path: '/research', label: 'Research' },
+  { path: '/blogs', label: 'Ten AWIM research explainers' },
+  { path: '/awim', label: 'Adaptive World Intelligence Model (AWIM)' },
+  { path: '/awim/simulator', label: 'Adaptive learning demonstrator' },
   { path: '/nerve', label: 'NERVE' },
   { path: '/ecosystem', label: 'Ecosystem' },
   { path: '/academy', label: 'Academy' },
@@ -30,6 +33,17 @@ export const pages = Object.freeze([
 ]);
 
 export const entries = Object.freeze([
+  {
+    id: 'blogs', title: 'AWIM research blog series',
+    keywords: ['blog', 'blogs', 'article', 'articles', 'explainers', 'reading'],
+    body: 'The AI Lab blog contains ten connected explainers covering what AWIM is, its learning loop, model choices, specialist collaboration, memory and skills, digital twins and WorldCore, evaluated self-improvement, Clinical Intelligence OS, broader applications, and the technical research proposal. Start at /blogs. Public NERVE prototypes and the broader AWIM research vision are distinguished from live application features.',
+  },
+  {
+    id: 'awim',
+    title: 'Adaptive World Intelligence Model (AWIM)',
+    keywords: ['awim', 'adaptive world intelligence', 'worldcore', 'world model'],
+    body: 'DeepSynaps AI Lab is developing AWIM, the Adaptive World Intelligence Model. AWIM is the overarching research architecture; NERVE is its specialist agent coordination layer. The proposed cycle is Sense, Understand, Represent, Simulate, Coordinate, Act, Evaluate and Remember. It connects sensory analyzers, digital twins and DeepTwin, WorldCore prediction research, NERVE, memory and evaluated feedback. Clinical Intelligence OS is the first application of the DeepSynaps vision. Explore /awim or try /awim/simulator. The simulator is a small deterministic contextual-learning illustration, not evidence of a validated world model or clinical effectiveness.',
+  },
 {
   "id": "nerve",
   "title": "NERVE and adaptive learning",

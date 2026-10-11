@@ -199,7 +199,7 @@ function Explorer({ expanded = false }: { expanded?: boolean }) {
           <i className="status-dot" />{" "}
           {expanded
             ? "NERVE / explore connected intelligence"
-            : "Adaptive intelligence architecture"}
+            : "AWIM / architecture explorer"}
         </span>
         <button
           className="quiet-button"
@@ -214,7 +214,7 @@ function Explorer({ expanded = false }: { expanded?: boolean }) {
         <h2>
           {expanded
             ? "Specialist agents. Shared learning."
-            : "Adaptive intelligence, connected."}
+            : "Inside AWIM. Connected by NERVE."}
         </h2>
         <p>
           {expanded
@@ -316,7 +316,7 @@ export function NerveModal() {
   return (
     <Dialog.Root>
       <Dialog.Trigger className="lab-button">
-        Explore the NERVE <Expand size={16} />
+        Explore NERVE <Expand size={16} />
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="nerve-overlay" />

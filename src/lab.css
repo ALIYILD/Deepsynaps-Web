@@ -1773,3 +1773,82 @@ button:focus-visible,
     transform: none;
   }
 }
+
+/* AWIM research positioning */
+.hero-copy .awim-headline { font-size: clamp(38px, 3.6vw, 62px); line-height: 1.08; }
+.hero-copy .awim-headline span { color: #9cbeff; }
+.awim-cycle { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; padding: 0; margin: 0; list-style: none; border-top: 1px solid #dce4ef; }
+.awim-cycle li { padding: 27px 23px 27px 0; border-bottom: 1px solid #dce4ef; }
+.awim-step { display: block; color: #3568c6; font-size: 12px; margin-bottom: 18px; }
+.awim-cycle h3 { font-size: 23px; margin: 0 0 10px; }
+.awim-cycle p, .awim-overview-bottom p { color: #617084; font-size: 14px; line-height: 1.7; }
+.awim-overview-bottom { display: flex; align-items: center; justify-content: space-between; gap: 30px; margin-top: 26px; }
+.awim-overview-bottom p { max-width: 530px; }
+.clinical-feature { display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: center; }
+.clinical-feature h2 { font-size: clamp(32px, 3.4vw, 48px); line-height: 1.12; }
+.clinical-feature p { color: #617084; line-height: 1.75; margin: 22px 0 28px; }
+.clinical-path { border-left: 2px solid #b9cdf4; padding: 12px 0 12px 32px; }
+.clinical-path h3 { font-size: 23px; }
+.clinical-path p { margin: 8px 0 26px; }
+@media (max-width: 900px) {
+  .awim-cycle { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .clinical-feature { gap: 35px; }
+}
+@media (max-width: 760px) {
+  .hero-copy .awim-headline { font-size: clamp(36px, 7.8vw, 58px); }
+  .clinical-feature { grid-template-columns: 1fr; }
+  .awim-overview-bottom { align-items: flex-start; flex-direction: column; }
+}
+@media (max-width: 380px) {
+  .awim-cycle { grid-template-columns: 1fr; }
+  .clinical-feature .lab-button { white-space: normal; }
+}
+
+/* AWIM editorial series: same typography and palette as the lab. */
+.lab-blog-hero { background: #050b18; color: #f6f8ff; padding-bottom: 76px; }
+.lab-blog-hero .lab-eyebrow { color: #9cbeff; }
+.lab-blog-hero h1 { font-size: clamp(36px, 4.8vw, 66px); line-height: 1.1; max-width: 1080px; }
+.lab-blog-hero h1 span { color: #9cbeff; }
+.lab-blog-hero > .lab-container > p { max-width: 780px; color: #b3bfd1; font-size: 19px; line-height: 1.7; margin: 24px 0 30px; }
+.blog-hero-repo { display: inline-block; color: #b5ccf8; font-size: 14px; margin: 18px 0 0 24px; }
+.blog-series-heading { display: flex; justify-content: space-between; gap: 25px; align-items: center; margin-bottom: 35px; }
+.blog-series-heading h2 { font-size: 30px; }
+.blog-series-heading > span { color: #617084; font-size: 13px; }
+.lab-blog-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 25px; }
+.lab-blog-card { display: flex; flex-direction: column; gap: 20px; padding: 32px; border: 1px solid #dce4ef; border-radius: 13px; background: #fff; transition: border-color .2s; }
+.lab-blog-card:hover { border-color: #3568c6; }
+.blog-card-label { display: flex; justify-content: space-between; align-items: center; gap: 15px; color: #3568c6; font-size: 11px; font-weight: 700; letter-spacing: .08em; }
+.lab-blog-card h2 { font-size: 29px; line-height: 1.2; margin: 0; }
+.lab-blog-card > p { color: #617084; line-height: 1.7; font-size: 16px; margin: 0 0 8px; }
+.blog-card-footer { margin-top: auto; display: flex; justify-content: space-between; gap: 16px; font-size: 13px; color: #3568c6; }
+.blog-card-footer span { display: flex; align-items: center; gap: 8px; }
+.blog-card-footer span:first-child { color: #617084; }
+.blog-back { display: inline-flex; gap: 8px; align-items: center; color: #b5ccf8; margin-bottom: 30px; }
+.blog-byline { font-size: 13px; color: #98aac4; }
+.blog-reading-layout { display: grid; grid-template-columns: 270px minmax(0,800px); gap: 80px; align-items: start; }
+.blog-toc { position: sticky; top: 115px; }
+.blog-toc ol { list-style: none; padding: 0; margin: 0 0 28px; }
+.blog-toc li { margin-bottom: 14px; font-size: 14px; line-height: 1.55; color: #617084; }
+.blog-toc a:hover { color: #3568c6; text-decoration: underline; }
+.blog-reading-body > section { margin-bottom: 48px; scroll-margin-top: 115px; }
+.blog-reading-body h2 { font-size: clamp(25px, 2.4vw, 34px); line-height: 1.2; margin: 0 0 23px; }
+.blog-reading-body p { font-size: 18px; color: #46566b; line-height: 1.85; margin-bottom: 22px; }
+.blog-reading-body p a, .blog-sources a { color: #295bac; text-decoration: underline; overflow-wrap: anywhere; }
+.blog-sources ul { padding-left: 20px; }
+.blog-sources li { margin-bottom: 14px; line-height: 1.6; }
+.blog-reading-note { background: #f3f7fd; border-left: 3px solid #3568c6; padding: 22px 25px; color: #617084; line-height: 1.7; font-size: 14px; }
+.blog-next-prev { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 20px; margin-top: 45px; }
+.blog-next-prev a { padding: 23px; border: 1px solid #dce4ef; border-radius: 10px; }
+.blog-next-prev span { display: block; font-size: 11px; text-transform: uppercase; color: #3568c6; margin-bottom: 12px; }
+.blog-next-prev strong { display: block; line-height: 1.5; font-size: 17px; margin-bottom: 15px; }
+@media (max-width: 1050px) { .blog-reading-layout { grid-template-columns: 220px minmax(0,1fr); gap: 35px; } }
+@media (max-width: 760px) {
+ .lab-blog-grid, .blog-reading-layout { grid-template-columns: 1fr; }
+ .blog-toc { position: static; border-bottom: 1px solid #dce4ef; padding-bottom: 24px; }
+ .blog-series-heading { align-items: flex-start; flex-direction: column; }
+ .lab-blog-card { padding: 24px; }
+ .lab-blog-card h2 { font-size: 25px; }
+ .blog-hero-repo { display: block; margin-left: 0; }
+ .blog-next-prev { grid-template-columns: 1fr; }
+ .blog-reading-body p { font-size: 17px; }
+}

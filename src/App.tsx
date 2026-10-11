@@ -20,16 +20,17 @@ import { BlogsPage, BlogArticlePage } from "@/pages/Blogs";
 import AwimPage from "@/pages/Awim";
 import AwimSimulator from "@/pages/AwimSimulator";
 import "./lab.css";
+import { articles } from "@/data/articles";
 
 function RouteEffects() {
   const { pathname, hash } = useLocation();
   useEffect(() => {
     const labels: Record<string, string> = {
-      "/": "Adaptive Intelligence",
+      "/": "Adaptive World Intelligence Model (AWIM)",
       "/research": "Research",
       "/blogs": "Blogs",
       "/nerve": "NERVE",
-      "/awim": "NERVE-AWIM World Intelligence Model",
+      "/awim": "Adaptive World Intelligence Model (AWIM)",
       "/awim/simulator": "Adaptive Learning Simulator",
       "/ecosystem": "Ecosystem",
       "/about": "The Lab",
@@ -38,7 +39,17 @@ function RouteEffects() {
       "/privacy": "Privacy",
       "/research/adaptive-learning": "Adaptive Learning",
     };
-    document.title = `${pathname.startsWith("/blogs/") ? "AI Lab Research Article" : labels[pathname] || "Our Ecosystem"} | DeepSynaps AI Lab`;
+    const article = articles.find(item => pathname === `/blogs/${item.slug}`);
+    document.title = `${article?.title || labels[pathname] || "Our Ecosystem"} | DeepSynaps AI Lab`;
+    const description = article?.summary || (pathname === "/blogs"
+      ? "Ten connected guides to AWIM: NERVE, memory, digital twins, WorldCore, evaluated learning and Clinical Intelligence OS."
+      : "DeepSynaps AI Lab is developing AWIM, the Adaptive World Intelligence Model, connecting sensing, world models, NERVE specialist agents, memory and evaluated learning.");
+    document.querySelector('meta[name="description"]')?.setAttribute("content", description);
+    document.querySelector('meta[property="og:title"]')?.setAttribute("content", document.title);
+    document.querySelector('meta[property="og:description"]')?.setAttribute("content", description);
+    let canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    if (!canonical) { canonical = document.createElement("link"); canonical.rel = "canonical"; document.head.appendChild(canonical); }
+    canonical.href = `https://deepsynaps.ai${pathname}`;
     const reducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;

@@ -3,19 +3,19 @@ import { ArrowRight, Atom, BrainCircuit, Database, Network, Radio, ShieldCheck, 
 const layers=[
 {icon:Radio,title:"Sense",desc:"Authorised EEG, imaging, biometrics, audio, vision, movement and environmental streams."},
 {icon:BrainCircuit,title:"Represent",desc:"Modality-specific analysers, Brain/Bio/Mind/Body Twins and an integrated DeepTwin state."},
-{icon:GitBranch,title:"Predict",desc:"WorldCore learns action-conditioned state transitions and tests possible outcomes with uncertainty."},
+{icon:GitBranch,title:"Predict",desc:"WorldCore research explores action-conditioned predictions and simulated outcomes with uncertainty."},
 {icon:Network,title:"Coordinate",desc:"NERVE schedules specialist agents, retrieval, reasoning and collaborative evaluation."},
 {icon:ShieldCheck,title:"Decide safely",desc:"Structured decision routing, evidence checking, hard policy gates and human supervision."},
-{icon:Workflow,title:"Adapt",desc:"Observed outcomes update traceable experience, approved skills and version-controlled models."},
+{icon:Workflow,title:"Adapt",desc:"Evaluate observed outcomes, retain useful experience and test candidate skills or model updates before adoption."},
 ];
 export default function AwimPage(){
 return <div className="ai-lab">
 <section className="lab-nerve-page lab-page-start"><div className="lab-container">
-<span className="lab-eyebrow">Research model / NERVE-AWIM / v1.0</span>
-<h1>NERVE-AWIM: Adaptive World Intelligence Model.</h1>
+<span className="lab-eyebrow">DeepSynaps AI Lab / Core research architecture</span>
+<h1>AWIM: Adaptive World Intelligence Model.</h1>
 <p className="page-intro">A proposed bio-inspired architecture for sensing the world, predicting what happens next, coordinating specialist AI agents and improving through evaluated feedback.</p>
 <div className="flex flex-wrap gap-3 mt-8">
-<Link className="lab-button" to="/blogs/nerve-awim-adaptive-world-intelligence-research">Read the academic proposal <ArrowRight size={16}/></Link>
+<Link className="lab-button" to="/blogs/nerve-awim-adaptive-world-intelligence-research">Read the research proposal <ArrowRight size={16}/></Link>
 <Link className="lab-button secondary" to="/nerve">Explore NERVE <ArrowRight size={16}/></Link>
 <Link className="lab-button secondary" to="/awim/simulator">Try adaptive learning demo <ArrowRight size={16}/></Link>
 </div></div></section>

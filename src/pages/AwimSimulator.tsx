@@ -27,7 +27,7 @@ export default function AwimSimulator(){
  const score=(s:Learner)=>s.history.reduce((acc,r)=>acc+r.reward,0);
  const last=adaptive.history.at(-1);
  return <div className="ai-lab"><section className="lab-nerve-page lab-page-start"><div className="lab-container">
- <Link to="/awim" className="inline-flex gap-2 items-center mb-8"><ArrowLeft size={16}/> NERVE-AWIM model</Link>
+ <Link to="/awim" className="inline-flex gap-2 items-center mb-8"><ArrowLeft size={16}/> AWIM model</Link>
  <span className="lab-eyebrow">Open research demonstrator / deterministic simulator</span>
  <h1>See adaptive decisions change with sensor feedback.</h1>
  <p className="page-intro">An intentionally small contextual-learning experiment. A simulated terrain sensor changes from clear to rough; the adaptive controller learns which of two actions earns better results. Compare it with a fixed-action baseline.</p>

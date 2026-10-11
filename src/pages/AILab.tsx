@@ -13,6 +13,7 @@ import {
 import { NerveExplorer, NerveModal } from "@/components/lab/NerveExplorer";
 import { CONTACT } from "@/config/contact";
 import { products, researchTopics, stages } from "@/data/lab";
+import { articles } from "@/data/articles";
 
 export function AdaptiveLearning({
   standalone = false,
@@ -322,6 +323,63 @@ export function CollaborationSection() {
   );
 }
 
+export function AwimOverview() {
+  const loop = [
+    ["Sense", "Receive signals and observations with their source and context."],
+    ["Understand", "Use specialist analyzers to organise evidence and uncertainty."],
+    ["Represent", "Connect digital twins into an evolving DeepTwin representation."],
+    ["Simulate", "Explore possible actions and outcomes through WorldCore research."],
+    ["Coordinate", "Let NERVE bring the relevant agents, tools and memories together."],
+    ["Act", "Support permitted actions with review appropriate to the application."],
+    ["Evaluate", "Compare expectations with observed outcomes and independent checks."],
+    ["Remember", "Retain useful experience and test improvements for the next cycle."],
+  ];
+  return <section className="lab-section lab-white" id="awim">
+    <div className="lab-container">
+      <div className="lab-section-heading">
+        <div><span className="lab-eyebrow">Our core research / AWIM</span><h2>From experience<br />to adaptive intelligence.</h2></div>
+        <p>AWIM is the research architecture. NERVE coordinates its agents. Our applications bring this work into practical settings.</p>
+      </div>
+      <ol className="awim-cycle" aria-label="The AWIM feedback cycle">
+        {loop.map(([title, description], i) => <li key={title}>
+          <span className="awim-step">0{i + 1}</span><h3>{title}</h3><p>{description}</p>
+        </li>)}
+      </ol>
+      <div className="awim-overview-bottom">
+        <p>Feedback and memory inform the next cycle. Improvement is evaluated before it is retained.</p>
+        <Link className="card-link" to="/awim">Explore the AWIM architecture <ArrowRight size={17} /></Link>
+      </div>
+    </div>
+  </section>;
+}
+
+function ClinicalApplication() {
+  return <section className="lab-section lab-soft" id="clinical-application">
+    <div className="lab-container clinical-feature">
+      <div>
+        <span className="lab-eyebrow">First application / Healthcare</span>
+        <h2>Research at the core.<br />Clinical intelligence in practice.</h2>
+        <p>Clinical Intelligence OS is the first application of the DeepSynaps vision. It brings patient information, evidence and specialist tools into one view, with clinicians in control of care decisions.</p>
+        <Link className="lab-button" to="/ecosystem/clinical-os">Explore Clinical Intelligence OS <ArrowRight size={17} /></Link>
+      </div>
+      <div className="clinical-path">
+        <span className="lab-eyebrow">How the vision connects</span>
+        <h3>DeepSynaps AI Lab</h3><p>Researching AWIM and evaluated adaptation.</p>
+        <h3>AWIM + NERVE</h3><p>The architecture and its specialist agent coordination layer.</p>
+        <h3>Clinical Intelligence OS</h3><p>A healthcare application connecting patient context with evidence-linked decision support.</p>
+        <a className="card-link" href="https://app.deepsynaps.com" target="_blank" rel="noopener noreferrer">Open Clinical OS <ArrowUpRight size={17} /></a>
+      </div>
+    </div>
+  </section>;
+}
+
+function ResearchStories() {
+  return <section className="lab-section lab-white" id="stories"><div className="lab-container">
+    <div className="lab-section-heading"><div><span className="lab-eyebrow">AWIM explained / Ten connected stories</span><h2>Get to know the intelligence<br />behind the lab.</h2></div><Link className="card-link" to="/blogs">Explore all ten articles <ArrowRight size={17} /></Link></div>
+    <div className="research-grid">{[articles[0], articles[4], articles[6], articles[7]].map(article => <Link className="research-card tint-blue" key={article.slug} to={`/blogs/${article.slug}`}><span className="lab-eyebrow">{article.category}</span><h3>{article.title}</h3><p>{article.summary}</p><span className="card-link">Read the story <ArrowRight size={16} /></span></Link>)}</div>
+  </div></section>;
+}
+
 export function AILabHome() {
   return (
     <div className="ai-lab">
@@ -331,30 +389,25 @@ export function AILabHome() {
             <span className="lab-eyebrow">
               <i className="status-dot" /> DeepSynaps AI Lab
             </span>
-            <h1>
-              Intelligence
-              <br />
-              that learns
-              <br />
-              from the
-              <br />
-              <span>real world.</span>
+            <h1 className="awim-headline">
+              Adaptive World<br />
+              <span>Intelligence</span><br />
+              Model.
             </h1>
             <p>
-              NERVE-AWIM is our proposed Adaptive World Intelligence Model: sensory perception, predictive WorldCore, specialist agents and evaluated learning.
+              We are DeepSynaps AI Lab. We are developing AWIM: an architecture that connects sensing, world models, specialist agents and memory to learn from evaluated experience.
             </p>
             <div className="hero-actions">
               <Link className="lab-button" to="/awim">
-                Explore NERVE-AWIM <ArrowRight size={17} />
+                Explore AWIM <ArrowRight size={17} />
               </Link>
-              <Link className="lab-button secondary" to="/blogs/nerve-awim-adaptive-world-intelligence-research">
-                Read the research <ArrowRight size={17} />
+              <Link className="lab-button secondary" to="/awim/simulator">
+                Try the learning demo <ArrowRight size={17} />
               </Link>
             </div>
             <div className="hero-mantra">
-              Sense. Understand. Collaborate.
-              <br />
-              Adapt. Improve.
+              Our research question: how can intelligence keep adapting
+              as the world changes?
             </div>
           </div>
           <NerveExplorer />
@@ -363,6 +416,7 @@ export function AILabHome() {
           Explore the learning loop <ArrowDown size={14} />
         </a>
       </section>
+      <AwimOverview />
       <AdaptiveLearning />
       <section className="nerve-intro">
         <div className="lab-container nerve-intro-inner">
@@ -377,14 +431,16 @@ export function AILabHome() {
               Connected intelligence.
             </h2>
             <p>
-              Explore agent collaboration inside NERVE-AWIM, including specialist agents, adaptive memory, WorldCore predictions and supervised action.
+              NERVE is the coordination layer within AWIM. It brings specialist agents, tools and relevant memories together to compare evidence, propose actions and evaluate outcomes.
             </p>
           </div>
           <NerveModal />
         </div>
       </section>
-      <EcosystemSection />
+      <ClinicalApplication />
+      <ResearchStories />
       <ResearchSection />
+      <EcosystemSection />
       <CollaborationSection />
     </div>
   );
@@ -423,10 +479,10 @@ export function NervePage() {
           <span className="lab-eyebrow">NERVE / the coordination layer</span>
           <h1>Explore connected intelligence.</h1>
           <p className="page-intro">
-            Explore how NERVE coordinates specialist agent networks in the proposed NERVE-AWIM world intelligence architecture.
+            Explore how NERVE coordinates specialist agent networks in the proposed AWIM world intelligence architecture.
           </p>
           <NerveExplorer expanded />
-          <div className="mt-8"><Link className="lab-button" to="/awim">Explore the full NERVE-AWIM model <ArrowRight size={17}/></Link></div>
+          <div className="mt-8"><Link className="lab-button" to="/awim">Explore the full AWIM model <ArrowRight size={17}/></Link></div>
         </div>
       </section>
       <AdaptiveLearning />
@@ -450,13 +506,15 @@ export function LabAbout() {
           </h1>
           <div className="about-grid">
             <p className="about-lead">
-              DeepSynaps AI Lab brings together research in adaptive
-              intelligence, collaborative agents and brain-inspired computing.
+              DeepSynaps AI Lab is developing the Adaptive World Intelligence
+              Model (AWIM), connecting world modelling, collaborative agents,
+              memory and evaluated learning.
             </p>
             <div>
               <p>
-                Our proposed architecture connects sensory inputs, specialist
-                analyzers, digital twins and NERVE. The goal is to turn
+                AWIM is our overarching research architecture. Sensory inputs
+                feed specialist analyzers and digital twins; WorldCore explores
+                possible outcomes and NERVE coordinates specialist agents. The goal is to turn
                 evaluated experience into useful memories and skills that
                 relevant agents can share.
               </p>

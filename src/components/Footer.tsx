@@ -9,8 +9,8 @@ export function Footer() {
           <div>
             <Brand />
             <p>
-              Developing adaptive intelligence through sensory understanding,
-              specialist agents and shared learning.
+              Developing AWIM — the Adaptive World Intelligence Model — through
+              sensing, world modelling, specialist agents and evaluated learning.
             </p>
           </div>
           <div>
@@ -20,7 +20,7 @@ export function Footer() {
                 <Link to="/research">Research</Link>
               </li>
               <li>
-                <Link to="/awim">NERVE-AWIM model</Link>
+                <Link to="/awim">AWIM model</Link>
               </li>
               <li>
                 <Link to="/nerve">NERVE</Link>

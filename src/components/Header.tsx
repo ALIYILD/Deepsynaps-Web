@@ -3,12 +3,11 @@ import { Menu, X, ArrowRight } from "lucide-react";
 import { Link, NavLink } from "react-router";
 
 const links = [
+  { label: "AWIM", href: "/awim" },
   { label: "Research", href: "/research" },
-  { label: "NERVE-AWIM", href: "/awim" },
   { label: "NERVE", href: "/nerve" },
   { label: "Blogs", href: "/blogs" },
-  { label: "Products", href: "/ecosystem" },
-  { label: "Ecosystem", href: "/#ecosystem" },
+  { label: "Applications", href: "/ecosystem" },
   { label: "The Lab", href: "/about" },
 ];
 export function Brand({ onNavigate }: { onNavigate?: () => void }) {
