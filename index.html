@@ -14,6 +14,26 @@
     <meta property="og:description" content="DeepSynaps AI Lab is developing AWIM, the Adaptive World Intelligence Model, connecting sensing, world models, NERVE specialist agents, memory and evaluated learning." />
     <meta property="og:image" content="https://deepsynaps.ai/logo.png" />
 
+    <link rel="canonical" href="https://deepsynaps.ai/" />
+
+    <!-- Tells search engines how this site relates to the company's product:
+         the AI Lab is part of DeepSynaps, whose main site is the Clinical
+         Intelligence OS at app.deepsynaps.com. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "DeepSynaps AI Lab",
+        "url": "https://deepsynaps.ai/",
+        "logo": "https://deepsynaps.ai/logo.png",
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "DeepSynaps",
+          "url": "https://app.deepsynaps.com/"
+        }
+      }
+    </script>
+
     <link rel="icon" type="image/png" href="/logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -21,6 +41,15 @@
   </head>
   <body>
     <div id="root"></div>
+
+    <!-- A plain link that does not depend on JavaScript, so crawlers that do
+         not run the app still find the product site. -->
+    <noscript>
+      <p>
+        DeepSynaps AI Lab is the research arm of DeepSynaps. The clinical product is the
+        <a href="https://app.deepsynaps.com/">DeepSynaps Clinical Intelligence OS</a>.
+      </p>
+    </noscript>
 
     <!-- Static form for Netlify Forms build-time detection.
          The real form lives in src/pages/Consultations.tsx and submits via fetch. -->

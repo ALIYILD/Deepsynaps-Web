@@ -12,12 +12,15 @@
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
-# The canonical domain is deepsynaps.ai. Force www -> apex, and force the old
-# .com domain (both www and apex) onto it: deepsynaps.com stays owned by the
-# company and becomes the Clinical Intelligence product domain, so anyone
-# arriving at the marketing site through the old name is moved, permanently,
-# to the new one. E-mail on @deepsynaps.com is unaffected — that is DNS, not
-# HTTP, and nothing here touches it.
+# deepsynaps.ai is the AI Lab site; force www -> apex there.
+#
+# deepsynaps.com is the Clinical Intelligence product domain, and the product
+# lives at app.deepsynaps.com. Both the apex and www of .com go there,
+# permanently, so the brand's main domain points search engines and visitors
+# at the Clinical Intelligence OS rather than at the AI Lab. Every path lands
+# on the product home page: the two sites share no URLs, so carrying the path
+# across would only produce 404s. E-mail on @deepsynaps.com is unaffected —
+# that is DNS, not HTTP, and nothing here touches it.
 [[redirects]]
   from = "https://www.deepsynaps.ai/*"
   to = "https://deepsynaps.ai/:splat"
@@ -26,13 +29,13 @@
 
 [[redirects]]
   from = "https://deepsynaps.com/*"
-  to = "https://deepsynaps.ai/:splat"
+  to = "https://app.deepsynaps.com/"
   status = 301
   force = true
 
 [[redirects]]
   from = "https://www.deepsynaps.com/*"
-  to = "https://deepsynaps.ai/:splat"
+  to = "https://app.deepsynaps.com/"
   status = 301
   force = true
 
